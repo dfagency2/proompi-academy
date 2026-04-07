@@ -1,0 +1,347 @@
+---
+title: "Generowanie muzyki AI w Proompi"
+description: "Jak tworzyć muzykę AI studyjnej jakości — podkłady, dżingle i całe utwory z ElevenLabs."
+section: "music-generation"
+order: 1
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## ElevenLabs Music — studio-quality AI audio
+
+Generowanie muzyki w Proompi jest zasilane przez **ElevenLabs Eleven Music** — najnowocześniejszy model AI do tworzenia muzyki z opisów tekstowych. To nie są syntezatory czy loopy — to pełne kompozycje tworzone from scratch przez AI, ze zrozumieniem struktury muzycznej, harmonii, rytmu i produkcji.
+
+**Kluczowe możliwości:**
+- Generowanie muzyki do **10 minut (600 sekund)** w jednym request
+- Wsparcie dla **wokalów** (AI może śpiewać, nie tylko instrumentalne)
+- **MP3 i WAV** output (wysokiej jakości, stereo)
+- Pełna kontrola nad **gatunkiem, tempem, nastrojem, instrumentacją**
+- Muzyka nadaje się do użycia komercyjnego (zgodnie z licencją Proompi)
+
+**Wymagania:** Plan **SPARK lub wyższy**. Muzyka nie jest dostępna w planie FREE.
+
+**Koszt:** **25 kredytów per generowanie** (niezależnie od długości — 30 sekund kosztuje tyle samo co 10 minut).
+
+## Jak generować muzykę krok po kroku
+
+### Krok 1: Otwórz Audio Generator
+
+1. Zaloguj się do Proompi
+2. Kliknij **Audio Generator** w menu głównym (ikona nuty/słuchawek)
+3. Upewnij się że masz plan SPARK+ (w przeciwnym razie zobaczysz info o upgrade)
+
+### Krok 2: Napisz music prompt
+
+W polu tekstowym opisz muzykę którą chcesz wygenerować. Dobry music prompt zawiera:
+
+**1. Gatunek:**
+- Electronic, House, Techno, Ambient, Chill
+- Rock, Indie Rock, Alternative, Punk
+- Jazz, Smooth Jazz, Bebop, Fusion
+- Classical, Orchestral, Piano Solo
+- Hip-Hop, Trap, Lo-fi Hip-Hop
+- Pop, Synth-pop, Indie Pop
+- Country, Folk, Acoustic
+- World Music, Afrobeat, Bossa Nova
+
+**2. Nastrój/energia:**
+- Upbeat, energetic, driving
+- Calm, peaceful, meditative
+- Dark, moody, mysterious
+- Happy, cheerful, playful
+- Epic, cinematic, dramatic
+- Melancholic, sad, emotional
+
+**3. Tempo (opcjonalnie):**
+- Slow (60-80 BPM)
+- Medium (90-120 BPM)
+- Fast (130-180 BPM)
+- Lub konkretnie: "120 BPM"
+
+**4. Instrumentacja:**
+- Piano and strings
+- Acoustic guitar only
+- Electronic synthesizers and drums
+- Full orchestra
+- Bass guitar, drums, electric guitar
+- Saxophone and piano
+
+**5. Styl produkcji:**
+- Clean, modern production
+- Lo-fi, vintage feel
+- Raw, unpolished
+- Studio polished, radio-ready
+
+### Przykład dobrego promptu:
+
+```
+Upbeat electronic background music for product video. 
+120 BPM, modern and clean production. 
+Synthesizers, soft pads, gentle beat. 
+Energetic but not overwhelming. 
+No lyrics, instrumental only. 
+Suitable for corporate/tech content.
+```
+
+### Przykład złego promptu:
+
+```
+nice music
+```
+(Za vague — AI nie wie jakiego gatunku, tempa, nastroju)
+
+### Krok 3: Ustaw długość
+
+Slider **Duration** pozwala wybrać 10 sekund do 600 sekund (10 minut).
+
+**Rekomendacje według use case:**
+- **Background muzyka do video 30-60 sekund:** Ustaw 60 sekund
+- **Podcast intro/outro:** 10-15 sekund
+- **Dżingiel reklamowy:** 5-10 sekund
+- **Pełny utwór:** 120-180 sekund (2-3 minuty)
+- **Ambient/background loop:** 30-60 sekund (potem zapętlisz)
+
+**WAŻNE:** Niezależnie czy generujesz 10 sekund czy 10 minut, koszt to zawsze **25 kredytów**. Więc jeśli nie jesteś pewien, generuj dłuższe (np. 60 sekund) — możesz potem wyciąć fragmenty w edytorze audio.
+
+### Krok 4: Wybierz format
+
+**MP3** (domyślny):
+- Mniejszy rozmiar pliku (~1 MB per minuta)
+- Dobry do 99% use cases (web, social media, podcasts)
+- Kompresja stratna ale wysokiej jakości (320 kbps)
+
+**WAV** (opcjonalny):
+- Większy rozmiar (~10 MB per minuta)
+- Bezstratny, highest quality
+- Użyj gdy potrzebujesz professional-grade audio do dalszej produkcji
+
+Dla większości użytkowników: **MP3 wystarczy**.
+
+### Krok 5: Generate
+
+Kliknij **Generate Music**. Zobaczysz potwierdzenie "This will use 25 credits". Kliknij **Confirm**.
+
+Generowanie trwa **30-90 sekund** (dłuższa muzyka = dłuższy czas generowania, ale nie proporcjonalnie — 10 minut nie trwa 20x dłużej niż 30 sekund).
+
+### Krok 6: Pobierz i użyj
+
+Gdy generowanie się kończy:
+1. Odtwórz preview w player audio (in-browser)
+2. Kliknij **Download** żeby zapisać MP3/WAV lokalnie
+3. Muzyka pojawia się w **Galerii** (filter by Audio)
+
+## Use cases — kiedy używać AI music
+
+### 1. Background muzyka do wideo
+
+**Problem:** Potrzebujesz royalty-free muzyki pod wideo produkt/reklamę/vlog. Stock music z bibliotek brzmi generycznie.
+
+**Rozwiązanie:** Wygeneruj custom music dopasowaną do vibe Twojego wideo.
+
+**Przykład prompt:**
+```
+Inspiring corporate background music for tech product video. 
+Medium tempo, 110 BPM. 
+Piano, soft strings, gentle electronic beat. 
+Clean modern production. 
+Uplifting but not cheesy. 
+No vocals, instrumental only.
+60 seconds.
+```
+
+**Użycie:** Importuj MP3 do CapCut/Premiere/Final Cut, dodaj pod wideo, dostosuj volume.
+
+### 2. Podcast intro/outro
+
+**Problem:** Każdy podcast potrzebuje rozpoznawalnego intro i outro. Chcesz coś unikalnego.
+
+**Rozwiązanie:** Wygeneruj 10-15 sekundowy jingle który pasuje do tematyki podcastu.
+
+**Przykład prompt:**
+```
+Short podcast intro jingle, 15 seconds. 
+Upbeat indie folk style. 
+Acoustic guitar, light percussion, whistling melody. 
+Friendly and inviting vibe. 
+Instrumental only.
+```
+
+**Użycie:** Dodaj na początku i końcu każdego odcinka. Standaryzuj branding audio.
+
+### 3. Brand jingles i audio logos
+
+**Problem:** Twój brand potrzebuje rozpoznawalnego audio signature (jak Intel "bum-bum-bum-bum").
+
+**Rozwiązanie:** Wygeneruj krótki (5-10 sekund) audio logo.
+
+**Przykład prompt:**
+```
+Short brand audio logo, 5 seconds. 
+Modern, tech-forward, memorable. 
+Electronic synth melody, clean production. 
+Ends with satisfying resolution (final chord feels "complete"). 
+Suitable for app startup sound or video outro.
+```
+
+### 4. Social media content background
+
+**Problem:** Instagram Reels, TikTok, YouTube Shorts potrzebują catchy muzyki.
+
+**Rozwiązanie:** Generuj trendy beats dopasowane do contentu.
+
+**Przykład prompt:**
+```
+Energetic lo-fi hip-hop beat for Instagram Reel. 
+30 seconds, 85 BPM. 
+Chill but rhythmic, perfect for lifestyle content. 
+Vinyl crackle, jazzy chords, soft drums. 
+No vocals.
+```
+
+### 5. Muzyka tła do gier/aplikacji
+
+**Problem:** Indie game albo app potrzebuje ambient background music.
+
+**Rozwiązanie:** Generuj loopable ambient tracks.
+
+**Przykład prompt:**
+```
+Ambient background music for puzzle game. 
+2 minutes, loopable (starts and ends on same chord). 
+Calm, meditative, not distracting. 
+Soft pads, gentle arpeggios, minimal percussion. 
+Suitable for concentration.
+```
+
+**Tip:** Wygeneruj 2-minutowy track, wytnij pierwsze i ostatnie 5 sekund (fade in/out), zapętl w game engine.
+
+### 6. Pełne utwory (z wokalami)
+
+**Problem:** Potrzebujesz oryginalnego utworu muzycznego z wokalami.
+
+**Rozwiązanie:** ElevenLabs Music potrafi generować utwory z wokalami (lyrics + śpiew).
+
+**Przykład prompt:**
+```
+Indie pop song with female vocals. 
+Verse-chorus structure, 2 minutes 30 seconds. 
+Lyrics about summer nostalgia and road trips. 
+Upbeat, catchy chorus, acoustic guitar and synths. 
+Modern production, radio-friendly.
+```
+
+**Uwaga:** Generowanie wokalów jest bardziej losowe — możesz nie dostać dokładnie tych słów które chcesz, ale AI stworzy lyrics pasujące do tematu. Dla kontroli nad lyrics lepiej generuj instrumental i dodaj vocals osobno.
+
+## Tips: jak pisać dobre music prompts
+
+### Tip 1: Krótsze prompty dla bardziej creative results
+
+Jeśli dasz AI bardzo szczegółowy prompt z każdym instrumentem i strukturą, będzie próbował to odtworzyć dosłownie (i może nie wyjść idealnie).
+
+Jeśli dasz krótki prompt ("upbeat electronic music for product video"), AI ma swobodę i często tworzy coś bardziej spójnego.
+
+**Balans:** Podaj gatunek + nastrój + tempo. Resztę zostaw AI.
+
+### Tip 2: Używaj referencji do znanych artystów (ostrożnie)
+
+Możesz napisać "in the style of Daft Punk" albo "similar to Bonobo" — AI rozumie te referencje i stworzy coś w podobnym vibe.
+
+**Uwaga prawna:** Wygenerowana muzyka NIE będzie kopią utworu artysty (AI nie kopiuje), ale będzie miała podobny styl/gatunek. To OK do użycia komercyjnego, ale nie claim że to "utwór Daft Punk" — to AI-generated inspired by their style.
+
+### Tip 3: Podaj BPM dla konsystencji
+
+Jeśli robisz serię wideo czy podcast i chcesz spójnej energii, używaj tego samego BPM.
+
+- 60-80 BPM: Slow, calm, meditative
+- 90-110 BPM: Medium, comfortable, background
+- 120-140 BPM: Upbeat, energetic, driving
+- 140+ BPM: Fast, intense, workout music
+
+### Tip 4: "No vocals" vs "with vocals"
+
+Domyślnie AI często generuje instrumental. Jeśli chcesz vocals, napisz explicitly:
+```
+with female vocals, lyrics about...
+```
+
+Jeśli NIE chcesz vocals (większość background use cases), napisz:
+```
+no vocals, instrumental only
+```
+
+### Tip 5: Testuj różne prompty, wybieraj najlepszy
+
+Za 25 kredytów dostajesz 1 track. Jeśli nie wyszedł idealnie, spróbuj lekko zmienionego promptu. Czasami "modern electronic" daje zupełnie inny vibe niż "contemporary electronic" mimo podobnych znaczeń.
+
+Generuj 2-3 wersje, wybierz najlepszą.
+
+## Licensing: czy mogę używać komercyjnie?
+
+**Krótka odpowiedź:** Tak, zgodnie z warunkami Proompi.
+
+**Dłuższa odpowiedź:** Muzyka wygenerowana przez Ciebie w Proompi należy do Ciebie (zgodnie z ToS Proompi). Możesz jej używać komercyjnie w:
+- Filmach YouTube (monetized)
+- Reklamach (TV, digital, radio)
+- Aplikacjach i grach
+- Podcastach (monetized)
+- Produktach do sprzedaży
+
+**NIE możesz:**
+- Claim że to Twoja oryginalna kompozycja (to AI-generated, powinieneś to ujawnić jeśli required)
+- Rejestrować jako własność intelektualną / copyright claim na platformach (np. Content ID YouTube) — to jest AI-generated, nie human-authored
+
+**Recommendation:** Dodaj credit w opisach "Music generated with Proompi AI" (dobrą praktyką, nie wymagane).
+
+**Sprawdź aktualne ToS:** Licencing może się zmienić — zawsze sprawdź aktualne warunki w Proompi dashboard.
+
+## Downloading i używanie w produkcji
+
+### Format MP3:
+- 320 kbps (high quality)
+- Stereo
+- 44.1 kHz sample rate
+- Kompatybilny ze wszystkimi edytorami wideo (Premiere, Final Cut, CapCut, iMovie)
+- Dobry do streamingu (Spotify, YouTube, SoundCloud)
+
+### Format WAV:
+- 16-bit / 44.1 kHz (CD quality)
+- Bezstratny
+- Większe pliki
+- Użyj do professional production gdzie będziesz dalej processować audio (EQ, compression, mastering)
+
+### Import do edytorów wideo:
+
+**CapCut (mobile/desktop):**
+1. Import MP3 do Media Library
+2. Przeciągnij na timeline pod wideo
+3. Adjust volume (zwykle -6 do -12 dB żeby nie zagłuszało głosów)
+
+**Adobe Premiere:**
+1. File → Import → wybierz MP3
+2. Drag do audio track
+3. Użyj Audio Gain żeby dostosować volume
+
+**Final Cut Pro:**
+1. Import MP3 do Event Library
+2. Drag do timeline
+3. Adjust volume w Inspector panel
+
+## Common mistakes
+
+**Błąd 1:** Prompt za ogólny ("good music")  
+Skutek: Random rezultat, może nie pasować do use case.
+
+**Błąd 2:** Nie podanie "no vocals" gdy nie chcesz wokalów  
+Skutek: AI czasami dodaje vocals by default.
+
+**Błąd 3:** Generowanie 10 sekund gdy można wygenerować 60 za tę samą cenę  
+Skutek: Marnowanie potencjału. Zawsze generuj dłużej i crop later.
+
+**Błąd 4:** Nie testowanie volume przed użyciem w wideo  
+Skutek: Muzyka zagłusza narrację/dialogi. Zawsze mixuj audio properly.
+
+**Błąd 5:** Oczekiwanie dokładnie tego samego co w głowie  
+Skutek: Rozczarowanie. AI jest kreatywny — będzie podobny do promptu ale nie identyczny. Embrace niespodzianki.
+
+Generowanie muzyki AI to gamechangerdla content creators. Zapomnij o szukaniu royalty-free stock music — twórz własne, unikalne tracki dopasowane do każdego projektu. 25 kredytów, 60 sekund generowania, gotowe do użycia. Wypróbuj!

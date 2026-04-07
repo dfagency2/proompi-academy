@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+export async function getStaticPaths() {
+  const allDocs = await getCollection('docs');
+  const plDocs = allDocs.filter(d => d.data.lang === 'pl');
+  const sections = [...new Set(plDocs.map(d => d.data.section))];
+
+  return sections.map(section => ({
+    params: { section },
+    props: {
+      articles: plDocs.filter(d => d.data.section === section).sort((a, b) => a.data.order - b.data.order),
+      section,
+    },
+  }));
+}
+
+interface Props {
+  articles: any[];
+  section: string;
+}
+
+const { articles, section } = Astro.props;
+
+const sectionMeta: Record<string, { label: string; desc: string; icon: string; color: string }> = {
+  'getting-started': { label: 'Pierwsze kroki', desc: 'Zacznij korzystać z Proompi od podstaw. Rejestracja, nawigacja, pierwsze generowanie.', icon: '🚀', color: 'text-emerald-600' },
+  'prompt-enhancement': { label: 'Ulepszanie Promptów', desc: 'Jak pisać prompty, które dają spektakularne efekty. Tryby, style, obrazy referencyjne.', icon: '✨', color: 'text-primary-600' },
+  'image-generation': { label: 'Generowanie Obrazów', desc: 'Wszystko o generowaniu obrazów AI — modele, ustawienia, jakość, najlepsze praktyki.', icon: '🖼️', color: 'text-violet-600' },
+  'workflows': { label: 'Workflow Builder', desc: 'Twórz zaawansowane procesy AI. Visual builder, typy węzłów, szablony, automatyzacja.', icon: '⚡', color: 'text-indigo-600' },
+  'video-generation': { label: 'Generowanie Wideo', desc: 'Sora 2, Luma Ray, Kling, Wan — przewodnik po modelach wideo AI.', icon: '🎬', color: 'text-rose-600' },
+  'music-generation': { label: 'Generowanie Muzyki', desc: 'Muzyka AI studyjnej jakości z ElevenLabs. Utwórz podkład, dżingiel lub utwór.', icon: '🎵', color: 'text-orange-600' },
+  'graphics-editing': { label: 'Edycja Grafik', desc: 'Text overlay, wektoryzacja SVG, eksport — zrób coś więcej z wygenerowanym obrazem.', icon: '🎨', color: 'text-teal-600' },
+  'plans-credits': { label: 'Plany i Kredyty', desc: 'Jak działa system kredytów, który plan wybrać i jak oszczędzać kredyty.', icon: '💳', color: 'text-amber-600' },
+  'tips': { label: 'Tips i Triki', desc: 'Krótkie porady i wiedzę w pigułce dla bardziej zaawansowanych użytkowników.', icon: '💡', color: 'text-neutral-600' },
+};
+
+const meta = sectionMeta[section] ?? { label: section, desc: '', icon: '📄', color: 'text-primary-600' };
+---
+
+<BaseLayout
+  title={meta.label}
+  description={meta.desc}
+  lang="pl"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-neutral-400 mb-8">
+      <a href="/" class="hover:text-primary-500 transition-colors">Academy</a>
+      <span>›</span>
+      <span class="text-neutral-700 font-medium">{meta.label}</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-4xl">{meta.icon}</span>
+        <h1 class:list={['text-3xl sm:text-4xl font-bold', meta.color]}>{meta.label}</h1>
+      </div>
+      <p class="text-lg text-neutral-500 max-w-2xl">{meta.desc}</p>
+    </header>
+
+    <!-- Articles grid -->
+    {articles.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {articles.map(article => (
+          <ArticleCard article={article} lang="pl" />
+        ))}
+      </div>
+    ) : (
+      <div class="glass-card p-12 text-center text-neutral-400">
+        <p class="text-4xl mb-3">✍️</p>
+        <p class="font-medium">Treści tej sekcji są w przygotowaniu</p>
+      </div>
+    )}
+  </div>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": `${meta.label} — Proompi Academy`,
+    "description": meta.desc,
+    "url": `https://academy.proompi.com/${section}`,
+    "isPartOf": { "@type": "WebSite", "url": "https://academy.proompi.com" },
+  })} />
+</BaseLayout>

@@ -1,0 +1,105 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'article';
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    section?: string;
+  };
+}
+
+const {
+  title,
+  description = 'Proompi Academy — dowiedz się jak tworzyć profesjonalne treści AI. Tutoriale, poradniki i wskazówki dla użytkowników Proompi.',
+  lang = 'pl',
+  ogImage = '/images/og-default.png',
+  canonicalURL = Astro.url.href,
+  type = 'website',
+  article,
+} = Astro.props;
+
+const siteName = 'Proompi Academy';
+const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Hreflang -->
+    {lang === 'pl' && <link rel="alternate" hreflang="pl" href={Astro.url.href} />}
+    {lang === 'en' && <link rel="alternate" hreflang="en" href={Astro.url.href} />}
+    <link rel="alternate" hreflang="x-default" href="https://academy.proompi.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={`https://academy.proompi.com${ogImage}`} />
+    <meta property="og:locale" content={lang === 'pl' ? 'pl_PL' : 'en_US'} />
+
+    {type === 'article' && article && (
+      <>
+        {article.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}
+        {article.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
+        {article.section && <meta property="article:section" content={article.section} />}
+      </>
+    )}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://academy.proompi.com${ogImage}`} />
+
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": siteName,
+      "url": "https://academy.proompi.com",
+      "description": "Baza wiedzy i tutoriale dla użytkowników Proompi — narzędzia AI do tworzenia obrazów, wideo i treści.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://academy.proompi.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    })} />
+
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+  </head>
+  <body>
+    <Header lang={lang} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

@@ -1,0 +1,329 @@
+---
+title: "Jak generować wideo w Proompi"
+description: "Krok po kroku: od opisu tekstowego do gotowego pliku wideo. Text-to-video i image-to-video."
+section: "video-generation"
+order: 2
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Dwa tryby generowania wideo
+
+Proompi oferuje dwa sposoby tworzenia wideo AI:
+
+1. **Text-to-video** — opisujesz scenę tekstem, AI generuje wideo from scratch
+2. **Image-to-video** — wgrywasz obraz (lub używasz wygenerowanego obrazu) jako pierwszą klatkę, AI animuje go zgodnie z opisem ruchu
+
+Każdy tryb ma swoje zastosowania. Text-to-video daje pełną kreatywną swobodę. Image-to-video daje większą kontrolę nad tym jak wideo się zaczyna.
+
+## Text-to-video: krok po kroku
+
+### Krok 1: Otwórz generator wideo
+
+1. Zaloguj się do Proompi
+2. Kliknij **Video Generator** w menu głównym (ikona kamery/filmu)
+3. Upewnij się że masz plan SPARK lub wyższy (wideo nie jest dostępne w FREE)
+
+### Krok 2: Wybierz tryb Text-to-video
+
+Na górze interfejsu zobaczysz dwa tabyf: **Text to Video** i **Image to Video**. Upewnij się że jesteś w zakładce **Text to Video**.
+
+### Krok 3: Napisz prompt wideo
+
+W dużym polu tekstowym opisz co chcesz zobaczyć. Pamiętaj o zasadach z poprzedniego artykułu:
+- Opisz ruch kamery ("camera pans left", "aerial shot descending")
+- Opisz akcję ("woman walks", "leaves falling")
+- Opisz oświetlenie ("golden hour", "studio lighting")
+- Opisz styl ("cinematic", "documentary style")
+
+**Przykład dobrego promptu:**
+```
+Aerial drone shot flying over a tropical beach at sunset. 
+Camera slowly descends towards the shoreline. 
+Golden hour lighting with warm orange and pink tones. 
+Gentle waves washing onto white sand. 
+Palm trees swaying in breeze. 
+Cinematic, 4K quality, smooth gimbal movement.
+```
+
+**Przykład złego promptu:**
+```
+beach sunset
+```
+(Za mało detali — AI nie wie jak ma wyglądać ruch kamery, jakie kolory, jaki vibe)
+
+### Krok 4: Wybierz model
+
+Pod polem promptu jest dropdown **Model**. Wybierz jeden z dostępnych:
+- **Sora 2** (12 kr/sek) — best default choice
+- **Sora Pro** (35 kr/sek) — premium quality
+- **Luma Ray 2** (23 kr flat) — smooth motion
+- **Kling v1.6 Pro** (12 kr/sek) — artistic look
+- **Runway Gen3a** (6 kr/sek) — budget option
+
+Jeśli nie wiesz który wybrać → **Sora 2** (najlepszy balans quality/cost).
+
+### Krok 5: Ustaw długość wideo
+
+Slider **Duration** pozwala wybrać 3, 5, 7 lub 10 sekund (zależnie od modelu — nie wszystkie wspierają wszystkie długości).
+
+**Rekomendacja:** Zacznij od **3-5 sekund**. Dłuższe wideo:
+- Kosztuje więcej kredytów (każda sekunda jest osobno liczona)
+- Ma większe ryzyko artifacts (im dłuższe, tym trudniej AI utrzymać spójność)
+- Dłużej się generuje
+
+Jeśli potrzebujesz dłuższe, lepiej wygeneruj kilka 5-sekundowych klipów i zmerguj je w edytorze (CapCut, Premiere, iMovie).
+
+### Krok 6: Kliknij Generate
+
+Kliknij duży przycisk **Generate Video**. Zobaczysz:
+1. Potwierdzenie kosztu (np. "This will use 60 credits for 5-second video")
+2. Estimowany czas (~45-120 sekund zależnie od modelu i długości)
+
+Kliknij **Confirm**.
+
+### Krok 7: Poczekaj na generowanie (async)
+
+Generowanie wideo jest **asynchroniczne** — nie musisz trzymać karty otwartej. Proompi pokaże:
+- Progress bar z statusem (Initializing → Generating → Post-processing)
+- Możesz zamknąć kartę i wrócić później
+
+Gdy wideo jest gotowe, dostaniesz:
+- Notyfikację email (jeśli włączona w ustawieniach)
+- Notyfikację w interfejsie Proompi
+- Wideo pojawia się w **Galerii** automatycznie
+
+### Krok 8: Pobierz i użyj
+
+Gdy generowanie się kończy:
+1. Wideo pojawia się w podglądzie
+2. Możesz je odtworzyć in-browser (player wideo)
+3. Kliknij **Download** żeby zapisać MP4 lokalnie
+
+**Format:** MP4 (H.264 codec), zazwyczaj 1080p (zależnie od modelu), 24-30 FPS.
+
+## Image-to-video: krok po kroku
+
+Image-to-video to tryb gdzie pierwsza klatka wideo jest kontrolowana przez Ciebie (wgrywasz obraz), a AI animuje resztę.
+
+### Krok 1: Przygotuj obraz startowy
+
+Możesz użyć:
+- Wygenerowanego wcześniej obrazu z AI Generate (pobierz z galerii)
+- Własnego zdjęcia (upload z dysku)
+- Stock photo
+
+**Wymagania techniczne:**
+- Format: JPG, PNG, WEBP
+- Rozdzielczość: minimum 512x512px, zalecane 1024x1024 lub większe
+- Rozmiar: max 10 MB
+
+**Co działa dobrze jako first frame:**
+- Portret osoby (AI może animować wyraz twarzy, ruch głowy)
+- Krajobraz (AI animuje chmury, wodę, drzewa)
+- Produkt (AI może obrócić, zbliżyć kamerę)
+- Abstrakcja (AI animuje kształty, kolory)
+
+### Krok 2: Otwórz generator i wybierz Image-to-video
+
+1. Otwórz **Video Generator**
+2. Kliknij tab **Image to Video**
+
+### Krok 3: Wgraj obraz
+
+1. Kliknij **Upload Image** lub **Select from Gallery**
+2. Jeśli upload: wybierz plik z dysku
+3. Jeśli gallery: wybierz jeden z wcześniej wygenerowanych obrazów
+4. Zobaczysz preview obrazu — to będzie klatka 0 Twojego wideo
+
+### Krok 4: Opisz ruch/akcję
+
+W polu **Motion Description** opisz **co ma się dziać** z tym obrazem:
+- Jak kamera ma się poruszać
+- Jak elementy sceny mają się ruszać
+- Jaki efekt chcesz osiągnąć
+
+**Przykład — masz obraz portret kobiety:**
+```
+Camera slowly zooms in on face. 
+Woman slightly turns head and smiles. 
+Soft hair movement from gentle breeze. 
+Cinematic shallow depth of field.
+```
+
+**Przykład — masz obraz produktu (zegarek):**
+```
+Camera rotates 90 degrees around the watch (from front to side view). 
+Smooth rotation, studio lighting remains constant. 
+Product stays in perfect focus throughout.
+```
+
+**Przykład — masz obraz krajobrazu morskiego:**
+```
+Static camera. 
+Gentle waves moving towards shore. 
+Clouds slowly drifting in sky. 
+Seagulls flying in distance. 
+Natural organic motion, realistic.
+```
+
+**WAŻNE:** W image-to-video NIE opisujesz co jest na obrazie (AI widzi to z obrazu). Opisujesz tylko **RUCH**.
+
+### Krok 5: Wybierz model i długość
+
+Tak samo jak w text-to-video:
+- Model (Sora 2 / Luma Ray / Kling)
+- Duration (3-5 sekund zalecane)
+
+### Krok 6: Generate i poczekaj
+
+Kliknij **Generate**, potwierdź koszt, poczekaj ~60-90 sekund. Wideo pojawi się w galerii.
+
+## Praktyczne tipy: jak dostać najlepsze rezultaty
+
+### Tip 1: Krótsze wideo = lepsza jakość
+
+3-5 sekund to sweet spot. Dłuższe klipyfmają więcej:
+- Artifacts (glitchy frames, morphing objects)
+- Inconsistency (kolor się zmienia między początkiem a końcem)
+- Blur (AI traci ostrość w długich sekwencjach)
+
+Jeśli potrzebujesz 15-sekundowy klip, zrób 3x 5-sekund i zmerguj.
+
+### Tip 2: Unikaj zbyt szybkich ruchów
+
+"Camera rapidly spins 360 degrees" = artifacts.  
+Lepiej: "Camera slowly pans right" = smooth, controlowane.
+
+Modele AI najlepiej radzą sobie z **slow, smooth motion**. Fast cuts i rapid movements = problemy.
+
+### Tip 3: Opisuj kamerę ZAWSZE
+
+Nie pisz:
+```
+woman walking
+```
+
+Pisz:
+```
+Camera follows woman from behind as she walks. Handheld, slightly shaky documentary style.
+```
+
+Bez opisu ruchu kamery, AI losowo wybierze (często static camera, co może być nudne).
+
+### Tip 4: Jeden główny ruch per klip
+
+Dobrze:
+```
+Camera zooms in on coffee cup
+```
+
+Źle:
+```
+Camera zooms in on coffee cup, then pans left to show window, then zooms out and rotates
+```
+
+Jeden ruch = AI może go zrobić dobrze. Trzy ruchy = chaos.
+
+### Tip 5: Image-to-video dla kontroli, text-to-video dla kreatywności
+
+**Image-to-video** użyj gdy:
+- Musisz kontrolować dokładnie pierwszy frame (np. brand colors, specific composition)
+- Chcesz animować już istniejący asset
+
+**Text-to-video** użyj gdy:
+- Eksperymentujesz i chcesz zobaczyć co AI wymyśli
+- Nie masz jeszcze obrazu startowego
+
+## Co robić gdy wideo nie wyszło dobrze
+
+### Problem: Artifakty, zniekształcenia, morphing
+
+**Przyczyna:** Prompt za długi/skomplikowany albo wideo za długie.
+
+**Fix:**
+- Skróć do 3 sekund
+- Uprość prompt (jeden ruch, nie pięć)
+- Spróbuj inny model (Luma Ray często ma mniej artifacts niż Sora w motion-heavy scenes)
+
+### Problem: Wideo nie pasuje do promptu
+
+**Przyczyna:** Prompt był zbyt vague albo ambiwalentny.
+
+**Fix:**
+- Bądź bardziej specific ("camera pans left" a nie "camera moves")
+- Dodaj więcej kontekstu (oświetlenie, pora dnia, styl)
+
+### Problem: Ruch jest stuttering / nie płynny
+
+**Przyczyna:** Model nie jest dobry w smooth motion albo prompt zawierał konfliktujące instrukcje.
+
+**Fix:**
+- Użyj **Luma Ray 2** albo **Kling** (oba specjalizują się w smooth motion)
+- Dodaj do promptu: "smooth gimbal movement" albo "fluid motion"
+
+### Problem: Kolory się zmieniają między początkiem a końcem
+
+**Przyczyna:** Długie wideo, AI traci spójność kolorystyczną.
+
+**Fix:**
+- Skróć wideo do 3 sekund
+- W image-to-video użyj mocno colorowanego first frame (AI będzie trzymać się jego palety)
+- Dodaj do promptu: "consistent color grading throughout"
+
+## Plany wymagane dla wideo
+
+| Plan | Video dostępne? | Limity | Modele |
+|------|-----------------|--------|--------|
+| FREE | ❌ Nie | - | - |
+| SPARK | ✅ Tak | Do 50 wideo/miesiąc | Wszystkie poza Sora Pro |
+| ACCELERATOR | ✅ Tak | Do 200 wideo/miesiąc | Wszystkie |
+| PRO | ✅ Tak | Unlimited | Wszystkie + priority queue |
+
+**Koszt w kredytach** liczy się osobno od limitów wideo. Nawet w PRO (unlimited generations), wideo zużywa kredyty (12kr/sek dla Sora itd.).
+
+## Zapisywanie do galerii
+
+Każde wygenerowane wideo automatycznie trafia do **Galerii** (tak samo jak obrazy). Znajdziesz je:
+1. Otwórz **Gallery**
+2. Filtruj **Status: Completed** + **Source: Generator** (żeby wykluczyć wideo z workflow)
+3. Wideo mają ikonę play — kliknij żeby odtworzyć w lightbox
+
+Możesz:
+- Pobrać jako MP4
+- Usunąć (permanently)
+- Użyć jako input do nowego image-to-video (screenshot z ramki → animuj dalej)
+
+## Typowe błędy początkujących
+
+**Błąd 1:** Pisanie promptu jak do obrazu  
+Nie pisz: "beautiful sunset beach"  
+Pisz: "Aerial camera flying over beach at sunset, descending slowly"
+
+**Błąd 2:** Za długie pierwsze wideo  
+Nie zaczynaj od 10-sekundowego klipa. Testuj na 3-sekundowych. Jak działa, skaluj.
+
+**Błąd 3:** Brak opisu kamery  
+Zawsze opisz ruch/pozycję kamery. Inaczej AI losowo wybierze.
+
+**Błąd 4:** Zbyt wiele akcji  
+Jeden klip = jedna akcja. Nie próbuj zmieścić całej historii w 5 sekund.
+
+**Błąd 5:** Nie testowanie na tańszych modelach  
+Sora Pro kosztuje 175 kredytów za 5 sekund. Przetestuj prompt w Runway Gen3a (30 kredytów) zanim commitujesz do Sora Pro.
+
+## Workflow integracja
+
+Możesz używać **Video Node** w Workflow Builder żeby automatyzować generowanie wideo:
+
+**Przykład workflow:**
+1. Text Input (user wpisuje brand URL)
+2. Web Scraper (wyciąga company description)
+3. Text Generate ("Create video prompt based on company description: \{scraper.description\}")
+4. Video Node (generates video using generated prompt)
+5. Output (user downloads video)
+
+To pozwala tworzyć brand video automatycznie z samego URL strony. Powerful.
+
+Generowanie wideo to najbardziej zaawansowana funkcja Proompi — wymaga praktyki i eksperymentowania. Zacznij od prostych 3-sekundowych klipów, ucz się co działa, stopniowo komplikuj. Powodzenia!

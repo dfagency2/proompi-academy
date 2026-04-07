@@ -1,0 +1,193 @@
+---
+title: "Ustawienia jakości i rozdzielczości"
+description: "HD, Standard, rozmiary — jak ustawienia wpływają na jakość i koszt generowania obrazów."
+section: "image-generation"
+order: 2
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+badge: "Pro tip"
+---
+
+## Standard vs HD — różnica jakości
+
+Każdy model w Proompi można uruchomić w dwóch trybach jakości: **Standard** i **HD** (High Definition). Różnica jest znacząca zarówno w jakości wyjściowej jak i w koszcie.
+
+**Standard quality:**
+- Domyślna rozdzielczość 1024x1024px (lub ekwiwalent dla innych proporcji)
+- Doskonała jakość do większości zastosowań webowych
+- Idealna do social media (Instagram, Facebook, LinkedIn)
+- Szybsze generowanie (15-25 sekund)
+- Podstawowy koszt modelu (np. GPT-image-1 = 15 kredytów)
+
+**HD quality:**
+- Wyższa rozdzielczość (zazwyczaj 1536x1536px lub więcej, zależnie od modelu)
+- Więcej detali, ostrzejsze krawędzie, subtelniejsze tekstury
+- Niezbędna do druku, billboardów, materiałów offline
+- Wolniejsze generowanie (30-45 sekund)
+- **Podstawowy koszt + 10 kredytów** (np. GPT-image-1 w HD = 25 kredytów)
+
+HD jest dosłownie większym obrazem z większą liczbą pikseli. To nie jest tylko "lepiej wyostrzony" Standard — to faktycznie więcej informacji, więcej detali, które model musi wygenerować. Stąd dodatkowy koszt i czas.
+
+## Tabela kosztów Standard vs HD
+
+| Model | Standard | HD | Różnica |
+|-------|----------|-----|---------|
+| GPT-image-1 | 15 kr | 25 kr | +10 kr |
+| GPT-image-1.5 | 20 kr | 30 kr | +10 kr |
+| GPT-image-1-mini | 10 kr | 20 kr | +10 kr |
+| FLUX 1.1 Pro | 8 kr | 18 kr | +10 kr |
+| FLUX schnell | 2 kr | N/A | Tylko Standard |
+| Ideogram-2 | 12 kr | 22 kr | +10 kr |
+| Ideogram-2-turbo | 5 kr | 15 kr | +10 kr |
+
+**Uwaga:** FLUX schnell nie ma trybu HD — to draft mode, więc HD by nie miało sensu.
+
+## Kiedy używać HD
+
+HD jest warte dodatkowych 10 kredytów w tych sytuacjach:
+
+### 1. Druk i materiały offline
+
+Wszystko co idzie do druku potrzebuje wysokiej rozdzielczości. Standard 1024px to za mało do reprodukcji w dobrej jakości powyżej ~10x10cm.
+
+**Przykłady:** Ulotki, plakaty, broszury, wizytówki, rollup'y, okładki książek, opakowania produktów.
+
+**Minimalna rozdzielczość do druku:** 300 DPI. HD z Proompi daje Ci ~200-250 DPI przy formacie A4, co jest akceptowalne (Standard by dało ~150 DPI = widoczne piksele).
+
+### 2. Hero images na stronie głównej
+
+Główna grafika na landing page (tzw. hero section) to pierwsze co widzi użytkownik. To musi wyglądać idealnie.
+
+**Przykłady:** Homepage hero SaaS, okładka portfolio, baner główny e-commerce, splash screen aplikacji.
+
+**Dlaczego HD:** Użytkownicy z ekranami Retina/4K zobaczą różnicę. Standard może wyglądać lekko rozmyty na wysokiej rozdzielczości monitorach.
+
+### 3. Large format displays
+
+Billboardy, digital signage, projektory konferencyjne, wielkie ekrany LED — wszystko co jest wyświetlane w rozmiarze większym niż laptop.
+
+**Przykłady:** Billboard przy autostradzie, ekran LED w centrum handlowym, projekcja na scenie konferencji.
+
+### 4. Assety do dalszej edycji
+
+Jeśli planujesz dalszą obróbkę w Photoshopie (cropping, dodawanie elementów, compositing), wyższa rozdzielczość daje więcej "miejsca do pracy".
+
+**Przykłady:** Template do dalszej edycji, base layer do photomanipulation, źródło do wyciągania elementów.
+
+### 5. Premium brand content
+
+Jeśli Twój klient/brand jest premium i oczekuje absolutnej jakości, nie oszczędzaj 10 kredytów na HD. To różnica między "ok" a "wow".
+
+**Przykłady:** Kampania dla luxury brand, portfolio dla high-end klientów, prestiżowy konkurs.
+
+## Kiedy Standard WYSTARCZY
+
+W 70% przypadków Standard jest całkowicie wystarczający. Nie przepłacaj jeśli:
+
+### 1. Content social media
+
+Instagram, Facebook, LinkedIn, X (Twitter) kompresują obrazy i zmniejszają rozdzielczość tak mocno, że różnica między Standard a HD znika.
+
+**Instagram feed:** max 1080x1080px (po kompresi ~800px efektywnej jakości)
+**Facebook:** max 2048px (ale kompresor agresywnie redukuje detale)
+**LinkedIn:** max 1200x627px dla share images
+
+Używanie HD na social media to dosłownie wyrzucanie 10 kredytów w błoto.
+
+### 2. Blog posts i artykuły
+
+Grafiki ilustracyjne w artykułach są zazwyczaj wyświetlane w 600-800px szerokości. Standard jest idealny.
+
+### 3. Drafty i testy konceptów
+
+Testowanie 10 różnych pomysłów? Używaj Standard (a najlepiej tanich modeli jak FLUX schnell). Jak wybierzesz zwycięski koncept, WTEDY zrób HD.
+
+### 4. UI elements i ikony aplikacji
+
+Małe elementy interfejsu (ikony, thumbnails, avatary) nie potrzebują HD. Standard daje wystarczającą ostrość.
+
+### 5. Video thumbnails YouTube/TikTok
+
+YouTube i TikTok pokazują thumbnails w niskiej rozdzielczości. Standard = idealne.
+
+## Generowanie 2 obrazów per request
+
+Ważna informacja: Proompi generuje **2 obrazy na każde zapytanie** (z wyjątkiem niektórych droższych modeli gdzie może być 1). Dostajesz dwa lekko różne warianty tego samego promptu i możesz wybrać lepszy.
+
+To NIE kosztuje 2x więcej kredytów. Koszt jest taki sam — np. GPT-image-1 w Standard to 15 kredytów i dostajesz 2 obrazy. To świetny deal — zwiększa szansę że jeden z dwóch będzie dokładnie tym czego chcesz.
+
+**Jak to działa technicznie:** Model używa różnego seed (losowy punkt startowy) dla każdego obrazu. Efekt: ten sam prompt generuje dwa różne obrazy, oba poprawne, ale z subtelnie innymi detalami (np. inna pozycja postaci, inny układ chmur, inna kolorystyka).
+
+**Praktyczny tip:** Zawsze przeglądnij oba warianty przed pobraniem. Czasami drugi jest dużo lepszy niż pierwszy.
+
+## Model waterfall system dla użytkowników FREE
+
+Użytkownicy planu FREE mają automatyczny **waterfall system**. Oznacza to: jeśli wybierzesz model którego nie masz w swoim planie (np. GPT-image-1.5), Proompi automatycznie użyje najbliższego dostępnego tańszego modelu (np. GPT-image-1 albo GPT-image-1-mini).
+
+Dzięki temu nigdy nie dostajesz błędu "model unavailable" — zawsze coś wygenerujesz. System wybiera najbliższy model który:
+1. Jest dostępny w Twoim planie
+2. Ma podobne cechy (fotorealizm vs artystyczny)
+3. Mieści się w Twoim limicie miesięcznym
+
+**Dla użytkowników FREE oznacza to:** Możesz klikać dowolny model w interfejsie. Jeśli nie masz do niego dostępu, Proompi cichutko użyje tańszego. Nie tracisz kredytów ani generowań.
+
+**Dla użytkowników płatnych (SPARK+):** Masz dostęp do wszystkich modeli (poza ewentualnymi ograniczeniami PRO-only features). Waterfall nie działa bo masz full access.
+
+## Miesięczne limity obrazów według planów
+
+Każdy plan ma limit wygenerowanych **obrazów** (nie kredytów — obrazów). Po wyczerpaniu limitu musisz poczekać do odnowienia planu albo kupić bonus credits.
+
+| Plan | Obrazy/miesiąc | Video | Music | Chat/dzień |
+|------|----------------|-------|-------|------------|
+| **FREE** | 15 | ❌ | ❌ | 10 |
+| **SPARK** | 100 | ✅ | ✅ | 100 |
+| **ACCELERATOR** | 500 | ✅ | ✅ | 500 |
+| **PRO** | Unlimited | ✅ | ✅ | 1000 |
+
+**Obrazy** = każdy single wygenerowany obraz liczony osobno. Jeśli request generuje 2 warianty, liczy się jako 2 obrazy do limitu (ale credits płacisz raz).
+
+**Video i Music** wymagają SPARK+ — nie są dostępne w FREE.
+
+**Chat** to osobny limit dla Claude/GPT czata (niezależny od generowania obrazów).
+
+## Praktyczne porady: oszczędzaj mądrze
+
+### Strategia 1: Draft → Standard → HD
+
+1. Testuj koncepty w **FLUX schnell** (2 kredyty, szybko, tani draft)
+2. Wybrany koncept zregeneruj w **Standard** jakości na finalnym modelu
+3. Jeśli to idzie do druku lub jest hero visual, zrób **HD** wersję
+
+Koszt: 2 + 15 + 25 = 42 kredyty total (zamiast 3-4 prób po 25 kredytów = 75-100 kredytów losowo).
+
+### Strategia 2: Używaj właściwego modelu do zadania
+
+Nie generuj grafiki z tekstem w GPT-image-1 (15 kr) tylko żeby zobaczyć że tekst wyszedł zniekształcony. Użyj od razu Ideogram-2 (12 kr) który umie tekst perfekcyjnie.
+
+### Strategia 3: Batch testuj w Standard, finalizuj wybrane w HD
+
+Generujesz 10 różnych produktów dla katalogu? Zrób wszystkie w Standard (10x15=150 kr). Zobacz które wyszły najlepiej. Te 3 najlepsze zregeneruj w HD (3x25=75 kr). Total: 225 kr vs 10x25=250 kr gdybyś robił wszystkie od razu w HD.
+
+### Strategia 4: Social media = zawsze Standard
+
+Nie ma powodu używać HD na Instagram. Oszczędzisz 50% kredytów bez utraty realnej jakości (bo Instagram i tak kompresuje).
+
+## Rozdzielczość dla różnych użyć — ściągawka
+
+| Zastosowanie | Minimalna rozdzielczość | Zalecany tryb |
+|--------------|-------------------------|---------------|
+| Instagram post | 1080x1080px | **Standard** |
+| Facebook cover | 820x312px | **Standard** |
+| LinkedIn post | 1200x627px | **Standard** |
+| Blog header | 1200x600px | **Standard** |
+| Hero image www | 1920x1080px | **HD** |
+| YouTube thumbnail | 1280x720px | **Standard** |
+| Ulotka A5 druk | ~1700x2400px | **HD** |
+| Plakat A3 druk | ~3500x4900px | **HD** + upscale |
+| Billboard | 5000x7000px+ | **HD** + profesjonalny upscale |
+| Wizytówka | ~1000x600px | **HD** |
+
+**Uwaga:** Dla wielkich formatów druku (billboard, rollup) nawet HD może nie wystarczyć. Użyj zewnętrznych narzędzi AI upscaler (np. Topaz Gigapixel, Real-ESRGAN) żeby zwiększyć HD output z Proompi do gigantycznych rozdzielczości.
+
+Zapamiętaj: Standard to nie "gorsze". To po prostu "wystarczająco dobre do 70% zastosowań". Nie przepłacaj gdzie nie musisz. Kredyty to waluta w Proompi — używaj ich efektywnie.

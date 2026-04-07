@@ -1,0 +1,295 @@
+---
+title: "Typy węzłów — kompletny przewodnik"
+description: "Wszystkie węzły dostępne w Workflow Builder — Text Input, AI Generate, Web Scraper i inne."
+section: "workflows"
+order: 2
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Przegląd wszystkich 11 węzłów
+
+Workflow Builder w Proompi oferuje 11 typów węzłów. Każdy ma specyficzne zadanie i łączy się z innymi węzłami tworząc potężne pipelines. W tym przewodniku poznasz wszystkie węzły, ich konfigurację i praktyczne zastosowania.
+
+## 1. Text Input Node — wprowadzanie danych tekstowych
+
+**Czym jest:** Węzeł który pozwala użytkownikowi wprowadzić tekst (lub kilka tekstów) przy każdym uruchomieniu workflow. To punkt startowy dla większości workflows.
+
+**Inputs:** Brak (to źródłowy węzeł)
+
+**Outputs:** 
+- `text` — string wprowadzony przez użytkownika
+- Można skonfigurować wiele outputów (np. `url`, `title`, `description` jako osobne pola)
+
+**Konfiguracja:**
+- **Label:** Co użytkownik ma wpisać (np. "Company URL", "Product Name")
+- **Placeholder:** Przykładowa wartość pokazywana w pustym polu
+- **Default value:** Wartość domyślna (opcjonalna)
+- **Multiline:** Czy to jedno pole tekstowe czy textarea (dla długich tekstów)
+- **Required:** Czy pole jest obowiązkowe
+
+**Use case:** Użytkownik wpisuje URL strony firmowej. Ten URL jest przekazywany do Web Scraper Node który wyciąga content. Bez Text Input, każdy workflow byłby hard-coded dla konkretnego URL.
+
+**Przykład konfiguracji:**
+```
+Label: "Company Website URL"
+Placeholder: "https://example.com"
+Required: Yes
+Multiline: No
+```
+
+## 2. Image Node — wgrywanie obrazów
+
+**Czym jest:** Węzeł który pozwala wgrać obraz z dysku lub wybrać już wygenerowany obraz z galerii. Ten obraz może być przekazany do innych węzłów jako referencja.
+
+**Inputs:** Brak (użytkownik wgrywa obraz lub wybiera z galerii)
+
+**Outputs:**
+- `image_url` — URL wgranego/wybranego obrazu
+- `image_metadata` — rozdzielczość, format, rozmiar pliku
+
+**Konfiguracja:**
+- **Source:** Upload from disk / Select from gallery / URL
+- **Accepted formats:** JPG, PNG, WEBP
+- **Max size:** Do 10 MB
+
+**Use case 1 — Image to image:** Wgrywasz zdjęcie produktu i przekazujesz do AI Generate Node jako base image. AI generuje warianty (inne tła, inne oświetlenie, inna kolorystyka) zachowując główny produkt.
+
+**Use case 2 — Style reference:** Wgrywasz obraz ze stylem wizualnym który chcesz replikować. Ten obraz idzie do AI Generate Node jako style reference.
+
+**Use case 3 — Color extraction:** Obraz idzie do Color Reference Node który wyciąga paletę kolorów do użycia w dalszym generowaniu.
+
+## 3. AI Generate Node — generowanie obrazów AI
+
+**Czym jest:** Serce workflow — węzeł który faktycznie generuje obrazy AI używając wybranych modeli (GPT-image, FLUX, Ideogram).
+
+**Inputs:**
+- `prompt` — tekst opisujący co wygenerować (może przyjść z Text Input, Text Generate Node albo być hard-coded)
+- `style_reference` (opcjonalny) — obraz referencyjny ze stylem
+- `color_palette` (opcjonalny) — kolory z Color Reference Node
+- `context` (opcjonalny) — dodatkowy kontekst z Web Scraper
+
+**Outputs:**
+- `images` — array wygenerowanych obrazów (zazwyczaj 2-4 warianty)
+- `metadata` — model użyty, koszt w kredytach, czas generowania
+
+**Konfiguracja:**
+- **Model:** GPT-image-1 / GPT-image-1.5 / FLUX 1.1 Pro / Ideogram-2 / inne
+- **Quality:** Standard / HD
+- **Number of variants:** 1-4 (ile obrazów wygenerować)
+- **System prompt:** Instrukcje dla AI które są dodawane do każdego user promptu (np. "Always use extracted brand colors", "Commercial photography style")
+- **Style settings:** Artistic / Photorealistic / Illustration
+
+**Use case:** Text Input (product description) → AI Generate Node (generates product photo) → Output Node (user selects best).
+
+**Przykład system prompt:**
+```
+Generate commercial quality product photography on white background, 
+studio lighting, sharp focus, professional e-commerce style.
+Use brand colors from context if provided.
+```
+
+## 4. Text Generate Node — generowanie tekstu AI
+
+**Czym jest:** Węzeł który generuje tekst używając Claude lub GPT (zależnie od planu). Może tworzyć opisy, summaries, captions, headlines, rozszerzać krótkie teksty do długich.
+
+**Inputs:**
+- `prompt` — co AI ma napisać
+- `context` — dodatkowy kontekst (np. web scraping output, brand guidelines)
+- `examples` (opcjonalny) — przykłady podobnych tekstów (few-shot prompting)
+
+**Outputs:**
+- `generated_text` — wygenerowany tekst
+- `word_count` — liczba słów
+- `model_used` — Claude/GPT model użyty
+
+**Konfiguracja:**
+- **Model:** Claude 3.5 Sonnet / GPT-4o-mini (zależnie od planu)
+- **Max length:** Maximum liczba słów/tokenów
+- **Temperature:** 0.0-1.0 (kreatywność: 0=deterministyczny, 1=losowy/kreatywny)
+- **System prompt:** Instrukcje dla AI (np. "Write in professional but friendly tone", "Use British English")
+- **Output format:** Plain text / Markdown / JSON
+
+**Use case 1 — Caption generator:** Image (from gallery) → Text Generate ("Write Instagram caption for this image in brand voice") → Output.
+
+**Use case 2 — Product description:** Text Input (product specs) → Text Generate ("Turn these specs into compelling marketing copy, 100 words") → Output.
+
+**Use case 3 — Summarizer:** Web Scraper (company About page) → Text Generate ("Summarize in 2 sentences highlighting key differentiators") → AI Generate (use summary as prompt for brand graphic).
+
+## 5. Video Node — generowanie wideo AI
+
+**Czym jest:** Węzeł generujący wideo używając Sora, Luma Ray, Kling lub innych modeli wideo.
+
+**Inputs:**
+- `prompt` — opis wideo (akcja, ruch kamery, scena)
+- `first_frame` (opcjonalny) — obraz startowy dla image-to-video
+- `duration` — długość wideo w sekundach
+
+**Outputs:**
+- `video_url` — wygenerowane wideo (MP4 lub MOV)
+- `thumbnail` — miniatura wideo
+- `cost` — kredyty użyte
+
+**Konfiguracja:**
+- **Model:** Sora 2 / Sora Pro / Luma Ray 2 / Kling v1.6 / inne
+- **Duration:** 3-10 sekund (zależnie od modelu)
+- **Resolution:** 720p / 1080p / 4K
+- **FPS:** 24/30
+- **Motion intensity:** Low / Medium / High
+
+**Use case:** AI Generate (tworzy frame) → Video Node (animuje ten frame, np. "camera slowly zooms in") → Output.
+
+**Uwaga:** Video generowanie jest async — workflow czeka na completion (może potrwać 30-120 sekund).
+
+## 6. Audio Node — generowanie muzyki/audio
+
+**Czym jest:** Węzeł generujący muzykę lub audio używając ElevenLabs Music.
+
+**Inputs:**
+- `prompt` — opis muzyki (gatunek, nastrój, tempo, instrumenty)
+- `duration` — długość w sekundach (max 600s = 10min)
+
+**Outputs:**
+- `audio_url` — wygenerowana muzyka (MP3 lub WAV)
+- `waveform` — wizualizacja waveform
+- `cost` — 25 kredytów
+
+**Konfiguracja:**
+- **Duration:** 10-600 sekund
+- **Format:** MP3 / WAV
+- **Style:** Background / Intro / Full song
+- **Vocal:** Instrumental only / With vocals
+
+**Use case:** Text Input (video concept) → Text Generate (create music prompt based on video vibe) → Audio Node (generate soundtrack) + Video Node (generate video) → combine in post.
+
+**Uwaga:** Wymaga SPARK+ plan. Audio generation trwa ~30-90 sekund.
+
+## 7. Web Scraper Node — ekstrakcja treści ze stron
+
+**Czym jest:** Węzeł który pobiera content ze strony WWW (header, about section, descriptions) i wyciąga kluczowe informacje: brand description, color palette, tone of voice, key messaging.
+
+**Inputs:**
+- `url` — adres strony do scrapowania
+
+**Outputs:**
+- `company_name` — nazwa firmy
+- `description` — opis działalności (z About Us)
+- `brand_colors` — kolory z logo/hero section (hex codes)
+- `key_messages` — główne komunikaty marketingowe
+- `raw_html` — surowy HTML (dla zaawansowanych)
+
+**Konfiguracja:**
+- **Selectors:** Które sekcje strony analizować (auto / custom CSS selectors)
+- **Depth:** Tylko homepage / Homepage + 1 subpage / Deep crawl
+- **Language detection:** Auto-detect language i zwróć content w tym języku
+
+**Use case — Brand automation:** Text Input (client URL) → Web Scraper (extract brand info) → AI Generate Node (system prompt: "Generate social graphics using company description: \{scraper.description\} and colors: \{scraper.brand_colors\}") → Output.
+
+**Uwaga:** Scraping respektuje robots.txt i ma rate limiting. Niektóre strony z heavy JavaScript mogą nie być w pełni scrapowalne.
+
+## 8. Color Reference Node — ekstrakcja palety kolorów
+
+**Czym jest:** Węzeł który analizuje obraz i wyciąga dominującą paletę kolorów (5-10 kolorów hex).
+
+**Inputs:**
+- `image` — obraz do analizy (z Image Node lub AI Generate output)
+
+**Outputs:**
+- `colors` — array hex codes (np. ["#FF5733", "#3498DB", "#2ECC71"])
+- `dominant_color` — najważniejszy kolor
+- `color_names` — nazwy kolorów (human-readable: "warm orange", "sky blue")
+
+**Konfiguracja:**
+- **Number of colors:** 3 / 5 / 10
+- **Algorithm:** Median-cut / K-means clustering
+- **Filter:** All colors / Exclude grays / Vibrant only
+
+**Use case 1 — Brand consistency:** Image Node (client logo) → Color Reference → AI Generate (use extracted colors in generated graphics).
+
+**Use case 2 — Color matching:** User uploads mood image → Color Reference → AI Generate ("Create product photo using this exact color palette").
+
+**Technika:** Proompi używa median-cut color quantization (podobny do algorytmu w potrace) dla efektywnej ekstrakcji reprezentatywnych kolorów.
+
+## 9. Output Node — prezentacja wyników
+
+**Czym jest:** Końcowy węzeł który wyświetla wygenerowane obrazy użytkownikowi i pozwala wybrać które zapisać.
+
+**Inputs:**
+- `images` — array obrazów do wyświetlenia (z AI Generate Nodes)
+- `labels` (opcjonalne) — opisy dla każdego obrazu
+
+**Outputs:** Brak (to końcowy węzeł, ale user action: wybrane obrazy są zapisywane do galerii)
+
+**Konfiguracja:**
+- **Layout:** Grid 2x2 / List / Slider
+- **Selection mode:** Single select / Multi-select / Select all
+- **Auto-save:** Czy automatycznie zapisać wszystkie czy czekać na wybór usera
+- **Download format:** PNG / JPG / WEBP
+
+**Use case:** AI Generate Node (4 variants) → Output Node (user sees all 4, selects best 2, clicks Save).
+
+**Best practice:** Zawsze kończyj workflow Output Node żeby user miał kontrolę nad tym co faktycznie chce zachować. Nie auto-save wszystkiego — często 3 z 4 wariantów nie są dobre.
+
+## 10. Text Output Node — wyświetlanie tekstu
+
+**Czym jest:** Końcowy węzeł wyświetlający wygenerowany tekst. Podobny do Output Node ale dla contentu tekstowego.
+
+**Inputs:**
+- `text` — wygenerowany tekst (z Text Generate Node)
+- `title` (opcjonalny) — nagłówek dla tekstu
+
+**Outputs:** Brak (user może skopiować tekst do clipboard)
+
+**Konfiguracja:**
+- **Format:** Plain text / Markdown (formatted) / Code block
+- **Actions:** Copy to clipboard / Download as TXT / Export to Google Docs
+
+**Use case:** Text Generate Node (Instagram caption) → Text Output Node (user copies to clipboard, pastes in Instagram).
+
+## 11. Group Node — organizacja wizualna
+
+**Czym jest:** Węzeł który NIE WYKONUJE żadnej operacji — służy tylko do wizualnego grupowania innych węzłów na canvas. Jak folder/container.
+
+**Inputs:** N/A
+
+**Outputs:** N/A
+
+**Konfiguracja:**
+- **Label:** Nazwa grupy (np. "Brand Extraction", "Image Generation", "Post-Processing")
+- **Color:** Kolor tła grupy (dla wizualnego odróżnienia)
+- **Collapsible:** Czy można zwinąć grupę do minimalizacji (przydatne w dużych workflows)
+
+**Use case:** Masz workflow z 20 węzłami. Grupujesz węzły 1-5 jako "Data Collection", 6-12 jako "Content Generation", 13-20 jako "Output Processing". Canvas jest czytelny.
+
+**Best practice:** W workflows z >10 węzłami ZAWSZE używaj Group Nodes żeby zachować czytelność. Przyszły Ty będziesz wdzięczny.
+
+## Łączenie węzłów — jak to działa
+
+Węzły łączysz przez **handles** (kropki po bokach węzła):
+- **Output handle** (po prawej stronie węzła) — skąd wypływają dane
+- **Input handle** (po lewej stronie węzła) — gdzie wpływają dane
+
+Przeciągasz strzałkę z output handle jednego węzła do input handle drugiego. Proompi automatycznie waliduje czy connection ma sens (nie możesz połączyć image output do text-only input).
+
+**Typy connections:**
+- **Required:** Węzeł nie może być wykonany bez tego inputu (np. AI Generate bez promptu)
+- **Optional:** Węzeł działa bez tego inputu ale użyje go jeśli dostępny (np. style_reference w AI Generate)
+
+**Execution order:** Proompi automatycznie ustala kolejność wykonywania węzłów na podstawie dependencies. Nie musisz ręcznie numerować — algorytm topological sort robi to za Ciebie.
+
+## Najlepsze praktyki przy budowaniu workflows
+
+1. **Zacznij od końca:** Najpierw dodaj Output Node (co chcesz dostać), potem pracuj wstecz (co potrzebujesz żeby to wygenerować).
+
+2. **Używaj znaczących nazw węzłów:** Zamiast "AI Generate Node 1" nazwij "Product Hero Image Generator".
+
+3. **Grupuj logiczne bloki:** Extraction nodes razem, Generation nodes razem, Output nodes razem.
+
+4. **Testuj częściowo:** Możesz uruchomić workflow do połowy (right-click węzeł → "Run to here") żeby sprawdzić czy pierwszy etap działa przed budowaniem reszty.
+
+5. **Dokumentuj system prompty:** W AI Generate / Text Generate nodes dodawaj komentarze wyjaśniające dlaczego użyłeś konkretnego promptu.
+
+6. **Reużywaj sprawdzone patterns:** Masz workflow który działa? Zapisz jako template i klonuj przy nowych projektach.
+
+Teraz znasz wszystkie 11 węzłów. Czas zbudować swój pierwszy workflow — sprawdź tutorial [Zbuduj swój pierwszy Workflow](/workflows/pierwszy-workflow).

@@ -1,0 +1,222 @@
+---
+title: "Wektoryzacja — konwersja obrazu do SVG"
+description: "Jak zamieniać wygenerowane obrazy PNG/JPG na wektory SVG — idealne do logo i materiałów drukowanych."
+section: "graphics-editing"
+order: 2
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+badge: "Pro"
+---
+
+## Czym jest wektoryzacja
+
+Wektoryzacja to process konwersji obrazu **pixel-based** (PNG, JPG) na obraz **vector-based** (SVG). Różnica jest fundamentalna:
+
+**Pixel image (raster):**
+- Składa się z siatki pikseli (np. 1024x1024 = ~1 milion pikseli)
+- Ma fixed resolution
+- Przy powiększaniu staje się pixelated/blurry
+- Duży rozmiar pliku dla high-res
+- Formaty: PNG, JPG, WEBP
+
+**Vector image:**
+- Składa się z mathematycznych ścieżek (paths), kształtów, krzywych
+- **Infinitely scalable** — możesz powiększyć do billboard size bez utraty ostrości
+- Przy powiększaniu pozostaje sharp
+- Mały rozmiar pliku (opisuje shapes, nie każdy pixel)
+- Formaty: SVG, AI, EPS, PDF (vector)
+
+**Kiedy potrzebujesz vectora:**
+- Logo (musi działać na wizytówce i bilboardzie)
+- Ikony
+- Grafika do large format print (rollup, billboard, oklejanie samochodów)
+- Materiały które będą często skalowane
+- Laser cutting / CNC / vinyl cutting (machines read vector paths)
+
+## Jak Proompi robi wektoryzację
+
+Proompi używa algorytmu **potrace** (industry-standard bitmap-to-vector converter) + **median-cut color quantization** żeby przekonwertować obrazy pixel na vector paths.
+
+**Process wygląda tak:**
+
+### Krok 1: Preprocessing
+Obraz wejściowy jest resized do 1024px (jeśli większy) żeby zoptymalizować processing speed. To nie wpływa na jakość wektora — vector jest scalable anyway.
+
+### Krok 2: Color quantization
+AI analizuje obraz i redukuje liczbę kolorów do 5-15 representatywnych kolorów używając **median-cut algorithm**. To upraszcza obraz i umożliwia clean vectorization.
+
+**Median-cut:** Algorytm który dzieli paletę kolorów na regiony i wybiera najbardziej reprezentatywny kolor z każdego. Lepszy od prostego dithering czy posterization.
+
+### Krok 3: Potrace vectorization
+Każdy kolor jest traktowany jako osobna warstwa. Potrace konwertuje pixelowane krawędzie na smooth Bézier curves (matematyczne krzywe).
+
+### Krok 4: SVG export
+Multi-layer SVG jest generowany — każdy kolor to osobny `<path>` element w SVG. Możesz go otworzyć w Illustrator czy Figmie i edytować każdy layer osobno.
+
+## Krok po kroku: jak zwektoryzować obraz
+
+1. **Otwórz galerię** i znajdź obraz do wektoryzacji
+2. Najed myszką → menu akcji → kliknij **Vectorize**
+3. Proompi pokazuje preview procesu:
+   - Original (pixel)
+   - Vectorized (SVG preview)
+4. Możesz dostosować parametry (jeśli dostępne w interfejsie):
+   - **Number of colors:** 5 / 10 / 15 (więcej = dokładniejszy ale większy plik)
+   - **Smoothing:** Low / Medium / High (więcej = gładszysze krzywe ale mniej detali)
+5. Kliknij **Download SVG**
+6. Plik SVG zostaje zapisany lokalnie
+
+**Czas procesu:** ~5-15 sekund zależnie od złożoności obrazu.
+
+**Koszt:** Zależnie od planu — może być free (unlimited vectorizations w PRO) albo kosztować kilka kredytów w niższych planach.
+
+## Kiedy używać wektoryzacji
+
+### ✅ Dobre use cases (wektoryzacja działa świetnie)
+
+**1. Logo i wordmarks**
+
+Wygenerowałeś logo w Ideogram-2 czy FLUX. Działa świetnie jako PNG ale potrzebujesz SVG żeby dać klientowi (bo oni będą go skalować do różnych rozmiarów).
+
+**Przykład:** Logo firmy z prostym typem i ikoną. Zwektoryzowane = client może użyć na wizytówce (2cm) i bilboardzie (2 metry) bez utraty jakości.
+
+**2. Ikony i simple graphics**
+
+Ikony interfejsu, symbole, pictogramy — wszystko co ma proste kształty i limited color palette.
+
+**Przykład:** Ikonka "shopping cart" wygenerowana w Proompi → vectorize → użyj w aplikacji jako SVG (sharp na każdym screen density).
+
+**3. Ilustracje z flat design aesthetic**
+
+Ilustracje w stylu flat, geometric, minimalistycznym (jak ilustracje Dropbox, Slack) idealnie się wektoryzują.
+
+**Przykład:** Ilustracja postaci w flat design → vectorize → edit w Illustrator żeby zmienić kolory dla różnych wersji (brand customization).
+
+**4. Grafika do druku wielkiego formatu**
+
+Plakat, banner, rollup który ma być drukowany w 2x3 metry. Pixel image nawet w HD będzie pixelated. SVG pozostanie sharp.
+
+**5. Laser cutting / CNC / vinyl cutting**
+
+Maszyny laser cutter, CNC router, vinyl plotter czytają vector paths żeby ciąć materiał. Nie mogą użyć PNG — potrzebują SVG/DXF.
+
+**Przykład:** Wzór do wycinania w sklejce (laser cut wall art), logo do oklejenia samochodu (vinyl sticker).
+
+### ❌ Złe use cases (wektoryzacja nie zadziała dobrze)
+
+**1. Fotografie i fotorealistyczne obrazy**
+
+Zdjęcia ludzi, fotorealistic portraits, krajobraz — te obrazy mają miliony kolorów i subtelne gradienty. Wektoryzacja utworzy massive SVG file albo drastycznie uprosci image do unrecognizable.
+
+**Przykład:** Portrait człowieka → vectorize → dostaniesz posterized, stylizowany obraz (może nawet fajnie artystycznie) ale NIE fotorealistic reproduction.
+
+**2. Obrazy z gradientami**
+
+Smooth gradienty (np. sky sunset gradient) są ciężkie do wektoryzacji. SVG albo ich nie wspiera dobrze (efekt banding) albo file size będzie ogromny.
+
+**3. Complex textures**
+
+Obrazy z teksturami (brushstrokes, fabric, wood grain) — za dużo detali żeby efektywnie zwektoryzować.
+
+**4. High-detail artwork**
+
+Obrazy malarskie, concept art z tysiącami małych detali — wektoryzacja jest możliwa ale wynikowy SVG będzie miał setki layerów i będzie trudny w edycji.
+
+**Best practice:** Wektoryzuj proste, clean designs. Dla złożonych obrazów używaj PNG/JPG w high resolution.
+
+## Otwieranie SVG w Figmie i Illustratorze
+
+### Figma:
+
+1. Otwórz Figmę
+2. File → Import → wybierz SVG file
+3. SVG pojawia się jako edytowalny vector layer
+4. Możesz:
+   - Zmienić kolory każdego path
+   - Skalować bez utraty jakości
+   - Modyfikować paths (edit points)
+   - Export w różnych rozmiarach (16px ikona, 512px asset)
+
+### Adobe Illustrator:
+
+1. File → Open → wybierz SVG
+2. SVG otwiera się z każdym kolorem jako osobny layer
+3. Możesz:
+   - Ungroup paths i edytować indywidualnie
+   - Zmienić kolory używając Recolor Artwork
+   - Simplify paths (Object → Path → Simplify) jeśli SVG ma za dużo punktów
+   - Export jako AI, EPS, PDF dla drukarni
+
+### Inkscape (free alternative):
+
+1. Otwórz Inkscape
+2. File → Open → SVG
+3. Pełna edycja vector paths (free, open-source alternative do Illustrator)
+
+## File size considerations
+
+**SVG może być mały albo bardzo duży** zależnie od złożoności:
+
+**Simple logo (3-5 kolorów, basic shapes):** 5-20 KB — mniejszy niż PNG!
+
+**Medium complexity ilustracja (10 kolorów, ~100 paths):** 50-200 KB — OK do użycia
+
+**High complexity image (wektoryzowana fotografia, 1000+ paths):** 1-5 MB — zbyt duży, lepiej użyj PNG
+
+**Optimization:** Możesz optimize SVG używając narzędzi:
+- **SVGO** (online tool: jakub kozisek.dev/svgo) — redukuje file size o 30-60% bez utraty jakości
+- **Illustrator Save As → SVG → Minify** — built-in optimization
+
+## Praktyczne tips
+
+**Tip 1: Zacznij od clean image**
+
+Im prostsze i czytelniejsze pixel image, tym lepszy vector. Jeśli planujesz wektoryzację, generuj w minimalistycznym stylu:
+- Flat colors (nie gradienty)
+- Clear edges (nie soft blur)
+- Limited color palette (5-10 kolorów max)
+
+**Tip 2: Wektoryzuj w wysokiej jakości**
+
+Zawsze startuj z HD albo najwyższej dostępnej jakości pixel image. Potrace lepiej wykrywa krawędzie z sharp, high-res images.
+
+**Tip 3: Post-process w Illustratorze**
+
+Zwektoryzowany SVG rzadko jest perfect od razu. Otwórz w Illustrator i:
+- Usuń artefakty (małe, niepotrzebne paths)
+- Simplify paths (Object → Path → Simplify) żeby zmniejszyć file size
+- Manually adjust curves dla perfekcyjnej smooth edge
+
+**Tip 4: Testuj na różnych skalach**
+
+Po wektoryzacji, otwórz SVG i zoom 10x, 50x, 100x. Sprawdź czy krawędzie są smooth. Jeśli widzisz jagged edges nawet w SVG, zwiększ smoothing setting przy wektoryzacji.
+
+**Tip 5: Dla super-clean results: ręcznie retrace w Illustratorze**
+
+Jeśli potrzebujesz absolutely perfect vector (np. professional logo dla klienta Fortune 500), użyj wektoryzacji Proompi jako base, a potem manually retrace w Illustratorze używając Pen Tool. To czasochłonne ale daje 100% kontrolę.
+
+## Gdy nie masz Illustratora: alternatives
+
+**1. Inkscape** (free, open-source)
+- Pełny vector editor
+- Działa na Mac, Windows, Linux
+- Może wszystko co Illustrator (dla 90% use cases)
+- Download: inkscape.org
+
+**2. Figma** (free tier dostępny)
+- Web-based, no installation
+- Świetny do edycji SVG
+- Kolaboracja w zespole
+- Figma.com
+
+**3. Vectornator (free na iOS/Mac)**
+- Profesjonalny vector editor
+- Free, intuicyjny interface
+- App Store download
+
+**4. Online SVG editors:**
+- svgedit.org — web-based SVG editor
+- vectr.com — simple vector design tool
+
+Wektoryzacja w Proompi to underrated feature. Dla prostych grafik, logo, ikon — oszczędza godziny ręcznej pracy w Illustratorze. Wygenerowałeś perfect logo w Ideogram? Vectorize w 10 sekund i masz production-ready SVG dla klienta. Game changer.

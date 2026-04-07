@@ -1,0 +1,385 @@
+---
+title: "Workflow Node Types — Complete Reference"
+description: "All 11 node types in Proompi's Workflow Builder explained with inputs, outputs, and use cases."
+section: "workflows"
+order: 2
+lang: "en"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Understanding Node Architecture
+
+Every node in Proompi's Workflow Builder follows the same architectural pattern: inputs receive data from previous nodes, configuration options control behavior, and outputs send results to subsequent nodes. Understanding this pattern makes even complex workflows intuitive to build and debug.
+
+Nodes connect via ports — small circles on the left (inputs) and right (outputs) edges. Click an output port and drag to an input port to create a connection. Data flows through these connections when you execute the workflow. Some nodes require specific input types (text, images, URLs), while others accept multiple formats and adapt accordingly.
+
+## 1. Text Input Node
+
+### Purpose
+The Text Input node is your workflow's parameter system. It lets you define dynamic text values that can be changed each time you execute the workflow, making workflows reusable with different content without rebuilding them.
+
+### How It Works
+When you add a Text Input node, you see a text field where you enter any string: prompts, URLs, product names, descriptions, or any text data your workflow needs. This value becomes accessible to any node you connect it to. Think of it as a variable in programming — you define it once, then reference it multiple times throughout your workflow.
+
+### Configuration Options
+- **Label**: Name this input for clarity when you have multiple Text Input nodes
+- **Default Value**: Pre-fill with commonly used text to save time
+- **Placeholder**: Hint text showing what kind of input is expected
+- **Multiline**: Enable for longer text like full prompts or descriptions
+
+### Outputs
+- **Text**: Raw string data that any node accepting text can consume
+
+### Best Use Cases
+
+**Dynamic Prompts**: Instead of hardcoding "product photo of running shoes" into an AI Generate node, use Text Input with "running shoes" and connect it to a Text Generate node that creates the full prompt. Now you can generate photos of any product by changing one input value.
+
+**URL Parameters**: Feed URLs to Web Scraper nodes without editing the scraper configuration. Build one competitor analysis workflow, then execute it against different competitors by changing the URL input.
+
+**Batch Processing Variables**: When running workflows in batch mode, Text Input nodes pull values from your CSV file row by row. One workflow, hundreds of executions with different products, names, or descriptions.
+
+**Prompt Templates**: Create prompt templates with placeholders. Text Input provides the variable parts ("vintage car") while downstream Text Generate nodes wrap it in your template ("professional studio photograph of \{input\}, white background, commercial automotive photography").
+
+### Pro Tips
+Use descriptive labels for Text Input nodes ("Product Name", "Brand Style", "Target Audience") so when you return to the workflow months later, you immediately understand what each input controls. For workflows with multiple variants, create separate Text Input nodes for each customizable element rather than one massive input — it makes batch processing and API integration much cleaner.
+
+## 2. Image Node
+
+### Purpose
+The Image node brings visual reference data into your workflow. Upload images from your computer or reference images generated earlier in the workflow. This enables style transfer, image-to-video generation, color extraction, and any operation requiring visual input.
+
+### How It Works
+You can either upload an image file (JPEG, PNG, WebP) or connect this node to the output of a previous AI Generate node to reference that generated image. The Image node stores the image data and makes it available to downstream nodes that accept image inputs.
+
+### Configuration Options
+- **Source**: Upload from computer, paste URL, or connect to AI Generate output
+- **Preview**: Thumbnail display of current image
+- **Alt Text**: Description for organization and accessibility
+
+### Outputs
+- **Image Data**: Binary image that can be consumed by AI Generate (as style reference), Video nodes (as starting frame), Color Reference (for palette extraction), or other Image nodes (for compositing)
+
+### Best Use Cases
+
+**Style Reference Images**: Upload an example of your brand's visual style, connect it to an AI Generate node's reference input, and all generated images will attempt to match that style. Perfect for maintaining brand consistency across content.
+
+**Image-to-Video Source**: Feed product photos to Video nodes to create animated videos from static images. The video AI uses your image as the first frame and animates from there.
+
+**Color Palette Source**: Connect Image nodes to Color Reference nodes to extract dominant colors from brand assets, competitor content, or any visual inspiration. Those colors then feed into AI generation to maintain color consistency.
+
+**Workflow Chaining**: Generate an image in one part of your workflow, reference it with an Image node in another part, and use it as context for subsequent generations. This creates multi-stage visual refinement pipelines.
+
+### Pro Tips
+When using Image nodes for style reference, images with clear, distinct visual styles work best. A highly detailed, visually complex reference image gives the AI more style information to match. Conversely, for color extraction, simpler images with fewer colors produce cleaner palettes. Keep a library of your best-performing reference images and reuse them across workflows for consistent results.
+
+## 3. AI Generate Node
+
+### Purpose
+This is your primary image generation engine. The AI Generate node creates images using any of Proompi's seven image models based on text prompts, optional image references, and configuration parameters you specify.
+
+### How It Works
+The node accepts text input (from Text Input or Text Generate nodes) as the primary prompt, optionally accepts image input for style reference, lets you configure model selection and generation parameters, then outputs generated images to Output nodes or other Image nodes.
+
+### Configuration Options
+- **Model Selection**: Choose from gpt-image-1/1-mini/1.5, flux-1.1-pro/schnell, ideogram-2/2-turbo
+- **System Prompt**: Custom instructions that apply to every generation (like "always use warm tones" or "minimalist composition")
+- **Style Modifiers**: Quick toggles for common styles (vintage, modern, dramatic, soft)
+- **Quality Settings**: Standard or HD (+10 credits)
+- **Aspect Ratio**: Square, portrait, landscape, custom ratios
+- **Variant Count**: Generate 1-4 images per execution
+
+### Inputs
+- **Prompt** (required): Text description from Text Input or Text Generate nodes
+- **Reference Image** (optional): Style reference from Image nodes
+- **Negative Prompt** (optional): Elements to avoid in generation
+
+### Outputs
+- **Generated Images**: 1-4 image results that can feed to Output nodes (for saving), Image nodes (for referencing), or other AI Generate nodes (for refinement)
+
+### Best Use Cases
+
+**Product Photography Pipelines**: Connect product descriptions from Text Generate to AI Generate with "commercial product photography" system prompt. Set model to gpt-image-1, aspect ratio to square, and generate consistent product photos for entire catalogs.
+
+**Style Consistency Workflows**: Feed brand reference image to AI Generate's reference input, then generate dozens of content pieces. All output maintains visual consistency with your reference style.
+
+**Multi-Model Testing**: Create parallel AI Generate nodes using different models (one gpt-image-1, one flux-1.1-pro, one ideogram-2), feed identical prompts to all three, and compare results side-by-side. This helps you learn which model works best for specific content types.
+
+**Iterative Refinement**: Generate image with flux-schnell, use that output as reference image for second AI Generate node with gpt-image-1. The second generation refines the first's composition while upgrading quality. This two-stage approach often produces better results than single high-quality generation.
+
+### Pro Tips
+The system prompt field is incredibly powerful but often overlooked. Use it to define persistent generation rules: "always include subtle film grain," "use brand colors from reference image," "composition should follow rule of thirds." These instructions apply to every execution without cluttering your main prompt. For workflows that generate multiple related images, keep system prompts consistent across all AI Generate nodes to maintain visual cohesion.
+
+## 4. Text Generate Node
+
+### Purpose
+Creates AI-generated text content using Claude Haiku or GPT-4o-mini. Perfect for captions, descriptions, marketing copy, product features, blog posts, social media content, or any written content that supports your visual assets.
+
+### How It Works
+You provide a prompt describing what text you want (either via Text Input or hardcoded), configure the AI model and creativity level, then execute. The node generates text and outputs it to Text Output nodes for display or to other nodes that accept text input (like AI Generate nodes that need prompts).
+
+### Configuration Options
+- **Model**: Claude Haiku (faster, cheaper) or GPT-4o-mini (more creative, better at complex tasks)
+- **System Prompt**: Instructions for tone, style, format ("write as a luxury brand," "keep under 100 words," "use emoji")
+- **Temperature**: Creativity level (0.0 = deterministic, 1.0 = very creative)
+- **Max Tokens**: Length limit for generated text
+- **Streaming**: Enable to see text generate in real-time token by token
+
+### Inputs
+- **Prompt** (required): Instructions for what text to generate
+- **Context** (optional): Additional information to inform generation (product specs, brand voice, scraped data)
+
+### Outputs
+- **Generated Text**: String output that can feed to Text Output nodes, AI Generate nodes (as prompts), or other Text Generate nodes (for multi-stage processing)
+
+### Best Use Cases
+
+**Caption Generation**: Generate images with AI Generate node, then pass image metadata to Text Generate with prompt "write an engaging Instagram caption for this image." Automated visual + copy creation in one workflow.
+
+**Product Descriptions**: Feed product names from Text Input to Text Generate with system prompt "write compelling 50-word product descriptions emphasizing benefits and features." Generate descriptions for entire catalogs automatically.
+
+**Prompt Engineering**: Use Text Generate to expand basic prompts into detailed ones. Input "coffee shop interior," Text Generate creates "warm inviting coffee shop interior with exposed brick walls, vintage lighting fixtures, customers chatting at wooden tables, barista behind counter, morning light streaming through large windows, cozy atmosphere, professional architectural photography."
+
+**Multi-Language Content**: Generate English copy with one Text Generate node, feed that output to another Text Generate node with system prompt "translate this to Spanish while maintaining brand voice and tone." Instant localized content.
+
+### Pro Tips
+The system prompt is where you encode your brand voice. Create reusable Text Generate node configurations with system prompts like "write in a friendly, conversational tone with occasional humor, avoid corporate jargon, use short paragraphs" and use that configuration across all text workflows. Your AI-generated copy will maintain consistent voice. For batch content generation, enable streaming to watch output quality in real-time — if the first few tokens look wrong, you can cancel execution and adjust prompts before wasting credits on complete generation.
+
+## 5. Video Node
+
+### Purpose
+Generates video content from text prompts and optional image references using Sora 2, Luma Ray 2, Kling v1.6, or Wan 2.1. Creates product demonstrations, brand content, social media videos, and animated sequences from static images or pure text descriptions.
+
+### How It Works
+Video generation is compute-intensive and asynchronous. When you execute a workflow containing a Video node, Proompi submits your request to the selected video AI, which processes it in the background (typically 2-5 minutes). You receive a notification when generation completes, and the video appears in your outputs.
+
+### Configuration Options
+- **Model**: Choose Sora 2/Pro (highest quality), Luma Ray 2 (fluid motion), Kling v1.6 Pro (smooth transitions), Wan 2.1 (good value), or Runway Gen3a (fast/cheap)
+- **Duration**: 3-10 seconds depending on model
+- **Starting Frame**: Connect Image node to start from specific image, or leave empty for pure text-to-video
+- **Camera Movement**: Specify movements like "slow zoom in," "pan left," "orbit around subject"
+- **Resolution**: 720p, 1080p, or 4K (model dependent)
+
+### Inputs
+- **Prompt** (required): Description of video content and motion
+- **Starting Image** (optional): First frame from Image node
+
+### Outputs
+- **Video File**: MP4 or WebM video file downloadable or referenceable in subsequent workflow stages
+
+### Best Use Cases
+
+**Product Videos from Photos**: Upload static product photo via Image node, connect to Video node with prompt "slow 360-degree rotation around product, studio lighting." Instant product demo video without 3D modeling.
+
+**Social Media Content**: Generate short 3-5 second video clips optimized for Instagram Reels, TikTok, or YouTube Shorts. Text Generate creates video concepts, Video node executes them, all automated.
+
+**Image Animation**: Generate hero images with AI Generate, immediately animate them with Video node. Creates dynamic hero sections for websites or presentation introductions.
+
+**Multi-Shot Sequences**: Create multiple Video nodes in sequence, each generating different shots, then composite them externally into longer videos. Workflow manages shot generation, you handle final editing.
+
+### Pro Tips
+Video generation costs scale with duration (12-35 credits per second depending on model), so keep videos short during testing. Generate 3-second tests with Wan 2.1 to verify concept works, then regenerate final version with Sora 2 at full duration. In prompts, always specify camera movement explicitly ("static camera," "slow push in," "tracking shot following subject") because without direction, the AI may create unintended motion. Video quality dramatically improves when you provide starting images rather than pure text-to-video.
+
+## 6. Audio Node
+
+### Purpose
+Generates royalty-free music and soundscapes using ElevenLabs music generation. Creates background music for videos, podcasts, presentations, brand atmospheres, and any content requiring audio without licensing complications.
+
+### How It Works
+Describe the music you want (genre, mood, instrumentation, tempo), set duration, and the Audio node generates a unique composition. Unlike stock music libraries, every generation is original — no one else has this exact track. Generated audio outputs as MP3 or WAV files.
+
+### Configuration Options
+- **Mood**: Happy, energetic, calm, dramatic, mysterious, uplifting (affects composition)
+- **Genre**: Corporate, electronic, acoustic, cinematic, ambient, jazz, rock
+- **Duration**: 10 seconds to 10 minutes
+- **Instrumentation**: Specify instruments or leave to AI discretion
+- **Tempo**: BPM range or qualitative (slow, moderate, fast)
+- **Format**: MP3 (compressed, smaller) or WAV (uncompressed, higher quality)
+
+### Inputs
+- **Prompt** (optional): Text description of desired music
+- **Video Context** (optional): For workflows generating video + music, connect Video node output to inform music generation about video mood and pacing
+
+### Outputs
+- **Audio File**: Downloadable music file or referenceable by other nodes
+
+### Best Use Cases
+
+**Video Soundtracks**: Generate video with Video node, pass video metadata to Audio node with prompt "create background music matching the mood and pacing of this video content." Coordinated AV creation.
+
+**Brand Audio Identity**: Create consistent audio branding by generating multiple music pieces with identical mood/genre settings but different durations. Use 10-second version for social media, 60-second for presentations, 3-minute for lobby ambiance.
+
+**Podcast Intros and Outros**: Generate short 15-30 second intro music that matches your brand personality. Save to asset library and reuse across all episodes for consistent branding.
+
+**Presentation Background Tracks**: Generate subtle ambient music that plays during presentations without distracting from speaker. Text Generate creates presentation outline, Audio node creates supportive soundtrack.
+
+### Pro Tips
+Audio generation costs 25 credits regardless of duration (up to 10 minutes), so don't generate 30-second tracks when you need 3-minute background music — always generate the full length you might need. The "corporate" genre is extremely popular but often generic; experiment with "cinematic" or "ambient electronic" for more distinctive brand audio identity. When generating music for video, always specify whether you want music with prominent melody or atmospheric background — the AI defaults to balanced, which sometimes sits awkwardly between the two.
+
+## 7. Web Scraper Node
+
+### Purpose
+Extracts structured data from websites: company descriptions, product information, color schemes, brand voice examples, pricing, features, or any publicly visible content. Transforms manual research into automated data collection that feeds directly into content generation.
+
+### How It Works
+Provide a URL (from Text Input node or hardcoded), and the Web Scraper analyzes the page structure, extracts relevant content based on your configuration, formats it as structured data, and outputs it to downstream nodes. The scraper uses AI to understand page semantics, not just raw HTML parsing, so it adapts to different website structures automatically.
+
+### Configuration Options
+- **URL**: Target website to scrape
+- **Content Type**: What to extract (company info, products, colors, text content, images)
+- **Depth**: Single page or follow internal links to scrape multiple pages
+- **Format**: How to structure output (JSON, plain text summary, key-value pairs)
+
+### Inputs
+- **URL** (required): From Text Input node or manual entry
+- **Extraction Rules** (optional): Custom selectors or descriptions of what to extract
+
+### Outputs
+- **Structured Data**: Text, JSON, or key-value data that feeds to Text Generate (as context), Color Reference (extracted color codes), AI Generate (brand context), or Text Output (display)
+
+### Best Use Cases
+
+**Competitive Intelligence Workflows**: Scrape competitor website to extract their brand messaging, product features, and pricing. Feed this data to Text Generate with prompt "create positioning that differentiates us from this competitor." Automated competitive content response.
+
+**Brand Context Extraction**: Building content for a client? Scrape their website to automatically extract brand voice, key messaging, product categories, and company values. Feed this context to all AI Generate and Text Generate nodes to ensure brand-aligned output without manual brief creation.
+
+**Product Data Enrichment**: Scrape manufacturer websites to extract detailed product specifications, then use that data to generate comprehensive product descriptions and imagery. One workflow processes your entire catalog using authoritative source data.
+
+**Color Palette Intelligence**: Scrape competitor or inspiration websites, extract their color schemes, pass to Color Reference node for palette extraction, then use those colors in your own content generation. Creates visual harmony or intentional contrast depending on strategy.
+
+### Pro Tips
+Web scraping is legally and ethically complex — only scrape publicly available content, respect robots.txt files, and never scrape user-generated content without permission. The Web Scraper works best on well-structured marketing websites (about pages, product pages, landing pages) and struggles with complex web apps or JavaScript-heavy sites. For maximum reliability, scrape static content pages rather than dynamic dashboards or user-specific views. Always preview scraped data before feeding it to expensive AI generation nodes — if scraping fails or returns garbage, you'll waste credits on bad inputs.
+
+## 8. Color Reference Node
+
+### Purpose
+Analyzes images to extract dominant color palettes as hex codes and descriptive color names. Enables brand-consistent content generation by ensuring all generated visuals use approved color schemes or by reverse-engineering competitor color palettes for competitive content.
+
+### How It Works
+Connect an Image node (uploaded brand asset or scraped competitor image), and the Color Reference node analyzes the image using computer vision to identify the 3-8 most dominant colors. It outputs both hex codes (#FF5733) and natural language color names ("warm coral red") that can feed into AI Generate system prompts or Text Generate context.
+
+### Configuration Options
+- **Color Count**: How many colors to extract (3-8)
+- **Sort Method**: By dominance (most prevalent first), by vibrancy, or by luminosity
+- **Output Format**: Hex codes only, color names only, or both
+
+### Inputs
+- **Source Image** (required): From Image node, uploaded file, or URL
+
+### Outputs
+- **Color Data**: Structured color information (hex codes, names, RGB values) that feeds to AI Generate (as style guidance), Text Generate (for describing color schemes), or Text Output (for display)
+
+### Best Use Cases
+
+**Brand Consistency Enforcement**: Upload brand logo or brand guidelines cover image, extract palette, feed to AI Generate system prompt "use only these colors: \{extracted_palette\}." Every generated image automatically adheres to brand color standards.
+
+**Competitive Visual Analysis**: Scrape competitor website images with Web Scraper, pass to Color Reference to extract their color scheme, then intentionally use contrasting colors in your content to visually differentiate your brand, or use similar colors to signal category membership.
+
+**Seasonal Campaign Color Planning**: Upload seasonal inspiration images (autumn leaves, summer beaches, winter snow), extract palette, apply to all campaign content generation. Instant seasonal visual identity without manual color selection.
+
+**Product Photography Color Coordination**: Extract colors from product photos, use those colors for backgrounds, props, and styling in additional product shots. Creates visually cohesive product catalog where all images feel coordinated.
+
+### Pro Tips
+Color extraction quality depends on image quality — blurry or poorly lit images produce inaccurate color data. Use high-quality source images with clear color representation. The "color dominance" sort method works best for brand extraction (gets the most-used colors), while "vibrancy" sort works better for inspiration-based workflows where you want eye-catching accent colors. When feeding extracted colors to AI Generate, use both hex codes and natural language names in system prompts: "use color palette #FF5733 (warm coral), #2C3E50 (deep navy), #ECF0F1 (soft gray)" — this gives the AI both precise values and semantic understanding.
+
+## 9. Output Node
+
+### Purpose
+The destination for image generation workflows. The Output node displays generated images in the workflow interface, allows selecting which results to save to your permanent gallery, and provides download options. This is the required endpoint for any workflow producing images.
+
+### How It Works
+Connect one or more AI Generate nodes to an Output node. When workflow executes, generated images appear in the Output node's preview area. You can click thumbnails to view full resolution, compare multiple results, select favorites for saving, and download immediately or batch-download all results.
+
+### Configuration Options
+- **Variant Count**: How many images to generate per execution (1-4)
+- **Save Behavior**: Automatically save all results to gallery, prompt for selection, or manual save only
+- **Naming Convention**: How to name saved images (timestamp, custom prefix, workflow name)
+- **Gallery Folder**: Which gallery folder to save results in
+
+### Inputs
+- **Generated Images** (required): From one or more AI Generate nodes
+
+### Outputs
+- None (Output is the terminal node)
+
+### Best Use Cases
+
+**A/B Testing Display**: Connect 2-4 AI Generate nodes (testing different models, prompts, or parameters) to one Output node. All variants appear side-by-side for easy comparison. Select the winner and save only that result.
+
+**Batch Generation Review**: When running workflows in batch mode processing hundreds of items, Output nodes collect all results in one place. Review everything, filter out failed generations, save only successful results to gallery.
+
+**Client Preview Workflows**: Build workflows that generate content proposals, display them in Output nodes, then share workflow results with clients for selection before final production.
+
+**Quality Control Checkpoints**: In multi-stage workflows, add Output nodes after each generation stage. This creates visual checkpoints where you can verify quality before proceeding to expensive next stages.
+
+### Pro Tips
+Output nodes don't consume credits — they're purely organizational. Use multiple Output nodes in complex workflows to separate different types of results (one for hero images, one for social media variants, one for email header versions). This makes result management much easier than dumping everything into one Output node. Enable "prompt for selection" save behavior when generating multiple variants; this forces you to actively review and choose rather than automatically saving everything (which clutters your gallery with unused generations).
+
+## 10. Text Output Node
+
+### Purpose
+Displays text generated by Text Generate nodes in formatted, readable format. Provides copy functionality for easy extraction and shows text metadata like token count, generation time, and model used.
+
+### How It Works
+Connect Text Generate nodes to Text Output nodes. Generated text appears formatted with proper line breaks, paragraph spacing, and markdown rendering if applicable. Click to copy text to clipboard for use in other applications.
+
+### Configuration Options
+- **Display Format**: Plain text, markdown rendered, or both
+- **Metadata Display**: Show or hide generation details (model, tokens, cost)
+- **Character Limit**: Truncate preview for very long text (still downloadable in full)
+
+### Inputs
+- **Generated Text** (required): From Text Generate nodes
+
+### Outputs
+- None (terminal node)
+
+### Best Use Cases
+
+**Caption Review**: Generate social media captions with Text Generate, display in Text Output for review before using in posts or feeding to design tools.
+
+**Copy Collection**: In workflows generating multiple text pieces (product descriptions for catalog), Text Output nodes collect all results with clear labeling. Export all as CSV or copy individually.
+
+**Prompt Preview**: When using Text Generate to expand or improve prompts before feeding to AI Generate, Text Output lets you review the enhanced prompt before committing credits to image generation.
+
+**Multi-Language Verification**: Generate translations with Text Generate, display all language versions in separate Text Output nodes for quality checking before publication.
+
+### Pro Tips
+Text Output nodes are zero-cost and zero-friction, so use them liberally for debugging workflows. Add Text Output nodes throughout complex workflows to verify that text transformations are working correctly. When generating content for multiple platforms (Instagram, Twitter, LinkedIn), use separate Text Output nodes labeled by platform — this makes it obvious which copy goes where.
+
+## 11. Group Node
+
+### Purpose
+Purely organizational — the Group node creates visual containers around related nodes with custom labels and colors. It doesn't process data or affect workflow execution, but dramatically improves readability and maintainability of complex workflows.
+
+### How It Works
+Drag a Group node onto canvas, resize it to encompass related nodes, add a label like "Brand Context Extraction" or "Social Media Generation," and choose a color. The group appears as a colored background box making that workflow section visually distinct.
+
+### Configuration Options
+- **Label**: Group name displayed prominently
+- **Color**: Background color for visual differentiation
+- **Size**: Resize to contain relevant nodes
+- **Collapse**: Minimize group to hide internal complexity
+
+### Inputs
+- None (organizational only)
+
+### Outputs
+- None (organizational only)
+
+### Best Use Cases
+
+**Complex Workflow Organization**: In workflows with 15+ nodes, group related functionality: "Data Collection" group contains Web Scraper and Color Reference, "Content Generation" group contains AI Generate and Text Generate, "Output" group contains all Output nodes.
+
+**Team Collaboration**: When multiple people work on the same workflow, groups make it obvious who owns which sections. Color-code groups by team member or functional area.
+
+**Workflow Documentation**: Groups serve as inline documentation explaining workflow sections. Label groups with descriptive names like "Step 1: Extract Brand Context" and "Step 2: Generate Hero Images" to make workflow logic self-documenting.
+
+**Template Creation**: When building reusable workflow templates, groups show users which sections they need to customize vs which can stay default. Group and label accordingly.
+
+### Pro Tips
+Consistent color coding across all workflows improves team efficiency. Establish standards: blue for input/data collection, green for AI generation, yellow for processing/transformation, red for outputs. When everyone follows the same system, any team member can understand any workflow at a glance. Use Group node collapse feature to hide sections you're not currently editing — this reduces visual clutter in massive workflows without losing functionality.
+
+---
+
+These 11 node types combine to create infinitely flexible content generation pipelines. Start simple with 2-3 node workflows to learn the mechanics, then gradually increase complexity as your needs grow. The most powerful workflows often combine all 11 types: Groups organize everything, Text Inputs provide parameters, Web Scrapers collect data, Color Reference extracts palettes, Text Generate creates prompts, AI Generate creates visuals, Video and Audio add multimedia, and Outputs collect results for review.

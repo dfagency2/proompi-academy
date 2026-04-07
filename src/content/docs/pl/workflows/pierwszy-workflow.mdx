@@ -1,0 +1,288 @@
+---
+title: "Zbuduj swój pierwszy Workflow krok po kroku"
+description: "Praktyczny tutorial: workflow który generuje grafiki brandingowe z adresu URL Twojej strony."
+section: "workflows"
+order: 3
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+badge: "Tutorial"
+---
+
+## Cel tego tutoriala
+
+Zbudujesz workflow który:
+1. Pobiera URL strony firmowej od użytkownika
+2. Scrapuje stronę i wyciąga informacje o firmie (nazwa, opis, kolory brandingowe)
+3. Wyciąga paletę kolorów z logo/hero section
+4. Generuje 2 grafiki brandingowe na Instagram używając opisukoniec firmy i kolorów
+5. Pokazuje wyniki użytkownikowi do wyboru i zapisania
+
+To realny use case który możesz użyć dla klientów albo własnych projektów. Po tym tutorialu będziesz potrafił budować własne workflows od zera.
+
+**Czas:** ~15 minut pierwszego razu, ~3 minuty wykonanie gotowego workflow
+**Koszt:** ~30-40 kredytów (scraping 0kr, color extraction 0kr, 2x AI Generate ~15kr każdy)
+
+## Krok 1: Otwórz Workflow Builder i utwórz nowy workflow
+
+1. Zaloguj się do Proompi
+2. Kliknij **Workflow Builder** w menu głównym (ikona węzłów/flowchart)
+3. Kliknij **New Workflow** (przycisk + w prawym górnym rogu)
+4. Nazwij workflow: "Brand Social Graphics Generator"
+5. Dodaj opis (opcjonalnie): "Automatically generates branded Instagram graphics from company website URL"
+6. Kliknij **Create**
+
+Widzisz pusty canvas z sidebar po lewej (dostępne węzły) i panel konfiguracji po prawej (pojawi się gdy klikniesz węzeł).
+
+## Krok 2: Dodaj Text Input Node
+
+To będzie punkt startowy — miejsce gdzie użytkownik wpisuje URL strony.
+
+1. W sidebar po lewej znajdź **Text Input Node**
+2. Przeciągnij go na canvas (drag & drop)
+3. Kliknij na węzeł żeby otworzyć panel konfiguracji po prawej
+4. Ustaw parametry:
+   - **Label:** "Company Website URL"
+   - **Placeholder:** "https://example.com"
+   - **Required:** ✅ Yes
+   - **Multiline:** ❌ No
+   - **Default value:** pozostaw puste (user zawsze wpisze swój URL)
+
+5. Zmień nazwę węzła (kliknij na "Text Input Node" u góry węzła) na "Website URL Input"
+
+**Co masz teraz:** Pojedynczy węzeł który poprosi użytkownika o URL.
+
+## Krok 3: Dodaj Web Scraper Node i połącz z inputem
+
+Teraz dodasz węzeł który scrapuje podany URL.
+
+1. Przeciągnij **Web Scraper Node** na canvas, umieść go **po prawej** od Text Input
+2. Połącz węzły:
+   - Znajdź **output handle** Text Input Node (kropka po prawej stronie węzła)
+   - Kliknij i przeciągnij do **input handle** Web Scraper Node (kropka po lewej)
+   - Powinnaś zobaczyć strzałkę łączącą węzły
+
+3. Kliknij Web Scraper Node i skonfiguruj:
+   - **Input:** Automatycznie mapuje się `url` z poprzedniego węzła ✅
+   - **Depth:** Homepage only (wystarczy strona główna)
+   - **Extract:** Company name, Description, Brand colors, Key messages (wszystkie ✅)
+
+4. Zmień nazwę węzła na "Extract Brand Info"
+
+**Co masz teraz:** Flow który pobiera URL → scrapuje stronę → wyciąga brand info.
+
+## Krok 4: Dodaj Color Reference Node
+
+Scraper wyciągnie kolory z HTML, ale dodamy też Color Reference który zaanalizuje faktyczne obrazy (logo, hero image) żeby dostać precyzyjniejszą paletę.
+
+1. Przeciągnij **Color Reference Node** na canvas pod Web Scraper
+2. Połącz **output Web Scraper** → **input Color Reference**  
+   (Web Scraper wysyła URL hero image, Color Reference analizuje go)
+3. Skonfiguruj Color Reference:
+   - **Input image:** Auto (z scrapera)
+   - **Number of colors:** 5
+   - **Filter:** Vibrant only (wykluczymy szarości/neutralne)
+
+4. Zmień nazwę na "Extract Brand Colors"
+
+**Co masz teraz:** Scraper wyciąga tekst + podstawowe kolory, Color Reference wyciąga precyzyjną paletę z obrazów.
+
+## Krok 5: Dodaj pierwszy AI Generate Node
+
+Teraz generujemy pierwszą grafikę Instagram.
+
+1. Przeciągnij **AI Generate Node** na canvas po prawej od Web Scraper i Color Reference
+2. Połącz **OBA** węzły do tego AI Generate:
+   - Output Web Scraper → Input AI Generate (to poda company description jako kontekst)
+   - Output Color Reference → Input AI Generate (to poda kolory do użycia)
+
+3. Kliknij AI Generate i skonfiguruj:
+   - **Model:** GPT-image-1 (dobra jakość, rozsądny koszt 15kr)
+   - **Quality:** Standard (Instagram kompresuje HD i tak)
+   - **Number of variants:** 2 (dostaniesz 2 opcje)
+   - **System prompt:** (WAŻNE - skopiuj dokładnie)
+   
+   ```
+   Generate a professional Instagram post graphic (1080x1080px square format) 
+   that represents the company's brand and values.
+   
+   Use the company description provided in context to understand their business.
+   Use ONLY the extracted brand colors from the color palette - do not introduce new colors.
+   
+   Style: Modern, clean, professional, suitable for corporate Instagram.
+   Layout: Minimal text (company name only), focus on visual brand identity.
+   Aesthetic: Consistent with the company's website visual style.
+   ```
+
+   - **User prompt template:** (to będzie generowane dynamicznie)
+   
+   ```
+   Company: {{scraper.company_name}}
+   Description: {{scraper.description}}
+   Brand Colors: {{colors.palette}}
+   
+   Create a branded social media graphic that captures the essence of this company.
+   ```
+
+4. Zmień nazwę węzła na "Generate Social Graphic 1"
+
+**Wyjaśnienie:** `{{scraper.company_name}}` to zmienna która automatycznie wstawi output z węzła "Extract Brand Info". Proompi automatycznie mapuje outputs → inputs używając nazw węzłów.
+
+## Krok 6: Dodaj drugi AI Generate Node (opcjonalny wariant)
+
+Wygenerujmy drugi wariant z trochę innym stylem.
+
+1. Przeciągnij kolejny **AI Generate Node** obok pierwszego
+2. Połącz te same inputy: Web Scraper output + Color Reference output → ten nowy AI Generate
+3. Skonfiguruj identycznie jak pierwszy ALE zmień:
+   - **System prompt** (nieco inny styl):
+   
+   ```
+   Generate an artistic Instagram post graphic (1080x1080px square) 
+   with a more creative, eye-catching design.
+   
+   Use company brand colors but in a bold, modern composition.
+   Style: Eye-catching, vibrant, social-media friendly, artistic but professional.
+   Include subtle geometric shapes or abstract elements that complement the brand.
+   ```
+
+4. Zmień nazwę na "Generate Social Graphic 2 (Artistic)"
+
+**Co masz teraz:** Dwa różne style grafik (jeden minimalistyczny-korporacyjny, drugi bardziej artystyczny-social). User wybierze który mu pasuje.
+
+## Krok 7: Dodaj Output Node
+
+Ostatni węzeł — wyświetlenie wszystkich wygenerowanych grafik.
+
+1. Przeciągnij **Output Node** na prawo od obu AI Generate nodes
+2. Połącz **oba AI Generate outputs** → **Output Node input**  
+   (Output Node przyjmuje array images — wyświetli wszystkie 4 obrazy: 2 warianty z pierwszego węzła + 2 z drugiego)
+
+3. Skonfiguruj Output:
+   - **Layout:** Grid 2x2 (4 obrazy w siatce)
+   - **Selection mode:** Multi-select (user może wybrać kilka)
+   - **Auto-save:** ❌ No (user wybierze które chce zachować)
+   - **Labels:** ✅ Show model and cost per image
+
+4. Zmień nazwę na "Select Best Variants"
+
+**Co masz teraz:** Kompletny workflow!
+
+## Krok 8: Zapisz workflow
+
+1. Kliknij **Save** (przycisk w prawym górnym rogu canvas)
+2. Workflow jest zapisany i gotowy do uruchomienia
+
+**Opcjonalnie:** Kliknij **Share** żeby wygenerować link do udostępnienia tego workflow kolegom/koleżankom z zespołu.
+
+## Krok 9: Uruchom workflow po raz pierwszy (test)
+
+Czas przetestować!
+
+1. Kliknij **Run** (duży zielony przycisk)
+2. Pojawi się modal z inputami:
+   - "Company Website URL": Wpisz testowy URL, np. `https://stripe.com` (albo dowolna inna strona z wyraźnym brandingiem)
+3. Kliknij **Start**
+
+**Co się dzieje:**
+- Text Input przekazuje URL do Web Scraper ✅
+- Web Scraper pobiera stronę Stripe, wyciąga: company name "Stripe", description "Payment infrastructure for the internet", kolory (niebieski/fioletowy Stripe brand) ✅
+- Color Reference analizuje hero image Stripe i wyciąga paletę (#635BFF, #00D924, ...) ✅
+- Oba AI Generate nodes generują po 2 grafiki (total 4 obrazy) — to zajmuje ~30-45 sekund ⏳
+- Output Node wyświetla wszystkie 4 grafiki ✅
+
+4. Zobacz rezultaty — masz 4 grafiki Instagram, każda w brand colors Stripe, każda z innym stylem
+5. Zaznacz 1-2 najlepsze checkboxami
+6. Kliknij **Save Selected** — zapisują się do galerii
+
+**Gratulacje! Właśnie uruchomiłeś swój pierwszy workflow.**
+
+## Krok 10: Użyj ponownie dla innego klienta
+
+Teraz potęga workflow: możesz użyć tego samego flow dla 50 różnych firm bez przepisywania czegokolwiek.
+
+1. Kliknij **Run** ponownie
+2. Tym razem wpisz inny URL, np. `https://airbnb.com`
+3. Workflow automatycznie:
+   - Scrapuje Airbnb → wyciąga branding (czerwony "Rausch" + inne kolory)
+   - Generuje 4 grafiki w stylu Airbnb branding
+   - Pokazuje do wyboru
+
+**Czas wykonania:** ~3 minuty (większość to oczekiwanie na AI generation)  
+**Ręczna praca:** 10 sekund (wpisz URL, wybierz najlepsze grafiki)
+
+Powtarzasz to dla każdego klienta. Nie musisz ręcznie wyciągać kolorów, opisywać firmy, pisać promptów — wszystko automatyczne.
+
+## Tips: Jak ulepszyć ten workflow
+
+**Ulepszenie 1: Dodaj Text Generate Node dla captions**
+
+Dodaj między Web Scraper a Output:
+- **Text Generate Node:** "Write 3 Instagram captions (50 words each) based on company description: \{scraper.description\}"
+- Połącz do Text Output Node
+- Teraz masz grafiki + gotowe captions
+
+**Ulepszenie 2: Dodaj więcej wariantów AI Generate**
+
+Dodaj trzeci AI Generate Node ze stylem:
+- System prompt: "Minimalist, Scandinavian design, lots of white space, clean typography"
+- Teraz user dostaje 6 opcji (2 corporate + 2 artistic + 2 minimalist)
+
+**Ulepszenie 3: Dodaj text overlay**
+
+Po AI Generate dodaj **Text Overlay Node**:
+- Nakłada company name na wygenerowaną grafikę
+- Wybiera font i pozycję automatycznie na podstawie brand style
+
+**Ulepszenie 4: Batch mode**
+
+Zmień Text Input na textarea multiline, user wpisuje 10 URLs (jeden per linia).
+Dodaj Loop Node (jeśli dostępny w Twoim planie) — workflow wykonuje się 10 razy, raz per URL.
+Output: 40 grafik (10 firm x 4 warianty).
+
+## Debugowanie — co jeśli coś nie działa
+
+**Problem: Web Scraper zwraca "Failed to extract"**
+- **Przyczyna:** Strona używa heavy JavaScript (SPA), scraper nie widzi contentu
+- **Fix:** Użyj prostszych stron (statyczne HTML) albo zmień Depth na "Deep crawl"
+
+**Problem: AI Generate generuje obrazy bez brand colors**
+- **Przyczyna:** System prompt nie jest wystarczająco direktywny
+- **Fix:** Zmień na "You MUST use ONLY these exact hex colors: \{colors.palette\}. Do NOT introduce any other colors."
+
+**Problem: Output Node nie pokazuje obrazów**
+- **Przyczyna:** Connection między AI Generate → Output jest źle zmapowany
+- **Fix:** Usuń connection, połącz ponownie. Upewnij się że łączysz output handle "images" do input handle "images" (nie "text")
+
+**Problem: Workflow jest bardzo wolny (>2 minuty)**
+- **Przyczyna:** 2x AI Generate Node każdy generuje po 2 warianty = 4 total generations (~15-20 sekund każdy)
+- **Fix:** Zmień na 1 wariant per węzeł (total 2 obrazy zamiast 4) albo użyj tańszego modelu FLUX schnell dla testów
+
+## Zapisz jako template
+
+Jeśli ten workflow działa świetnie i chcesz go reużywać:
+
+1. Kliknij menu węzła (⋮) w prawym górnym rogu canvas
+2. Wybierz **Save as Template**
+3. Nazwij: "Brand Social Graphics from URL"
+4. Dodaj do kategorii: "Marketing Automation"
+5. **Make public** (opcjonalnie) — inni użytkownicy Proompi będą mogli sklonować Twój template
+
+Twój template pojawi się w Template Library. Możesz go sklonować jednym kliknięciem przy nowych projektach.
+
+## Co dalej
+
+Właśnie nauczyłeś się budować workflows od zera. Poznałeś:
+- Jak łączyć węzły w logiczny przepływ
+- Jak mapować outputs → inputs automatycznie
+- Jak używać system prompts z zmiennymi `{{node.field}}`
+- Jak testować i debugować workflow
+- Jak zapisywać i reużywać gotowe flows
+
+**Next steps:**
+- Eksperymentuj z innymi węzłami: Video Node, Audio Node, Text Overlay
+- Zbuduj własny workflow dla Twojego realnego use case
+- Sprawdź [Template Library](/workflows/templates) po inspiracje
+- Zobacz zaawansowane tutoriale: [Workflow dla marketingu](/tips/workflow-dla-marketingu)
+
+Powodzenia w budowaniu! Workflow Builder to najpotężniejsze narzędzie w Proompi — teraz wiesz jak z niego korzystać.

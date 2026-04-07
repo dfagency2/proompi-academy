@@ -1,0 +1,93 @@
+---
+title: "Galeria i historia generowań"
+description: "Jak zarządzać wygenerowanymi obrazami — galeria, filtry, pobieranie, usuwanie i historia."
+section: "getting-started"
+order: 3
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Czym jest galeria Proompi
+
+Galeria to centralne miejsce, gdzie lądują wszystkie Twoje wygenerowane obrazy, wideo i inne treści AI. Znajdziesz ją w menu głównym jako jedną z głównych sekcji. To nie tylko archiwum — galeria to potężne narzędzie do przeglądania, filtrowania, organizowania i dalszej obróbki Twoich generowań.
+
+Każdy wygenerowany obraz pojawia się w galerii automatycznie zaraz po zakończeniu generowania. Nie musisz go ręcznie zapisywać czy pobierać — wszystko dzieje się w tle. Galeria działa jak chmura przechowująca wszystkie Twoje prace, dostępne z każdego urządzenia, na którym zalogujesz się do Proompi.
+
+## Infinite scroll i przeglądanie
+
+Galeria używa nieskończonego przewijania (infinite scroll), co oznacza, że obrazy ładują się stopniowo w miarę scrollowania w dół strony. Zamiast tradycyjnych stron z numerami 1, 2, 3... po prostu przewijasz w dół i kolejne partie obrazów pojawiają się automatycznie. To szybsze i wygodniejsze, zwłaszcza gdy masz setki czy tysiące wygenerowanych plików.
+
+Domyślnie galeria pokazuje najnowsze generowania na górze — ten układ jest najbardziej praktyczny, bo najczęściej interesuje Cię to, co właśnie wygenerowałeś. Możesz jednak zmienić kolejność sortowania na odwrotną (najstarsze najpierw) klikając ikonę sortowania w prawym górnym rogu.
+
+Każda miniatura w galerii pokazuje podgląd obrazu, model którym został wygenerowany, datę utworzenia oraz status (ukończone, przetwarzanie, błąd). Po najechaniu myszką pojawiają się dodatkowe opcje: podgląd w pełnej rozdzielczości, pobierz, edytuj, usuń.
+
+## Filtry statusu: ukończone, oczekujące, błędy
+
+Proompi pozwala filtrować generowania według statusu. To niezwykle przydatne gdy czekasz na ukończenie wideo (które może trwać kilka minut) albo chcesz sprawdzić, które generowania się nie powiodły.
+
+**Status: Wszystkie** — pokazuje kompletną historię bez żadnego filtra. Użyteczne gdy szukasz czegoś konkretnego i nie pamiętasz, czy się udało.
+
+**Status: Ukończone** — pokazuje tylko w pełni zakończone, gotowe do użycia treści. To najpopularniejszy widok, bo zwykle interesują Cię tylko udane generowania.
+
+**Status: Oczekujące** — pokazuje treści które właśnie się generują. Przy długich wideo czy muzyce (nawet 10 minut czasu generowania) to okno pozwala obserwować postęp. Proompi aktualizuje status na żywo, więc widzisz w czasie rzeczywistym kiedy coś się kończy.
+
+**Status: Błędy** — generowania które się nie powiodły z różnych powodów: przekroczony timeout, problem z modelem AI, niewłaściwa treść promptu (moderacja), błąd serwera. Każdy błąd ma krótki opis problemu i sugestię jak go naprawić.
+
+## Filtry źródła: generator vs workflow
+
+Oprócz statusu możesz też filtrować według źródła — czyli miejsca, w którym wygenerowałeś treść.
+
+**Generator** — obrazy i wideo stworzone przez standardowe formularze generowania. To ten klasyczny flow: wpisujesz prompt, wybierasz model, klikasz Generuj. Większość użytkowników korzysta głównie z generatora, zwłaszcza na początku.
+
+**Workflow** — treści powstałe w ramach Workflow Builder (zaawansowanego narzędzia do budowania wieloetapowych procesów). Jeśli używasz Workflow do automatyzacji (np. scrapujesz stronę → wyciągasz kolory → generujesz 4 warianty grafiki), wszystkie te wyniki trafią do galerii z tagiem Workflow.
+
+Filtr ten jest bardzo przydatny jeśli masz ustrukturyzowane procesy i chcesz szybko odnaleźć wyniki z konkretnego workflow. Możesz też łączyć filtry — np. wyświetlić tylko ukończone generowania z Workflow.
+
+## Sortowanie: najnowsze vs najstarsze
+
+Domyślne sortowanie to **najnowsze pierwsze** — galeria działa jak timeline w social media. Najświeższe rzeczy na górze, starsze w dół. To najbardziej praktyczne ustawienie w 90% przypadków, bo zazwyczaj pracujesz nad czymś aktualnym.
+
+Czasami jednak chcesz wrócić do starych projektów albo znaleźć coś z początków używania Proompi. Wtedy przełączasz sortowanie na **najstarsze pierwsze**. Galeria przewinie się od samego początku — Twojego pierwszego generowania — i stopniowo załaduje wszystkie kolejne w porządku chronologicznym.
+
+Zmiana sortowania działa natychmiast i zachowuje się po przeładowaniu strony — Proompi zapamięta Twoje ustawienie.
+
+## Lightbox i podgląd pełnej rozdzielczości
+
+Kliknięcie na miniaturę dowolnego obrazu otwiera lightbox — pełnoekranowy podgląd z ciemnym tłem. Widzisz obraz w oryginalnej rozdzielczości bez kompresji. To idealne miejsce, żeby ocenić detale, sprawdzić jakość przed pobraniem czy zadecydować, który wariant wybrać.
+
+W lightboxie masz dostęp do wszystkich szczegółów: użyty model, prompt, ustawienia jakości (Standard/HD), data wygenerowania, liczba zużytych kredytów. Możesz też przechodzić do następnego/poprzedniego obrazu za pomocą strzałek klawiatury lub gestów na mobile (swipe left/right).
+
+Lightbox ma też dodatkowe akcje: Pobierz, Edytuj (Text Overlay, Wektoryzacja), Usuń, Udostępnij. Wszystko pod ręką bez zamykania podglądu.
+
+## Pobieranie obrazów
+
+Pobieranie jest proste: kliknij przycisk Download (ikona strzałki w dół) pod obrazem lub w lightboxie. Plik zostanie zapisany na Twoim urządzeniu w oryginalnej rozdzielczości i jakości. Format to PNG (dla obrazów) lub MP4 (dla wideo), MOV (dla niektórych modeli wideo) czy MP3/WAV (dla muzyki).
+
+Pobrane pliki są wolne od watermarku Proompi — dostajesz czysty, gotowy do użycia asset. Możesz używać ich komercyjnie według licencji Proompi (sprawdź szczegóły w warunkach korzystania, ale generalnie: wygenerowane przez Ciebie treści należą do Ciebie).
+
+Jeśli pobierasz wideo czy muzykę, pamiętaj że pliki mogą być duże (nawet kilkaset MB dla dłuższych klipów). Upewnij się że masz stabilne połączenie internetowe.
+
+## Operacje grupowe — usuwanie wielu obrazów naraz
+
+Czasami chcesz uporządkować galerię i usunąć kilkadziesiąt nieudanych draftów czy starych testów. Zamiast klikać Delete 50 razy, użyj trybu zaznaczania grupowego.
+
+Kliknij przycisk "Zaznacz" (checkbox) w górnym pasku galerii. Przy każdej miniaturze pojawi się checkbox. Zaznacz wszystkie obrazy które chcesz usunąć, a następnie kliknij "Usuń zaznaczone" w dolnym pasku akcji. Proompi poprosi o potwierdzenie (żeby nie usunąć przypadkowo czegoś ważnego) i wykasuje wszystkie zaznaczone elementy.
+
+Usunięcie jest **nieodwracalne** — nie ma kosza z którego można odzyskać pliki. Jeśli masz wątpliwości, pobierz obraz lokalnie przed skasowaniem z galerii.
+
+## Cykl życia obrazów — ile długo są przechowywane
+
+Obrazy w galerii nie są przechowywane wiecznie na darmowym planie FREE. Po określonym czasie (zazwyczaj 30-60 dni, sprawdź aktualne warunki) nieaktywne obrazy mogą zostać automatycznie usunięte, żeby zwolnić miejsce. Aktywność to: wyświetlenie, pobranie, edycja lub udostępnienie.
+
+Plany płatne (SPARK, ACCELERATOR, PRO) mają dłuższe lub nielimitowane przechowywanie. PRO daje wieczny dostęp do wszystkich generowań. Jeśli masz coś naprawdę ważnego na planie FREE, pobierz to lokalnie i zrób backup.
+
+Proompi ostrzega Cię mailem zanim cokolwiek zostanie usunięte automatycznie, więc masz czas zareagować.
+
+## Różnica między galerią a historią
+
+**Galeria** pokazuje **wyniki** — gotowe obrazy, wideo, muzykę. To miejsce gdzie przechodzisz żeby obejrzeć, pobrać czy dalej edytować wygenerowane treści.
+
+**Historia** (jeśli jest dostępna jako osobna sekcja) pokazuje **zapytania** — listę wszystkich promptów które wysłałeś, ustawienia których użyłeś, modele które wybrałeś, nawet jeśli generowanie się nie powiodło albo anulowałeś je w połowie. To bardziej log aktywności niż archiwum plików.
+
+W historii możesz np. odtworzyć dokładnie ten sam prompt z tamtego tygodnia (funkcja "Powtórz"), porównać różne wersje tego samego pomysłu, zobaczyć ile kredytów zużyłeś na konkretnym projekcie. Dla większości codziennych zadań Galeria wystarcza, ale Historia jest nieoceniona przy analizie i optymalizacji swojego workflow.

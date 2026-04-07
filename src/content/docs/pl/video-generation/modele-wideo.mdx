@@ -1,0 +1,258 @@
+---
+title: "Modele wideo AI — który wybrać?"
+description: "Porównanie Sora 2, Luma Ray 2, Kling v1.6, Wan 2.1 — kiedy co daje najlepsze efekty."
+section: "video-generation"
+order: 1
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Przegląd modeli wideo w Proompi
+
+Generowanie wideo AI to najbardziej zaawansowana (i najdroższa) funkcja w Proompi. Dostępnych jest 6 modeli, każdy z własnymi mocnymi stronami. Wybór odpowiedniego modelu determinuje jakość, koszt i czas generowania.
+
+**Ważne:** Wideo AI wymaga planu **SPARK lub wyższego**. Nie jest dostępne w planie FREE.
+
+| Model | Koszt | Jakość | Najlepszy do | Rozdzielczość |
+|-------|-------|---------|--------------|---------------|
+| **Sora 2** | 12 kr/sek | Excellent | Brand videos, realism | 1080p |
+| **Sora Pro** | 35 kr/sek | Ultra | Hero content, cinematic | 1080p-4K |
+| **Luma Ray 2** | 23 kr (flat) | Excellent | Product demos, fluid motion | 1080p |
+| **Wan 2.1 480p** | 23 kr (flat) | Good | Budget option, tests | 480p |
+| **Kling v1.6 Pro** | 12 kr/sek | Very good | Smooth transitions, motion | 1080p |
+| **Runway Gen3a Turbo** | 6 kr/sek | Good | Legacy, quick tests | 720p |
+
+## Sora 2 — najlepszy fotorealizm od OpenAI (12 kr/sek)
+
+**Sora 2** to następca legendarnego Sora 1.0 od OpenAI. To obecnie najbardziej wszechstronny model wideo w Proompi — doskonała jakość, realistyczny ruch, spójność czasowa, dobre zrozumienie fizyki świata.
+
+**Mocne strony:**
+- Najlepszy fotorealizm wśród wszystkich modeli (obok Sora Pro)
+- Świetne zrozumienie promptów tekstowych
+- Spójność między klatkami (minimal flickering/artifacts)
+- Dobra fizyka ruchu (ludzie, zwierzęta, pojazdy poruszają się naturalnie)
+- Oświetlenie i cienie realistyczne
+
+**Kiedy używać:**
+- Wideo marketingowe dla brandów
+- Realistic scenes (ludzie, natura, architektura)
+- Product reveal videos (gdzie realizm = klucz)
+- Commercial content (reklamy, landing pages)
+- Gdy jakość jest priorytetem ale nie masz unlimited budgetu na Sora Pro
+
+**Przykładowe prompty które działają świetnie:**
+- "A woman walking through a sunlit forest, camera following from behind, morning mist, cinematic"
+- "Close-up of coffee being poured into a white ceramic cup, steam rising, slow motion"
+- "Aerial drone shot slowly flying over a coastal town at sunset, golden hour lighting"
+
+**Koszt:** 12 kredytów per sekunda. Wideo 5-sekundowe = 60 kredytów (~4x koszt obrazu GPT-image-1).
+
+**Czas generowania:** ~45-90 sekund zależnie od długości wideo.
+
+## Sora Pro — premium cinematic quality (35 kr/sek)
+
+**Sora Pro** to najwyższa jakość dostępna w Proompi. To ultra-premium wersja Sora używana do hero content, key visuals, produktów gdzie "wow effect" jest niezbędny.
+
+**Różnica vs Sora 2:**
+- Wyższa rozdzielczość (do 4K vs 1080p)
+- Lepsza szczegółowość tekstur i materiałów
+- Subtelniejsze odwzorowanie światła i cieni
+- Dłuższe spójne sekwencje (lepiej radzi sobie z 10-15 sek clips)
+- Bardziej cinematyczna "film look" (color grading, depth)
+
+**Kiedy używać:**
+- Key visuals dla prestiżowych kampanii
+- Hero video na homepage (gdzie to pierwsze co widzi user)
+- Produkcje filmowe, music videos, art projects
+- Gdy klient płaci premium i oczekuje najlepszego
+- Pitch decks dla inwestorów (where quality = credibility)
+
+**Przykłady użycia:**
+- Launch video dla flagowego produktu tech company
+- Brand manifesto video dla luxury brand
+- Key visual do raportu rocznego Fortune 500
+- Cinematic intro do dokumentu/prezentacji
+
+**Koszt:** 35 kredytów per sekunda. 5-sekundowe wideo = 175 kredytów (!!). To ~11x koszt obrazu GPT-image-1. Używaj mądrze.
+
+**Best practice:** Testuj koncepcję w tańszym modelu (Sora 2 albo Kling). Jak już wiesz że prompt działa, WTEDY generuj wersję final w Sora Pro.
+
+## Luma Ray 2 — fluid motion specialist (23 kr flat)
+
+**Luma Ray 2** od Luma AI to model który wyróżnia się jedną rzeczą: **niezwykle płynny, naturalny ruch**. Gdzie inne modele mają stuttering czy jumpcuts między klatkami, Luma Ray 2 ma silky smooth motion.
+
+**Unikalna cecha:** Koszt **flat fee** 23 kredyty niezależnie od długości (do limitu ~5 sekund). To oznacza że 5-sekundowe wideo kosztuje tyle samo co 3-sekundowe.
+
+**Mocne strony:**
+- Absolutnie najlepszy fluid motion (ideal dla camera movements)
+- Świetny do product demos (płynne obroty, zoom ins)
+- Doskonały temporal consistency (brak flicker)
+- Bardzo dobra jakość za relatywnie niski koszt (23kr = ~1.9kr/sek dla 5-sec clip)
+
+**Kiedy używać:**
+- Product demonstrations (obrót produktu 360°, zoom na detale)
+- Camera movement shots (pan, tilt, zoom, dolly)
+- Smooth transitions między scenami
+- Anything gdzie ruch musi być absolutnie płynny
+
+**Przykładowe prompty:**
+- "360 degree rotation around a luxury watch on black background, studio lighting"
+- "Camera slowly zooms into a smartphone screen showing app interface, shallow depth of field"
+- "Smooth tracking shot following a car driving on mountain road, aerial perspective"
+
+**Koszt:** 23 kredyty (flat, do 5 sekund). Best value jeśli robisz 5-sekundowe klipy.
+
+**Uwaga:** Luma Ray 2 ma limit ~5 sekund. Jeśli potrzebujesz dłuższe wideo, użyj Sora lub Kling.
+
+## Wan 2.1 480p — budget option (23 kr flat)
+
+**Wan 2.1** to ekonomiczna alternatywa dla Luma Ray. Podobna cena (23kr flat) ale niższa rozdzielczość (480p vs 1080p).
+
+**Kiedy używać:**
+- Testy konceptów (nie chcesz wydawać 60+ kredytów na Sora testując czy prompt działa)
+- Quick drafts do pokazania klientowi
+- Thumbnails wideo (które i tak będą wyświetlane w małym rozmiarze)
+- Social media stories (gdzie jakość nie jest krytyczna)
+- Tight budget projects
+
+**Jakość:** "Good" — nie "excellent", ale całkiem używalne do niektórych zastosowań. 480p to niska rozdzielczość (DVD quality), więc nie użyjesz tego do niczego gdzie wideo jest wyświetlane full-screen.
+
+**Koszt:** 23 kredyty (tak samo jak Luma Ray 2), ale dostajesz niższą rozdzielczość. Sensowne tylko jeśli naprawdę testujesz albo masz bardzo ograniczony budget.
+
+**Recommend:** Jeśli masz 23 kredyty, lepiej wydaj je na Luma Ray 2 (1080p) niż Wan 2.1 (480p) — ta sama cena, lepsza jakość.
+
+## Kling v1.6 Pro — smooth motion king (12 kr/sek)
+
+**Kling** od Kuaishou (chińska firma) to model który zyskał popularność dzięki bardzo gładkiemu ruchowi i dobrej jakości przy relatywnie niskim koszcie.
+
+**Mocne strony:**
+- Bardzo smooth motion (prawie tak dobry jak Luma Ray)
+- Świetny do animacji i transitions
+- Dobra jakość 1080p
+- Świetny stosunek jakości do ceny (12kr/sek jak Sora 2, ale inny "look")
+
+**"Look" Klinga:** Kling ma lekko "artystyczny" vibe — mniej ultra-realistyczny niż Sora, bardziej "filmowy". Niektórzy preferują to jako estetykę.
+
+**Kiedy używać:**
+- Transitions i motion graphics
+- Stylizowane wideo (nie ultra-realistic)
+- Gdy chcesz dobrej jakości ale Sora jest za drogi dla długich klipów
+- Content gdzie "artystyczny look" jest plusem
+
+**Przykłady:**
+- "Geometric shapes morphing and transitioning, colorful gradient background, abstract motion design"
+- "Text animation, words appearing and floating in 3D space, modern typography"
+- "Flower blooming in time lapse, macro shot, artistic lighting"
+
+**Koszt:** 12 kredytów/sekunda (identical do Sora 2). Wybór między Kling a Sora 2 to kwestia estetyki — testuj oba.
+
+## Runway Gen3a Turbo — legacy fast option (6 kr/sek)
+
+**Runway Gen3a Turbo** to starszy model (Runway to pionierzy generative video). Dziś jest "legacy" ale wciąż dostępny jako tańsza opcja.
+
+**Dlaczego "legacy":**
+- Starszy model z początku 2024
+- Niższa rozdzielczość (720p max)
+- Mniej realistyczny niż Sora/Luma/Kling
+- Więcej artifacts i flicker
+
+**Dlaczego wciąż używany:**
+- Najtańszy (6 kredytów/sek = połowa Sora/Kling)
+- Szybsze generowanie (~30 sekund)
+- Idealny do quick tests przed komitem do droższego modelu
+
+**Kiedy używać:**
+- Testowanie promptów wideo (czy koncept w ogóle działa)
+- Very tight budget
+- Situations gdzie jakość nie jest krytyczna (internal presentations, rough drafts)
+
+**Recommend:** Używaj Runway Gen3a tylko do testów. Dla finałów przejdź na Sora 2, Luma lub Kling.
+
+## Jak pisać prompty do wideo — praktyczne wskazówki
+
+Generowanie wideo różni się od obrazów — musisz opisać NIE TYLKO scenę ale też **ruch** i **akcję kamery**.
+
+### 1. Opisz ruch kamery
+
+Podaj jak camera się porusza:
+- "Camera slowly pans from left to right"
+- "Aerial drone shot descending towards the ground"
+- "Handheld camera following subject from behind"
+- "Static camera, no movement"
+- "Camera zooms in on subject's face"
+
+### 2. Opisz akcję/ruch w scenie
+
+Co się dzieje:
+- "Woman walks towards camera, smiling"
+- "Leaves falling from tree in slow motion"
+- "Car accelerates and drives away"
+- "Coffee cup being lifted and sipped"
+
+### 3. Opisz warunki oświetleniowe
+
+Jak w promptach obrazowych:
+- "Golden hour sunlight, warm tones"
+- "Moody low-key lighting, dramatic shadows"
+- "Bright studio lighting, evenly lit"
+- "Neon lights reflecting on wet pavement at night"
+
+### 4. Określ tempo i czas
+
+- "Slow motion"
+- "Time lapse"
+- "Real-time speed"
+- "Fast motion (2x speed)"
+
+### 5. Cinematography style
+
+- "Cinematic, shot on RED camera, film grain"
+- "Handheld documentary style"
+- "Smooth gimbal shot, professional"
+- "Vintage 8mm home video aesthetic"
+
+## Przykłady dobrych promptów wideo
+
+**Product demo:**
+"Close-up shot of luxury watch on black velvet surface, camera slowly rotates 360 degrees around the watch, studio lighting with soft reflections on metal surface, commercial product photography style"
+
+**Nature scene:**
+"Aerial drone footage flying over misty mountain valley at sunrise, camera slowly descending towards a winding river, golden hour lighting, cinematic color grading with teal and orange tones, 4K quality"
+
+**Lifestyle content:**
+"Young woman sitting in modern cafe, looking out window with coffee cup in hands, warm afternoon sunlight streaming through, shallow depth of field with blurred background, shot on Sony A7III, film aesthetic"
+
+**Abstract/artistic:**
+"Colorful liquid paints mixing and swirling in water, macro shot, slow motion, black background, vibrant colors (magenta, cyan, yellow), dramatic lighting from side, artistic and mesmerizing"
+
+## Tabela porównawcza — która model do czego
+
+| Use Case | Zalecany model | Dlaczego |
+|----------|----------------|----------|
+| Brand video komercyjny | Sora 2 | Realizm, profesjonalna jakość |
+| Hero content / premium | Sora Pro | Najwyższa jakość, cinematic |
+| Product demo | Luma Ray 2 | Płynny ruch, dobra cena za 5 sek |
+| Test konceptu | Runway Gen3a lub Wan 2.1 | Tanie, szybkie |
+| Smooth transitions | Kling v1.6 Pro | Najlepszy smooth motion |
+| Artistic/stylized | Kling v1.6 Pro | Artystyczny look |
+| Budget ograniczony | Runway Gen3a | Najtańszy (6kr/sek) |
+
+## Praktyczne porady
+
+**Tip 1: Trzymaj wideo krótkie (3-5 sekund)**  
+Dłuższe wideo = więcej artifact, więcej kosztów, dłuższe generowanie. 3-5 sekund to sweet spot dla większości use cases. Jeśli potrzebujesz 15-sekundowe wideo, wygeneruj 3x5-sekundowe klipy i zmerguj w edytorze.
+
+**Tip 2: Testuj w Runway/Wan, finalizuj w Sora**  
+Workflow: Napisz 3 różne prompty → testuj w Runway Gen3a (tanie) → wybierz najlepszy → regeneruj w Sora 2 albo Pro.
+
+**Tip 3: Unikaj zbyt wielu zmian sceny**  
+"Woman walks, then sits, then stands and leaves" = za dużo akcji. Modele gubią się. Lepiej: "Woman walks through park, camera following" (jedna akcja, prosta).
+
+**Tip 4: Użyj image-to-video dla konsystencji**  
+Wygeneruj obraz w AI Generate Node → użyj jako first frame w Video Node. Gwarantujesz że wideo zaczyna się od dokładnie tego kadru który chcesz.
+
+**Tip 5: Opisz wszystko co widzisz w głowie**  
+W przeciwieństwie do obrazów, wideo potrzebuje BARDZO szczegółowych promptów. Opisz kamerę, ruch, lighting, czas dnia, tempo — wszystko.
+
+Generowanie wideo to najdroższa feature w Proompi, ale efekty są niesamowite. Używaj mądrze, testuj na tańszych modelach, finalizuj na premium. Powodzenia!

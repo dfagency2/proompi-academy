@@ -1,0 +1,245 @@
+---
+title: "Text Overlay — dodaj tekst do obrazu"
+description: "Jak dodawać tekst na wygenerowane obrazy — fonty, pozycje, kolory i eksport gotowego plakatu."
+section: "graphics-editing"
+order: 1
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Czym jest Text Overlay
+
+Text Overlay to narzędzie które pozwala dodać tekst (headline, napis, cytat) bezpośrednio na wygenerowany obraz w Proompi — bez potrzeby używania Photoshopa czy Canvy. Wszystko dzieje się in-browser, w czasie rzeczywistym, z live preview.
+
+**Use cases:**
+- Instagram posty z headline'ami ("NEW PRODUCT LAUNCH")
+- Plakaty wydarzeń z datą i miejscem
+- Cytaty / quote graphics
+- Banery z ceną produktu
+- Eventy flyers z nazwami artystów
+
+Idealnie gdy potrzebujesz szybko dodać tekst i nie chcesz otwierać Figmy czy Photoshopa.
+
+## Jak otworzyć Text Overlay editor
+
+1. Wejdź do **Galerii**
+2. Znajdź obraz na którym chcesz dodać tekst
+3. Najedź myszką na obraz → pojawi się menu akcji
+4. Kliknij **Edit** → wybierz **Text Overlay**
+5. Otworzy się editor z live preview obrazu
+
+Alternatywnie: Otwórz obraz w lightbox (kliknij na niego) → przycisk **Add Text** u góry.
+
+## Dostępne fonty
+
+Proompi oferuje kilka starannie dobranych fontów które działają dobrze w różnych kontekstach:
+
+### San Francisco / System Font
+- Nowoczesny, czytelny, minimalistyczny
+- Używany w Apple UI
+- Świetny do clean, tech, corporate content
+- Sans-serif (bez szeryfów)
+
+### Georgia
+- Klasyczny serif font
+- Elegancki, editorial vibe
+- Świetny do cytatów, artykułów, content o wysokim obiegu
+- Dobra czytelność nawet w małych rozmiarach
+
+### Courier New
+- Monospace (stała szerokość znaków)
+- Vintage typewriter aesthetic
+- Świetny do retro designs, code snippets, hipster content
+
+### Inne fonty (zależnie od planu)
+- **Montserrat** — geometric sans, modern i clean
+- **Playfair Display** — elegant serif, fashion/luxury
+- **Roboto** — Google's workhorse, versatile
+- **Bebas Neue** — condensed, impact headlines
+
+**PRO tip:** Jeśli potrzebujesz custom font (np. brand font), możesz wygenerować obraz z tekstem używając Ideogram-2 (model który umie renderować tekst) albo użyć Figmy i zaimportować finalny obraz.
+
+## Pozycje tekstu
+
+Text Overlay oferuje 9 predefiniowanych pozycji (alignment + vertical position):
+
+| Pozycja | Kiedy używać |
+|---------|--------------|
+| **Center** | Główny headline, quote w centrum |
+| **Top Center** | Tytuł wydarzenia, header |
+| **Bottom Center** | Podpis, credit, data |
+| **Top Left** | Logo/nazwa brand (dyskretnie) |
+| **Top Right** | Cena, badge ("NEW!") |
+| **Bottom Left** | Copyright, attribution |
+| **Bottom Right** | Instagram handle, watermark |
+| **Center Left** | Pionowy tekst, side headline |
+| **Center Right** | Pionowy tekst, side headline |
+
+**Live preview:** Gdy klikasz pozycję, tekst natychmiast się przesuwa. Widzisz efekt w czasie rzeczywistym.
+
+**Best practice:** Umieszczaj tekst na obszarach z niskim kontrastem/jednolitym kolorem. Unikaj nakładania tekstu na skomplikowane detale obrazu (twarz, małe obiekty) — będzie nieczytelny.
+
+## Kolor tekstu
+
+Picker kolorów pozwala wybrać dowolny kolor tekstu (hex, RGB, HSL).
+
+**Podstawowe opcje:**
+- Biały (#FFFFFF) — najczęściej używany, dobry na ciemnych obszarach
+- Czarny (#000000) — dobry na jasnych obszarach
+- Brand colors — użyj kolorów z brand guidelines
+
+**Kontrast jest kluczowy:**
+- Tekst musi być **czytelny** — minimum 4.5:1 contrast ratio (WCAG AA standard)
+- Biały tekst na jasnoszarym tle = słaba czytelność
+- Czarny tekst na ciemnoszarym tle = słaba czytelność
+
+**PRO tip — text shadow/outline:**
+Niektóre Text Overlay editory oferują opcję dodania cienia albo outline (obwódki) wokół tekstu. To zwiększa kontrast i czytelność nawet gdy tekst jest na skomplikowanym tle.
+
+Jeśli Proompi nie ma builtin shadow: użyj białego tekstu z delikatnie przyciemnionym tłem pod spodem (semi-transparent box).
+
+## Rozmiar fontu (Font Size)
+
+Slider pozwala dostosować rozmiar tekstu od małego (12pt) do bardzo dużego (200pt+).
+
+**Guidelines według use case:**
+
+**Instagram post (1080x1080px):**
+- Główny headline: 60-100pt
+- Subheadline: 30-50pt
+- Body text / credit: 20-30pt
+
+**Facebook cover (820x312px):**
+- Headline: 50-80pt
+- Body: 20-30pt
+
+**Poster A3 druk:**
+- Tytuł: 100-150pt
+- Szczegóły (data, miejsce): 40-60pt
+- Małe teksty (sponsor logos, info): 20-30pt
+
+**Wizytówka:**
+- Nazwa: 18-24pt
+- Tytuł/stanowisko: 12-16pt
+- Kontakt: 10-14pt
+
+**Zasada:** Im większy finalny rozmiar wydruku/wyświetlenia, tym większy font możesz użyć. Ale zawsze testuj czytelność — bardzo duży font może być overwhelming.
+
+## Live Preview — jak to działa
+
+Text Overlay editor pokazuje obraz z nałożonym tekstem **w czasie rzeczywistym**. Każda zmiana (kolor, pozycja, rozmiar, font) natychmiast aktualizuje preview.
+
+To oznacza że możesz:
+1. Wpisać tekst
+2. Kliknąć różne pozycje żeby zobaczyć gdzie wygląda najlepiej
+3. Zmienić kolor 5 razy testując co pasuje
+4. Dostosować rozmiar aż będzie idealny
+5. Zmienić font żeby porównać style
+
+Wszystko bez "apply → wait → see result" — instant feedback.
+
+**Zoom:** Możesz zazoomować preview żeby zobaczyć detale (czy font jest sharp, czy kolor kontrastuje wystarczająco).
+
+## Eksport i zapisywanie
+
+Gdy jesteś zadowolony z efektu:
+
+1. Kliknij **Save** albo **Export**
+2. Proompi renderuje finalny obraz z nałożonym tekstem
+3. Nowy obraz (original + text) pojawia się w Galerii
+4. Możesz go pobrać jako PNG (z transparencją jeśli applicable) albo JPG
+
+**Format:**
+- **PNG** — zachowuje ostrość tekstu, idealne do dalszej edycji
+- **JPG** — mniejszy rozmiar pliku, good enough do większości zastosowań web/social
+
+**Oryginał zostaje nienaruszony** — Text Overlay tworzy NOWĄ wersję obrazu. Jeśli później chcesz zmienić tekst, możesz wrócić do oryginału i dodać tekst ponownie.
+
+## Real use cases — przykłady
+
+### Use case 1: Instagram quote graphic
+
+**Wyjściowy obraz:** Abstract pastel gradient background (wygenerowany w Proompi z FLUX 1.1 Pro)
+
+**Text Overlay:**
+- Font: Georgia (elegant serif)
+- Pozycja: Center
+- Kolor: White (#FFFFFF)
+- Rozmiar: 80pt
+- Tekst: "The best time to plant a tree was 20 years ago. The second best time is now."
+
+**Rezultat:** Gotowy post Instagram z cytatem, profesjonalnie skomponowany, do upload w 30 sekund.
+
+### Use case 2: Event poster
+
+**Wyjściowy obraz:** Wygenerowany plakat muzyczny (Ideogram-2 nie załapał całego tekstu albo chcesz dodać datę)
+
+**Text Overlay #1:**
+- Font: Bebas Neue (bold, condensed)
+- Pozycja: Top Center
+- Kolor: Bright yellow (#FFD700)
+- Rozmiar: 120pt
+- Tekst: "JAZZ NIGHT"
+
+**Text Overlay #2:**
+- Font: San Francisco
+- Pozycja: Bottom Center
+- Kolor: White
+- Rozmiar: 40pt
+- Tekst: "March 15, 2025 • 8 PM • Blue Note Club"
+
+**Rezultat:** Kompletny plakat z tytułem i detalami, gotowy do druku/sharing.
+
+### Use case 3: Product banner z ceną
+
+**Wyjściowy obraz:** Product photography (zegarek na czarnym tle)
+
+**Text Overlay:**
+- Font: Montserrat Bold
+- Pozycja: Top Right
+- Kolor: Gold (#D4AF37)
+- Rozmiar: 60pt
+- Tekst: "$499"
+
+**Rezultat:** Product shot z ceną, gotowy banner do e-commerce czy reklamy.
+
+## Wskazówki dla najlepszych efektów
+
+### 1. Użyj high-contrast color
+
+Biały tekst na ciemnym obrazie = ✅  
+Czarny tekst na jasnym obrazie = ✅  
+Szary tekst na szarym obrazie = ❌
+
+### 2. Nie overcrowd
+
+Jeden główny headline (max 5-7 słów) jest lepszy niż 3 paragrafy tekstu. Tekst ma **uzupełniać** obraz, nie go przesłaniać.
+
+### 3. Alignment z kompozycją obrazu
+
+Jeśli obraz ma główny subject po lewej stronie, umieść tekst po prawej (żeby nie nakładać się). Jeśli subject w centrum, tekst top/bottom.
+
+### 4. Używaj brand fonts
+
+Jeśli tworzysz dla klienta który ma brand guidelines — użyj ich fonta (może wymagać Figmy jeśli font nie jest dostępny w Proompi). Dla własnych projektów: trzymaj się 1-2 fontów dla konsystencji.
+
+### 5. Test czytelności na mobile
+
+Instagram/social media = większość ludzi ogląda na telefonie. Zoom out swojego preview i zobacz czy tekst jest czytelny na małym ekranie. Jeśli nie — zwiększ font size.
+
+## Alternatywy: kiedy NIE używać Text Overlay
+
+Text Overlay jest świetny do prostych, szybkich zadań. NIE używaj gdy:
+
+**Potrzebujesz zaawansowanego layoutu** (multiple text blocks, różne fonts w jednym obrazie, skomplikowane composition) → użyj Figmy/Canvy
+
+**Potrzebujesz tekstu WEWNĄTRZ obrazu** (nie nałożonego ale rendered przez AI jako część sceny) → użyj Ideogram-2 model przy generowaniu
+
+**Potrzebujesz editowalności później** (zmiana tekstu co tydzień) → użyj Figmy i zapisz jako template, nie flat image
+
+**Potrzebujesz custom effects** (gradients na tekście, 3D effects, complex shadows) → użyj Photoshop albo After Effects
+
+Text Overlay = quick, simple, effective. Dla 80% social media use cases — wystarczy. Dla pozostałych 20% — sięgnij po profesjonalne narzędzia.
+
+Teraz masz wszystko czego potrzebujesz żeby dodawać profesjonalnie wyglądający tekst do swoich AI-generated obrazów w minuty, nie godziny. Eksperymentuj z fontami, kolorami i pozycjami — znajdź swój style!

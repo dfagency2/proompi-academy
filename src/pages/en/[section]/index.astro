@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+
+export async function getStaticPaths() {
+  const allDocs = await getCollection('docs');
+  const enDocs = allDocs.filter(d => d.data.lang === 'en');
+  const sections = [...new Set(enDocs.map(d => d.data.section))];
+
+  return sections.map(section => ({
+    params: { section },
+    props: {
+      articles: enDocs.filter(d => d.data.section === section).sort((a, b) => a.data.order - b.data.order),
+      section,
+    },
+  }));
+}
+
+interface Props {
+  articles: any[];
+  section: string;
+}
+
+const { articles, section } = Astro.props;
+
+const sectionMeta: Record<string, { label: string; desc: string; icon: string; color: string }> = {
+  'getting-started': { label: 'Getting Started', desc: 'Start using Proompi from scratch. Registration, navigation, first generation.', icon: '🚀', color: 'text-emerald-600' },
+  'prompt-enhancement': { label: 'Prompt Enhancement', desc: 'Write prompts that deliver spectacular results. Modes, styles, reference images.', icon: '✨', color: 'text-primary-600' },
+  'image-generation': { label: 'Image Generation', desc: 'Everything about AI image generation — models, settings, quality, best practices.', icon: '🖼️', color: 'text-violet-600' },
+  'workflows': { label: 'Workflow Builder', desc: 'Build advanced AI pipelines. Visual builder, node types, templates, automation.', icon: '⚡', color: 'text-indigo-600' },
+  'video-generation': { label: 'Video Generation', desc: 'Sora 2, Luma Ray, Kling, Wan — guide to AI video models.', icon: '🎬', color: 'text-rose-600' },
+  'music-generation': { label: 'Music Generation', desc: 'Studio-quality AI music with ElevenLabs. Create a soundtrack, jingle or track.', icon: '🎵', color: 'text-orange-600' },
+  'graphics-editing': { label: 'Graphics Editing', desc: 'Text overlay, SVG vectorization, export — do more with your generated image.', icon: '🎨', color: 'text-teal-600' },
+  'plans-credits': { label: 'Plans & Credits', desc: 'How the credit system works, which plan to choose, and how to save credits.', icon: '💳', color: 'text-amber-600' },
+  'tips': { label: 'Tips & Tricks', desc: 'Quick tips and bite-sized knowledge for more advanced users.', icon: '💡', color: 'text-neutral-600' },
+};
+
+const meta = sectionMeta[section] ?? { label: section, desc: '', icon: '📄', color: 'text-primary-600' };
+---
+
+<BaseLayout title={meta.label} description={meta.desc} lang="en">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="flex items-center gap-2 text-sm text-neutral-400 mb-8">
+      <a href="/en" class="hover:text-primary-500 transition-colors">Academy</a>
+      <span>›</span>
+      <span class="text-neutral-700 font-medium">{meta.label}</span>
+    </nav>
+
+    <header class="mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-4xl">{meta.icon}</span>
+        <h1 class:list={['text-3xl sm:text-4xl font-bold', meta.color]}>{meta.label}</h1>
+      </div>
+      <p class="text-lg text-neutral-500 max-w-2xl">{meta.desc}</p>
+    </header>
+
+    {articles.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {articles.map(article => (
+          <ArticleCard article={article} lang="en" />
+        ))}
+      </div>
+    ) : (
+      <div class="glass-card p-12 text-center text-neutral-400">
+        <p class="text-4xl mb-3">✍️</p>
+        <p class="font-medium">Content for this section is coming soon</p>
+      </div>
+    )}
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": `${meta.label} — Proompi Academy`,
+    "description": meta.desc,
+    "url": `https://academy.proompi.com/en/${section}`,
+    "isPartOf": { "@type": "WebSite", "url": "https://academy.proompi.com" },
+  })} />
+</BaseLayout>

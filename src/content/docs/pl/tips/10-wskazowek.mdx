@@ -1,0 +1,222 @@
+---
+title: "10 wskazówek dla lepszych wyników w Proompi"
+description: "Sprawdzone triki które sprawią, że Twoje generowania będą 10x lepsze od pierwszego dnia."
+section: "tips"
+order: 1
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+badge: "Polecane"
+---
+
+## 1. Testuj na flux-schnell, finalizuj na gpt-image-1
+
+Najczęstszy błąd początkujących: generowanie każdej iteracji w drogim modelu. Testuj 5 różnych konceptów w GPT-image-1 (5 x 15 = 75 kredytów) zanim znajdziesz dobry. Marnujesz 60 kredytów na złe pomysły.
+
+**Lepszy workflow:**
+1. Napisz 3-5 różnych promptów
+2. Wygeneruj wszystkie w **FLUX schnell** (5 x 2 = 10 kredytów)
+3. Zobacz który koncept jest najlepszy
+4. Wybierz 1-2 najlepsze
+5. Regeneruj TYLKO te w **GPT-image-1** albo **GPT-image-1.5** (2 x 15 = 30 kredytów)
+
+**Oszczędność:** 75 kredytów vs 40 kredytów = 47% cheaper + szybsze iteracje (schnell generuje w 5-8 sekund vs 15-25 sekund dla GPT-image).
+
+FLUX schnell ma zaskakująco dobrą jakość — często wystarczy jako final output dla social media. Nie przepłacaj "just in case".
+
+## 2. Tryb Szczegółowy daje najlepsze efekty komercyjne
+
+Z trzech trybów Prompt Enhancement (Quick/Detailed/Creative), **Detailed** daje najbardziej profesjonalne, komercyjnie użyteczne rezultaty.
+
+**Dlaczego:**
+- Dodaje professional photography terminology (f/2.8, golden hour, three-point lighting)
+- Specyfikuje materials i textures (brushed metal, matte finish, organic cotton)
+- Opisuje post-processing (color grading, contrast adjustments)
+- Kontekst użycia (commercial quality, editorial style, advertising)
+
+Quick jest OK do draftów. Creative jest świetny do art. Ale jeśli robisz coś dla klienta albo własnego biznesu, **Detailed mode** za 3 kredyty zwraca się wielokrotnie.
+
+**Test:** Wygeneruj ten sam prompt w Quick i Detailed. Zobacz różnicę. Detailed output wygląda jakby był z professional photo shoot. Quick wygląda... OK.
+
+## 3. Zawsze wgraj obraz referencyjny gdy masz konkretny styl
+
+Opisywanie stylu słowami ("vintage but modern, minimalist but warm, clean but not boring") to strata czasu. AI zgaduje co masz na myśli. Czasami trafia, często nie.
+
+**Lepiej:** Znajdź 1 obraz który reprezentuje dokładnie styl który chcesz (Pinterest, Behance, Unsplash) i wgraj jako **reference image** w Prompt Enhancement.
+
+AI przeanalizuje:
+- Exact color palette (nie "warm tones" ale dokładnie #FF5733, #3498DB)
+- Lighting style (hard shadows vs soft diffused)
+- Composition rules (rule of thirds, symmetry, negative space)
+- Texture style (smooth vs rough, matte vs glossy)
+
+**Rezultat:** Wygenerowany obraz wygląda spójnie ze stylem referencji. Nie zgadywanie, dokładność.
+
+**Use case:** Tworzysz brand content dla klienta. Wgrywasz ich istniejące zdjęcie jako referencję. Wszystkie nowe generowania automatycznie pasują do ich visual identity. Zero briefowania, instant consistency.
+
+## 4. Generuj 2-3 warianty naraz i wybieraj najlepszy
+
+AI nie jest deterministyczny — ten sam prompt może dać różne rezultaty. Czasami wariant #1 jest meh, ale wariant #2 jest perfect.
+
+Proompi generuje domyślnie **2 warianty** per request. To NIE kosztuje 2x więcej kredytów — koszt jest taki sam (np. GPT-image-1 = 15 kredytów, dostajesz 2 obrazy).
+
+**Nie rób:** Generuj 1 obraz → nie podoba Ci się → regeneruj → znowu meh → regeneruj → finally OK. Total: 3 requesty = 45 kredytów.
+
+**Rób:** Generuj 2 warianty od razu → jeden będzie prawdopodobnie dobry. Jeśli nie, zmień prompt (nie regeneruj tego samego). Total: 1 request = 15 kredytów, 2 opcje.
+
+W Workflow Builder możesz ustawić AI Generate Node na 3 albo 4 warianty (każdy dodatkowy wariant to osobny koszt, ale wciąż warto — zwiększasz szanse że jeden będzie perfect bez iteracji promptu).
+
+## 5. HD tylko dla finalnych assetów, nie dla draftów
+
+HD kosztuje **+10 kredytów** (np. GPT-image-1 w HD = 25 kredytów vs 15 w Standard). To 67% drożej.
+
+**Kiedy HD NIE jest potrzebny:**
+- Drafty i testy konceptów
+- Social media (Instagram/Facebook kompresują do ~1080px anyway)
+- Blog illustrations (wyświetlane w 600-800px szerokości)
+- Internal presentations
+- Quick mockups dla klienta (pokazujesz koncept, nie final)
+
+**Kiedy HD JEST potrzebny:**
+- Druk (ulotki, plakaty, rollup, wizytówki)
+- Hero images na stronie (full-width desktop, retina displays)
+- Large format displays (billboardy, digital signage)
+- Assety do dalszej edycji (potrzebujesz wysokiej rozdzielczości żeby cropować/composić)
+
+**Workflow:**  
+Standard dla iteracji → HD tylko dla final selected variant. Oszczędzasz 10 kredytów per niepotrzebny HD draft. Przy 10 iteracjach = 100 kredytów saved.
+
+## 6. Web Scraper w Workflow zamiast ręcznego briefu
+
+Typowy workflow dla brand content:
+1. Klient wysyła brief (opis firmy, brand colors, tone of voice) — albo Ty musisz wyciągnąć to ze strony
+2. Kopiujesz tekst do promptu
+3. Manually opisujesz kolory (np. "use blue and orange")
+4. Generujesz
+5. Klient: "to nie dokładnie nasze kolory"
+
+**Lepiej:** Workflow z **Web Scraper Node**
+
+```
+Text Input (client URL) 
+  → Web Scraper (extracts company description, brand colors, key messages) 
+  → Color Reference (extracts exact hex codes from logo/hero)
+  → AI Generate (system prompt uses {{scraper.description}} and {{colors.palette}})
+  → Output
+```
+
+**Korzyści:**
+- Zero manual briefing — URL → automatyczne brand info extraction
+- Exact colors (hex codes, nie "niebiesko-pomarańczowy")
+- Konsystencja — zawsze te same parametry dla tego samego klienta
+- Szybkość — 30 sekund vs 15 minut ręcznego researchu
+
+Zbuduj raz, użyj dla 100 klientów. Web Scraper is free (0 kredytów), oszczędza godziny pracy.
+
+## 7. Zapisuj udane prompty (Saved Prompts) do ponownego użycia
+
+Znalazłeś perfect prompt który działa świetnie? **Zapisz go**.
+
+Proompi ma funkcję **Saved Prompts**:
+1. Po wygenerowaniu obrazu którego rezultat Ci się podoba
+2. Kliknij menu → Save Prompt
+3. Nazwij (np. "Product photo white background studio")
+4. Następnym razem: wybierz z listy Saved Prompts zamiast pisać od nowa
+
+**Dlaczego to genialne:**
+- Nie płacisz za Prompt Enhancement ponownie (3 kredyty saved)
+- Consistency — dokładnie ten sam prompt = podobne rezultaty
+- Szybkość — 1 kliknięcie vs przepisywanie 5-liniowego promptu
+- Knowledge library — zbierasz najlepsze prompty, budujesz własną bibliotekę
+
+**Pro tip:** Organizuj saved prompts w kategorie (Product Photos, Social Graphics, Portraits, Landscapes). Łatwo odnajdziesz później.
+
+**Advanced:** Exportuj saved prompts jako JSON (backup) albo share z team members (wszyscy używają tych samych proven prompts).
+
+## 8. Ideogram-2 gdy obraz ma zawierać tekst
+
+90% modeli AI jest SŁABA w renderowaniu tekstu w obrazach. Litery są zniekształcone, słowa nie mają sensu, typography wygląda jak glitch.
+
+**Ideogram-2** jest wyjątkiem — to jedyny model który faktycznie umie readable, beautiful text.
+
+**Kiedy używać Ideogram-2:**
+- Logo z wordmark (nazwa firmy jako tekst)
+- Plakaty z headline'ami ("SUMMER FEST 2025")
+- Social graphics z text overlays (quote graphics, announcements)
+- Banery reklamowe z sloganem
+- Event flyers (data, miejsce, nazwiska)
+
+**Jak użyć:** W prompcie podaj dokładny tekst w cudzysłowie:
+```
+Vintage concert poster with text "JAZZ NIGHT" in art deco typography, 
+gold and black color scheme, elegant and sophisticated
+```
+
+Ideogram renderuje "JAZZ NIGHT" jako czytelny, piękny tekst (nie "JA2Z N1GHT" jak inne modele).
+
+**Koszt:** 12 kredytów (vs GPT-image-1 15 kredytów). Faktycznie tańszy jeśli potrzebujesz tekstu (zamiast generować w GPT-image, failować, próbować ponownie 3 razy).
+
+**Alternative:** Generuj obraz bez tekstu w GPT-image, potem użyj **Text Overlay** tool żeby dodać tekst. To daje pełną kontrolę nad fontem i pozycją.
+
+## 9. Wideo trzymaj krótkie — 3-5 sekund daje najlepsze efekty
+
+Modele wideo AI mają trudność z długimi sekwencjami:
+- Im dłuższe wideo, tym więcej artifacts (glitchy frames, morphing objects)
+- Temporal consistency degrades (kolory się zmieniają, obiekty znikają)
+- Koszt rośnie liniowo (Sora 2: 12 kredytów/sekunda → 10-sekundowe wideo = 120 kredytów)
+
+**Sweet spot: 3-5 sekund**
+
+**Dlaczego:**
+- Modele utrzymują consistency przez 3-5 sekund bez problemów
+- Wystarczająco długie na większość social media use cases (Instagram Reels loop, TikTok intro, YouTube Short transition)
+- Niski koszt (5 sekund x 12 kredytów = 60 kredytów vs 10 sekund = 120 kredytów)
+
+**Jeśli potrzebujesz dłuższe wideo:** Generuj kilka 5-sekundowych klipów i merge'uj w edytorze (CapCut, Premiere). Każdy klip ma jedną akcję/ruch, łączysz w spójną sekwencję. Lepsze rezultaty niż jeden 15-sekundowy klip z trzema akcjami.
+
+**Pro tip:** Opisz **jeden ruch** per klip. "Camera slowly zooms in" = great. "Camera zooms in then pans left then zooms out" = chaos.
+
+## 10. Program referral — 50 kredytów za każdego znajomego
+
+Proompi ma jeden z najbardziej generous referral programs w AI tools: **50 kredytów dla Ciebie + 50 kredytów dla znajomego** przy rejestracji.
+
+**50 kredytów to dużo:**
+- 3x generowanie w GPT-image-1 (3x15 = 45 kredytów)
+- 25x generowanie w FLUX schnell (25x2 = 50 kredytów)
+- 2x generowanie muzyki (2x25 = 50 kredytów)
+- 1x 4-sekundowe wideo Sora 2 (4x12 = 48 kredytów)
+
+**Jak to użyć:**
+1. Dashboard → Referrals → skopiuj swój unikalny link (`proompi.com/ref/TWOJKOD`)
+2. Udostępnij na:
+   - Social media (LinkedIn, X, Instagram bio)
+   - Email signature (jeśli jesteś freelancer/agency)
+   - Portfolio website ("Generated with Proompi — użyj mojego kodu na 50 free credits")
+   - Bezpośrednio klientom ("tutaj masz link, dostaniesz 50 kredytów na start")
+
+**Best practice:** Nie spamuj. Share organically w kontekście ("używam Proompi do generowania tych grafik, jeśli chcesz wypróbować oto mój link").
+
+**ROI:** 10 znajomych = 500 kredytów = równowartość ~$10-15. Za darmo. Just by sharing.
+
+**Unlimited:** Nie ma limitu — możesz polecić 100 osób i dostać 5000 bonus credits (never expire).
+
+---
+
+## Bonus tip: Łącz wszystkie powyższe w jeden workflow
+
+**Ultimate efficiency workflow:**
+
+1. Klient daje URL → **Web Scraper** (auto extract brand info) — **Tip #6**
+2. Upload reference image (ich poprzednia grafika) — **Tip #3**
+3. Prompt Enhancement w **Detailed mode** — **Tip #2**
+4. Test 3 koncepty w **FLUX schnell** — **Tip #1**
+5. Wybierz najlepszy, regeneruj w **GPT-image-1 Standard** (2 warianty) — **Tip #4**
+6. Finalny wybierz 1, regeneruj w **HD** — **Tip #5**
+7. **Zapisz** prompt jako "Client X Brand Graphics" — **Tip #7**
+8. Total wideo 3-5 sekund jeśli potrzebne — **Tip #9**
+
+**Koszt:** ~50-70 kredytów total (vs 150-200 bez tych tips).  
+**Czas:** ~10 minut (vs 45 minut bez automation/tips).  
+**Jakość:** Professional, client-ready, consistent.
+
+Te 10 wskazówek to nie theory — to sprawdzone patterns z tysięcy użytkowników Proompi. Zastosuj je wszystkie i zobacz jak Twoje wyniki (i efektywność) rosną exponentially. Powodzenia!

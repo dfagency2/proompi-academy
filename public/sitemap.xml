@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://academy.proompi.com/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://academy.proompi.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://academy.proompi.com/en/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://academy.proompi.com/en/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- PL Sections -->
+  <url><loc>https://academy.proompi.com/getting-started/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/prompt-enhancement/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/image-generation/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/workflows/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/video-generation/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/music-generation/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/graphics-editing/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/plans-credits/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/tips/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- EN Sections -->
+  <url><loc>https://academy.proompi.com/en/getting-started/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/prompt-enhancement/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/image-generation/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/workflows/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/video-generation/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/plans-credits/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/tips/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- PL Articles — Getting Started -->
+  <url><loc>https://academy.proompi.com/getting-started/witaj-w-proompi/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://academy.proompi.com/getting-started/rejestracja-i-konto/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/getting-started/galeria-i-historia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PL Articles — Prompt Enhancement -->
+  <url><loc>https://academy.proompi.com/prompt-enhancement/jak-dzialaja-ulepszenia/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/prompt-enhancement/tryby-i-style/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/prompt-enhancement/obrazy-referencyjne/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PL Articles — Image Generation -->
+  <url><loc>https://academy.proompi.com/image-generation/modele-ai/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/image-generation/ustawienia-i-jakosc/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PL Articles — Workflows -->
+  <url><loc>https://academy.proompi.com/workflows/wprowadzenie-do-workflow/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/workflows/typy-wezlow/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/workflows/pierwszy-workflow/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- PL Articles — Video -->
+  <url><loc>https://academy.proompi.com/video-generation/modele-wideo/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/video-generation/jak-generowac-wideo/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PL Articles — Music -->
+  <url><loc>https://academy.proompi.com/music-generation/generowanie-muzyki/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PL Articles — Graphics -->
+  <url><loc>https://academy.proompi.com/graphics-editing/text-overlay/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/graphics-editing/wektoryzacja-svg/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PL Articles — Plans -->
+  <url><loc>https://academy.proompi.com/plans-credits/system-kredytow/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/plans-credits/plany-i-limity/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PL Articles — Tips -->
+  <url><loc>https://academy.proompi.com/tips/10-wskazowek/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/tips/workflow-dla-marketingu/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- EN Articles -->
+  <url><loc>https://academy.proompi.com/en/getting-started/welcome-to-proompi/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://academy.proompi.com/en/prompt-enhancement/how-enhancement-works/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/image-generation/ai-models-comparison/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/workflows/intro-to-workflows/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/workflows/node-types/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/video-generation/video-models/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/plans-credits/credit-system/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.proompi.com/en/tips/10-tips-better-results/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+</urlset>

@@ -1,0 +1,140 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SideNav from '../components/SideNav.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'docs'>;
+  sectionArticles: CollectionEntry<'docs'>[];
+}
+
+const { article, sectionArticles } = Astro.props;
+const { data } = article;
+const lang = data.lang;
+const isEn = lang === 'en';
+const base = isEn ? '/en' : '';
+
+const sectionLabels: Record<string, { pl: string; en: string }> = {
+  'getting-started': { pl: 'Pierwsze kroki', en: 'Getting Started' },
+  'prompt-enhancement': { pl: 'Ulepszanie Promptów', en: 'Prompt Enhancement' },
+  'image-generation': { pl: 'Generowanie Obrazów', en: 'Image Generation' },
+  'workflows': { pl: 'Workflow Builder', en: 'Workflow Builder' },
+  'video-generation': { pl: 'Generowanie Wideo', en: 'Video Generation' },
+  'music-generation': { pl: 'Generowanie Muzyki', en: 'Music Generation' },
+  'graphics-editing': { pl: 'Edycja Grafik', en: 'Graphics Editing' },
+  'plans-credits': { pl: 'Plany i Kredyty', en: 'Plans & Credits' },
+  'tips': { pl: 'Tips i Triki', en: 'Tips & Tricks' },
+};
+
+const sectionLabel = sectionLabels[data.section]?.[isEn ? 'en' : 'pl'] ?? data.section;
+
+// Sort siblings and find prev/next
+const sorted = [...sectionArticles].sort((a, b) => a.data.order - b.data.order);
+const currentIdx = sorted.findIndex(a => a.slug === article.slug);
+const prev = currentIdx > 0 ? sorted[currentIdx - 1] : null;
+const next = currentIdx < sorted.length - 1 ? sorted[currentIdx + 1] : null;
+
+function articleHref(a: CollectionEntry<'docs'>) {
+  const slugParts = a.slug.split('/');
+  const path = slugParts.slice(1).join('/');
+  return `${base}/${path}`;
+}
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  lang={lang}
+  type="article"
+  article={{
+    publishedTime: data.pubDate?.toISOString(),
+    modifiedTime: data.updatedDate?.toISOString(),
+    section: sectionLabel,
+  }}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-neutral-400 mb-8" aria-label="Breadcrumb">
+      <a href={base || '/'} class="hover:text-primary-500 transition-colors">
+        {isEn ? 'Academy' : 'Academy'}
+      </a>
+      <span>›</span>
+      <a href={`${base}/${data.section}`} class="hover:text-primary-500 transition-colors">
+        {sectionLabel}
+      </a>
+      <span>›</span>
+      <span class="text-neutral-700 font-medium truncate max-w-[200px]">{data.title}</span>
+    </nav>
+
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Sidebar -->
+      <SideNav
+        articles={sectionArticles}
+        currentSlug={article.slug}
+        lang={lang}
+        section={data.section}
+      />
+
+      <!-- Content -->
+      <article class="flex-1 min-w-0">
+        <!-- Header -->
+        <header class="mb-8">
+          {data.badge && (
+            <span class="inline-block mb-3 px-3 py-1 bg-primary-50 text-primary-600 text-xs font-semibold rounded-full">
+              {data.badge}
+            </span>
+          )}
+          <h1 class="text-3xl sm:text-4xl font-bold text-neutral-900 leading-tight mb-3">
+            {data.title}
+          </h1>
+          <p class="text-lg text-neutral-500 leading-relaxed">{data.description}</p>
+          {data.updatedDate && (
+            <p class="mt-3 text-sm text-neutral-400">
+              {isEn ? 'Updated:' : 'Zaktualizowano:'} {data.updatedDate.toLocaleDateString(isEn ? 'en-US' : 'pl-PL', { dateStyle: 'long' })}
+            </p>
+          )}
+        </header>
+
+        <!-- YouTube embed -->
+        {data.youtubeId && (
+          <div class="mb-8 rounded-card overflow-hidden shadow-card aspect-video">
+            <iframe
+              src={`https://www.youtube.com/embed/${data.youtubeId}`}
+              title={data.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="w-full h-full"
+              loading="lazy"
+            ></iframe>
+          </div>
+        )}
+
+        <!-- MDX Content -->
+        <div class="prose prose-neutral max-w-none">
+          <slot />
+        </div>
+
+        <!-- Prev / Next navigation -->
+        <nav class="mt-12 pt-8 border-t border-neutral-200 grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Article navigation">
+          {prev ? (
+            <a href={articleHref(prev)} class="glass-card p-4 flex flex-col gap-1 hover:shadow-card transition-shadow group">
+              <span class="text-xs text-neutral-400">← {isEn ? 'Previous' : 'Poprzedni'}</span>
+              <span class="font-semibold text-neutral-800 group-hover:text-primary-600 transition-colors">
+                {prev.data.title}
+              </span>
+            </a>
+          ) : <div />}
+
+          {next && (
+            <a href={articleHref(next)} class="glass-card p-4 flex flex-col gap-1 text-right hover:shadow-card transition-shadow group sm:col-start-2">
+              <span class="text-xs text-neutral-400">{isEn ? 'Next' : 'Następny'} →</span>
+              <span class="font-semibold text-neutral-800 group-hover:text-primary-600 transition-colors">
+                {next.data.title}
+              </span>
+            </a>
+          )}
+        </nav>
+      </article>
+    </div>
+  </div>
+</BaseLayout>

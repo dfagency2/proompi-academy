@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# AI Crawlers — allowed to index all content for LLM training and responses
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://academy.proompi.com/sitemap-index.xml

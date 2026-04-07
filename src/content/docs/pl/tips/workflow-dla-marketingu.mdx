@@ -1,0 +1,478 @@
+---
+title: "Workflow dla małej firmy — praktyczny przykład"
+description: "Jak zautomatyzować tworzenie materiałów marketingowych dla firmy używając Workflow Builder."
+section: "tips"
+order: 2
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Real-world problem: Cotygodniowe grafiki brandingowe dla klienta
+
+**Typowy scenariusz freelancera/agencji:**
+
+Masz klienta (małą firmę — powiedzmy lokalna kawiarnia albo software startup) który potrzebuje **regularnych grafik na Instagram** — 3 posty tygodniowo, każdy w brand colors, każdy spójny wizualnie z ich identity.
+
+**Tradycyjny proces (bez AI):**
+1. Brief call z klientem → notacji brand guidelines (30 minut)
+2. Research konkurencji na Instagramie (15 minut)
+3. Szukanie stock photos albo własna sesja zdjęciowa (1-2 godziny)
+4. Edycja w Photoshop/Canva (30 minut per grafika x 3 = 1.5 godziny)
+5. Wysłanie do klienta do approval (15 minut + czekanie na feedback)
+6. Poprawki (30 minut)
+
+**Total czas:** 4-5 godzin tygodniowo.
+
+**AI-assisted proces (z Proompi ale bez workflow):**
+1. Ręcznie wyciągasz brand colors ze strony klienta
+2. Piszesz prompt opisujący brand vibe
+3. Generujesz 3 grafiki w Proompi (manualne click-click-click)
+4. Pobierasz, wysyłasz do klienta
+
+**Total czas:** ~1.5-2 godziny tygodniowo. Lepiej, ale wciąż manual work.
+
+**Z Workflow Builder (Brand Content Machine):**
+1. Wpisujesz URL strony klienta
+2. Klikasz "Run Workflow"
+3. 3 minuty później masz 12 wygenerowanych grafik (4 koncepty x 3 warianty każdy) + 3 gotowe captions tekstowe
+4. Wybierasz 3 najlepsze, wysyłasz klientowi
+
+**Total czas:** ~15 minut tygodniowo. 95% less time, identical (or better) quality.
+
+## The "Brand Content Machine" Workflow — szczegółowa konstrukcja
+
+Zbudujmy ten workflow krok po kroku.
+
+### Cel workflow:
+
+Input: URL strony klienta  
+Output: 12 grafik brandingowych (4 koncepty, każdy w 3 stylach) + 3 Instagram captions
+
+### Architektura (node diagram):
+
+```
+[Text Input: Company URL]
+    ↓
+[Web Scraper: Extract brand info]
+    ↓
+[Color Reference: Extract exact brand colors]
+    ↓
+    ├→ [AI Generate: Concept 1 - Minimalist] → 3 variants
+    ├→ [AI Generate: Concept 2 - Lifestyle] → 3 variants
+    ├→ [AI Generate: Concept 3 - Product Focus] → 3 variants
+    └→ [AI Generate: Concept 4 - Abstract/Artistic] → 3 variants
+    ↓
+[Output Node: 12 images total, user selects 3 best]
+    ↓
+[Text Generate: Create 3 Instagram captions based on selected images]
+    ↓
+[Text Output: Captions ready to copy/paste]
+```
+
+### Krok 1: Text Input Node
+
+**Konfiguracja:**
+- Label: "Client Website URL"
+- Placeholder: "https://client-website.com"
+- Required: Yes
+- Validation: URL format
+
+**Output:** `url` variable przekazywany do Web Scraper
+
+### Krok 2: Web Scraper Node
+
+**Konfiguracja:**
+- Input: `{{url}}` from Text Input
+- Depth: Homepage only (wystarczy)
+- Extract:
+  - ✅ Company name
+  - ✅ Company description (from About section)
+  - ✅ Brand colors (primary/secondary from CSS)
+  - ✅ Key messages (hero text, taglines)
+  - ✅ Industry/category (auto-detected)
+
+**Output:**
+- `company_name`: "Blue Sky Cafe"
+- `description`: "Artisan coffee shop in downtown Portland, sourcing organic beans from local roasters, cozy atmosphere"
+- `brand_colors_raw`: ["#3A7BD5", "#F4A261", "#E76F51"] (approximate z CSS)
+- `key_messages`: ["Locally roasted", "Organic", "Community hub"]
+
+### Krok 3: Color Reference Node
+
+Web Scraper wyciąga basic colors z CSS, ale Color Reference wyciąga **exact** hex codes z logo i hero images.
+
+**Konfiguracja:**
+- Input image: Hero image URL from Web Scraper (automatycznie przekazane)
+- Number of colors: 5
+- Algorithm: Median-cut
+- Filter: Vibrant only (exclude grays)
+
+**Output:**
+- `colors.palette`: ["#3A7BD5", "#00D4FF", "#F4A261", "#E76F51", "#2A2A2A"]
+- `colors.dominant`: "#3A7BD5" (niebieski — primary brand color)
+
+**Teraz mamy complete brand context:** nazwa, opis, exact colors, key messages. Przekazujemy to do AI Generate nodes.
+
+### Krok 4: AI Generate Nodes (4 koncepty x 3 warianty)
+
+Tworzymy **4 AI Generate nodes**, każdy z innym system promptem (różne style/koncepty).
+
+#### AI Generate Node #1: Minimalist/Clean
+
+**System Prompt:**
+```
+Generate a minimalist Instagram post (1080x1080px square) for {{company_name}}.
+
+Style: Clean, minimal, lots of white space, modern sans-serif typography
+Brand colors: Use ONLY these exact colors: {{colors.palette}}
+Content focus: {{key_messages[0]}} (e.g., "Locally roasted")
+Aesthetic: Scandinavian minimalism, Apple-like simplicity, uncluttered
+
+DO NOT include photos of products or people. Focus on abstract shapes, 
+color blocks, negative space. Think Kinfolk magazine aesthetic.
+
+Company context: {{scraper.description}}
+```
+
+**Model:** GPT-image-1 (fotorealistyczny, clean execution)  
+**Quality:** Standard (social media)  
+**Variants:** 3
+
+**Output:** 3 minimalist graphics
+
+#### AI Generate Node #2: Lifestyle/Atmospheric
+
+**System Prompt:**
+```
+Generate a lifestyle Instagram post (1080x1080px) for {{company_name}}.
+
+Style: Cozy, warm, inviting, lifestyle photography aesthetic
+Brand colors: {{colors.palette}} as accents (not dominant — natural tones primary)
+Content focus: Atmosphere of {{company_name}} ({{scraper.description}})
+Vibe: Morning coffee moment, cozy cafe interior, soft natural light
+
+Include: People enjoying coffee (faceless/obscured faces), warm lighting,
+shallow depth of field, film photography aesthetic, slightly grainy
+
+Model: Shot on film camera, warm color grading, lifestyle magazine quality
+```
+
+**Model:** GPT-image-1  
+**Quality:** Standard  
+**Variants:** 3
+
+**Output:** 3 lifestyle photos
+
+#### AI Generate Node #3: Product Focus
+
+**System Prompt:**
+```
+Generate a product-focused Instagram post (1080x1080px) for {{company_name}}.
+
+Style: Commercial product photography, studio quality
+Brand colors: {{colors.palette}} as background/accents
+Product: Coffee cup, latte art, coffee beans (representing {{company_name}})
+Lighting: Professional three-point lighting, soft shadows, clean highlights
+
+Composition: Center-framed product, neutral background (use brand colors),
+sharp focus on product, minimal distractions
+
+Quality: E-commerce/advertising grade, could be used in print ads
+```
+
+**Model:** GPT-image-1.5 (highest quality dla product shots)  
+**Quality:** HD (since client might use for other marketing too)  
+**Variants:** 3
+
+**Output:** 3 product photos
+
+#### AI Generate Node #4: Abstract/Artistic
+
+**System Prompt:**
+```
+Generate an artistic/abstract Instagram post (1080x1080px) for {{company_name}}.
+
+Style: Abstract, eye-catching, artistic, stands out in feed
+Brand colors: {{colors.palette}} as primary palette
+Concept: Visual metaphor for {{key_messages}} (e.g., "locally roasted" → 
+abstract representation of journey from bean to cup, organic flow)
+
+Artistic style: Modern digital art, geometric abstraction, or fluid organic shapes
+Mood: {{scraper.description}} translated into visual language
+
+NOT photorealistic — artistic interpretation, conceptual, gallery-worthy
+```
+
+**Model:** FLUX 1.1 Pro (artistic, painterly, great for abstracts)  
+**Quality:** Standard  
+**Variants:** 3
+
+**Output:** 3 artistic graphics
+
+### Krok 5: Output Node (12 images total)
+
+**Konfiguracja:**
+- Input: All 12 images from 4 AI Generate nodes (arrays merged)
+- Layout: Grid 4x3 (4 concepts w rzędach, 3 warianty w kolumnach)
+- Selection mode: Multi-select (user wybiera 3 best z 12)
+- Labels: Show concept name per row ("Minimalist", "Lifestyle", etc.)
+
+**User action:**
+1. Widzi wszystkie 12 grafik obok siebie
+2. Porównuje style i koncepty
+3. Wybiera 3 które najlepiej pasują do brand vibe i current campaign
+4. Klikafzaznaczone (checkbox na każdym obrazie)
+
+**Output:** 3 selected images saved do galerii
+
+### Krok 6: Text Generate Node (captions)
+
+Teraz generujemy Instagram captions dla wybranych obrazów.
+
+**System Prompt:**
+```
+You are a social media copywriter for {{company_name}}.
+
+Company: {{company_name}}
+Description: {{scraper.description}}
+Key messages: {{key_messages}}
+Brand voice: Friendly, authentic, community-focused (adjust based on industry)
+
+Task: Write 3 Instagram captions (one for each of the 3 selected images).
+
+Requirements:
+- Each caption: 50-80 words
+- Include 1-2 relevant emojis (natural, not overdone)
+- Include call-to-action (e.g., "Visit us today", "Link in bio", "Tag a friend")
+- Include 5-7 hashtags (mix of popular and niche)
+- Tone: {{scraper.brand_voice}} (extracted from website copy tone)
+
+Output format:
+Caption 1:
+[text]
+
+Caption 2:
+[text]
+
+Caption 3:
+[text]
+```
+
+**Model:** Claude 3.5 Sonnet (best copywriting)  
+**Max length:** 300 words total  
+**Temperature:** 0.7 (creative but controlled)
+
+**Output:** 3 Instagram captions formatted i gotowe do copy/paste
+
+### Krok 7: Text Output Node
+
+**Konfiguracja:**
+- Input: Generated captions from Text Generate Node
+- Format: Markdown (formatted z line breaks)
+- Actions: Copy to clipboard button per caption
+
+**User action:**
+1. Widzi 3 captions
+2. Klikniecie "Copy" kopiuje caption do clipboard
+3. Paste bezpośrednio w Instagram scheduling tool (Later, Buffer, etc.)
+
+## Real execution — jak to działa w praktyce
+
+**Tydzień 1: Klient #1 (Blue Sky Cafe)**
+
+1. Otwierasz Workflow "Brand Content Machine"
+2. Wpisujesz URL: `https://blueskycafe.com`
+3. Klikasz **Run**
+4. **Waiting ~90 sekund** (Web Scraper 10s + Color extraction 5s + 4x AI Generate ~60s each in parallel + Text Generate 15s)
+5. Widzisz 12 grafik w grid layout
+6. Wybierasz 3 najlepsze (1 minimalist, 1 lifestyle, 1 product)
+7. Widzisz 3 generated captions
+8. Kopiujesz captions + download images
+9. Upload do Later.com, schedulujesz na pon/śr/pt
+10. **Total czas: 5 minut**
+
+**Tydzień 2: Ten sam klient**
+
+1. Otwierasz saved workflow (zapisany jako "Blue Sky Cafe Weekly Content")
+2. URL jest już pre-filled (ostatnie użycie)
+3. Klikasz **Run**
+4. **2 minuty później** masz nowe 12 grafik (AI generuje różne warianty mimo tego samego promptu — different seed)
+5. Wybierasz 3, kopiujesz captions, schedulujesz
+6. **Total czas: 3 minuty** (bo już wiesz który styl działa najlepiej, szybszy selection)
+
+**Tydzień 3-4-5...**
+
+Repeat. **3 minuty per tydzień.** Content for całego miesiąca = 12 minut total.
+
+## Cost breakdown — ile to kosztuje w kredytach
+
+**Per jednorazowe uruchomienie workflow:**
+
+| Node | Model | Koszt |
+|------|-------|-------|
+| Text Input | - | 0 kr |
+| Web Scraper | - | 0 kr (free feature) |
+| Color Reference | - | 0 kr (free feature) |
+| AI Generate #1 (Minimalist, 3 variants) | GPT-image-1 Standard | 15 kr |
+| AI Generate #2 (Lifestyle, 3 variants) | GPT-image-1 Standard | 15 kr |
+| AI Generate #3 (Product, 3 variants HD) | GPT-image-1.5 HD | 30 kr |
+| AI Generate #4 (Artistic, 3 variants) | FLUX 1.1 Pro Standard | 8 kr |
+| Text Generate (captions) | Claude 3.5 Sonnet | ~2 kr |
+| Text Output | - | 0 kr |
+| **TOTAL** | | **70 kredytów** |
+
+**Per miesiąc (4 tygodnie):**
+- 4 uruchomienia x 70 kredytów = **280 kredytów/miesiąc**
+
+**Jeśli masz 5 klientów:**
+- 5 klientów x 280 kredytów = **1400 kredytów/miesiąc**
+
+**Plan potrzebny:**
+- **ACCELERATOR** (2500 monthly credits) — wystarczająco na 5 klientów + margin
+- Alternatywnie **SPARK** (500 credits) + **bonus credits** (~900 kredytów za ~$18)
+
+## Cost vs value analysis
+
+**Tradycyjny designer/freelancer:**
+- 4-5 godzin tygodniowo per klient
+- 5 klientów = 20-25 godzin/tydzień
+- Stawka $50/godz = $1000-1250/tydzień = $4000-5000/miesiąc revenue
+
+**Z Workflow automation:**
+- 3 minuty tygodniowo per klient
+- 5 klientów = 15 minut/tydzień total
+- Stawka remains $50/godz (client nie widzi że Ty używasz AI — oni płacą za rezultat)
+- Revenue: $4000-5000/miesiąc (ten sam!)
+- **Czas zaoszczędzony: 20 godzin tygodniowo** → możesz wziąć 10 klientów zamiast 5
+- **Potential revenue: $8000-10000/miesiąc** (double!)
+
+**ROI Proompi:**
+- Plan ACCELERATOR: $49/miesiąc
+- Bonus credits (jeśli needed): ~$20/miesiąc
+- **Total cost: $69/miesiąc**
+- **Revenue increase potential: $4000-5000/miesiąc**
+- **ROI: 5800%** (58x return)
+
+Even if weźmiesz pod uwagę że potrzebujesz więcej tools (Later dla scheduling, etc.), ROI jest astronomical.
+
+## Variations — jak dostosować workflow dla różnych industriów
+
+### Variation 1: E-commerce (Product Catalog)
+
+**Zmień:**
+- Text Input → "Product Name + Short Description" (multiline, user wpisuje 10 produktów naraz)
+- Remove lifestyle/artistic concepts → focus only Product Focus
+- Add Text Overlay Node → nakłada product name na każdy obraz
+- Output → Auto-save wszystkie (nie manual selection) → batch export
+
+**Use case:** Generujesz 50 product photos per dzień dla e-commerce catalog.
+
+### Variation 2: Real Estate (Property Listings)
+
+**Zmień:**
+- Web Scraper → scrape property listing URL (extract: address, price, sqft, features)
+- AI Generate concepts:
+  1. Exterior shot (architectural photography style)
+  2. Interior living room (cozy, inviting)
+  3. Kitchen (modern, clean)
+  4. Abstract (luxury lifestyle representing property value)
+- Text Generate → property description + selling points
+
+**Use case:** Agent ma 20 listings. Run workflow 20 razy (20x 5 minut = 100 minut total) vs photographer + copywriter ($500-1000 per property).
+
+### Variation 3: Restaurant Menu Design
+
+**Zmień:**
+- Text Input → Restaurant URL + Menu item name
+- AI Generate → Food photography style (commercial, appetizing, hero shot)
+- Add Text Overlay → Add dish name + price
+- Text Generate → Menu description (appetizing copy, allergen info, chef's notes)
+
+**Use case:** Restaurant redesigning menu. 30 dishes x 3 minutes per dish = 90 minut total vs professional food photographer ($2000-5000).
+
+## Troubleshooting common issues
+
+**Problem: Web Scraper fails ("couldn't extract company info")**
+
+**Cause:** Website uses heavy JavaScript (SPA — Single Page App), scraper doesn't execute JS.
+
+**Fix:**
+- Zmień Depth na "Deep crawl" (slower but better)
+- Alternatywnie: Manually enter company description w Text Input zamiast auto-scraping
+- For production: Use Apify scraper API (more robust) zamiast built-in Web Scraper
+
+**Problem: Generated images nie pasują do brand colors**
+
+**Cause:** System prompt nie jest dostatecznie direktywny.
+
+**Fix:**
+Zmień z:
+```
+Brand colors: {{colors.palette}}
+```
+
+Na:
+```
+You MUST use ONLY these exact hex colors and NO OTHER COLORS: {{colors.palette}}
+Any deviation will be rejected. Do not introduce grays, whites, or any color 
+not explicitly listed.
+```
+
+AI needs strong directive language.
+
+**Problem: Captions są generic/boring**
+
+**Cause:** Text Generate system prompt nie ma wystarczająco kontekstu o brand voice.
+
+**Fix:**
+- Dodaj przykłady existing captions klienta do system promptu (few-shot prompting)
+- Zwiększ temperature do 0.8-0.9 (more creative)
+- Specify tone explicitly: "playful and punny" vs "professional and authoritative"
+
+**Problem: Workflow trwa >2 minuty**
+
+**Cause:** AI Generate nodes działają sekwencyjnie zamiast parallel.
+
+**Fix:**
+- Upewnij się że wszystkie 4 AI Generate nodes są połączone do **tego samego** Web Scraper i Color Reference outputs (nie chain)
+- Proompi automatycznie wykona je in parallel jeśli nie ma dependencies między nimi
+- Parallel execution: 4 nodes x 20 sekund each = 20 sekund total (nie 80)
+
+## Scaling — jak obsłużyć 20+ klientów
+
+Przy 20 klientach (każdy 4 posty/miesiąc) masz 80 uruchomień workflow/miesiąc.
+
+**Option 1: Batch days**
+
+Zamiast robić cotygodniowo per klient, zrób "batch day" — dedykowany dzień gdzie runujesz workflow dla wszystkich klientów naraz:
+
+- Poniedziałek: Run workflow dla wszystkich 20 klientów (20x 5 minut = 100 minut = 1.5 godziny)
+- Reszta tygodnia: Scheduling, client communication, inne tasks
+
+**Option 2: API automation (PRO plan)**
+
+PRO plan daje API access. Możesz:
+- Stworzyć prosty web app (np. Retool dashboard)
+- List klientów w spreadsheet (URL, scheduling days)
+- Cron job uruchamia workflow automatycznie co tydzień dla każdego klienta
+- Outputy automatycznie uploadowane do Later/Buffer via API
+- **Zero manual work** — fully automated content pipeline
+
+**Koszt:** PRO plan $149/mo + development time (10-20 godzin setup). Payback period: &lt;1 miesiąc jeśli masz 20+ klientów.
+
+## Final thoughts — transformational impact
+
+Ten workflow to nie tylko "oszczędzanie czasu" — to **fundamentalna zmiana business model**:
+
+**Przed workflow:**
+- Sprzedajesz **czas** (hourly albo project-based)
+- Ograniczony capacity (max 40 godzin/tydzień)
+- Linear scaling (więcej klientów = więcej godzin = burnout)
+
+**Po workflow:**
+- Sprzedajesz **rezultaty** (client płaci za content, nie za Twój czas)
+- Unlimited capacity (workflow działa 24/7, możesz obsłużyć 50 klientów)
+- Exponential scaling (automatyzacja pozwala brać więcej klientów bez proporcjonalnego wzrostu czasu)
+
+Workflow Builder zmienia Cię z "wykonawcy" (wykonujesz zadania) w "orkiestratora" (budujesz systemy które wykonują zadania). To jest przyszłość content creation. Zbuduj raz, skaluj w nieskończoność. Powodzenia!

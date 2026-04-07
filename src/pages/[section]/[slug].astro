@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const allDocs = await getCollection('docs');
+  const plDocs = allDocs.filter(d => d.data.lang === 'pl');
+
+  return plDocs.map(doc => {
+    const parts = doc.slug.split('/'); // ["pl", "section", "slug"]
+    const section = parts[1];
+    const slug = parts.slice(2).join('/');
+    const sectionArticles = plDocs.filter(d => d.data.section === doc.data.section);
+
+    return {
+      params: { section, slug },
+      props: { article: doc, sectionArticles },
+    };
+  });
+}
+
+const { article, sectionArticles } = Astro.props;
+const { Content } = await article.render();
+---
+
+<ArticleLayout article={article} sectionArticles={sectionArticles}>
+  <Content />
+</ArticleLayout>

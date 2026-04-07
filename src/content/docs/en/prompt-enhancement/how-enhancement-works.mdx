@@ -1,0 +1,151 @@
+---
+title: "How Prompt Enhancement Works"
+description: "A deep dive into how Proompi's AI transforms your basic descriptions into professional prompts."
+section: "prompt-enhancement"
+order: 1
+lang: "en"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## The Problem with Basic Prompts
+
+When you tell an AI to create "a coffee on a table," it understands the literal request but lacks the professional context that makes images commercially viable. Professional photographers don't just point and click — they consider lighting direction, depth of field, composition rules, color temperature, lens choice, and dozens of other technical parameters. Your AI needs the same guidance.
+
+This is where Proompi's prompt enhancement system becomes invaluable. Instead of learning photography terminology or studying prompt engineering guides for hours, you describe what you want in plain language, and our AI translates it into the technical language that image models understand best.
+
+## The AI Models Behind Enhancement
+
+Proompi uses two state-of-the-art language models for prompt enhancement, selected based on your enhancement mode and complexity:
+
+**Claude Haiku** handles Quick mode and simple enhancements. It's extremely fast (responses in 1-2 seconds) and excels at preserving your original intent while adding minimal but crucial technical details. Haiku understands context and won't turn your "simple product photo" into an elaborate artistic scene.
+
+**GPT-4o-mini** powers Detailed and Creative modes when more sophisticated reasoning is required. It analyzes your input, identifies the content type and visual category, applies genre-specific knowledge (commercial photography vs. digital art vs. illustration), and constructs prompts that include professional terminology, composition guidance, and style references.
+
+## Context Detection System
+
+Before enhancing your prompt, Proompi's AI analyzes six dimensions of context:
+
+### Visual Region
+Where in the world does this scene take place? A "cafe interior" gets European bistro aesthetics by default, but the AI detects regional cues: "Bangkok cafe" receives different color palettes, architectural details, and cultural elements than "Portland cafe."
+
+### Content Type
+Is this product photography, architectural visualization, character design, food photography, landscape, abstract art, or something else? Each category has established conventions. Product photos need clean backgrounds and specific lighting. Food photography requires steam, garnish details, and appetite appeal. The AI applies category-appropriate techniques automatically.
+
+### Style Analysis
+Your word choices reveal style preferences even when you don't explicitly state them. "Cozy" signals warm tones and soft lighting. "Modern" triggers clean lines and cool color temperatures. "Vintage" adds film grain, muted colors, and era-appropriate details. The enhancement AI reads between the lines.
+
+### Technical Requirements
+Certain requests imply technical needs. "Logo design" means you need crisp edges, vector-style clarity, and probably transparent backgrounds. "Website hero image" means wide aspect ratio and composition that allows text overlay. "Instagram post" means square format and mobile-optimized visual hierarchy.
+
+### Mood and Atmosphere
+Emotional context shapes every visual decision. "Professional" business content gets different treatment than "playful" brand content. "Dramatic" scenes need high contrast and bold lighting. "Serene" scenes require soft gradients and balanced composition.
+
+### Brand Consistency
+When you use the Web Scraper node or reference images in workflows, the enhancement AI incorporates brand colors, visual style, and tone into its improvements. This ensures generated content stays on-brand even when you're creating hundreds of variations.
+
+## The Six Content Categories
+
+Proompi's enhancement system specializes in six distinct categories, each with unique optimization strategies:
+
+**Image**: Photography, illustrations, digital art, product visuals. Enhancements focus on lighting, composition, camera settings, artistic style, and technical quality parameters.
+
+**Music**: Audio generation with mood, genre, instrumentation, tempo, and emotional arc specifications.
+
+**Video**: Motion content with camera movement language, scene transitions, duration, pacing, and cinematography terminology.
+
+**Code**: Software development prompts optimized for clarity, technical accuracy, framework-specific conventions, and structured output.
+
+**Agent**: Multi-step task instructions for AI assistants, formatted with clear objectives, constraints, and success criteria.
+
+**Conversation**: Chat-style interactions where the enhancement focuses on tone, context setting, and response guidance.
+
+## Three Enhancement Modes Explained
+
+### Quick Mode: Precision with Minimal Change
+
+Quick mode respects your vision completely. It adds only the technical details needed to improve generation quality without altering your creative intent.
+
+**Before**: "coffee on a table"
+
+**After (Quick)**: "coffee in a mug on a wooden table, natural lighting, sharp focus"
+
+Notice what changed: container specified (mug), surface material added (wooden), lighting defined (natural), image quality noted (sharp focus). But the scene remains exactly what you described — coffee on a table. Nothing unexpected.
+
+**Use Quick when**: You know exactly what you want and just need technical polish. Perfect for maintaining brand consistency, creating variations of existing content, or when you're working from reference images.
+
+**Cost**: 2 credits per enhancement.
+
+### Detailed Mode: Professional Photography Language
+
+Detailed mode transforms basic descriptions into professional photography briefs. This is where dramatic quality improvements happen.
+
+**Before**: "coffee on a table"
+
+**After (Detailed)**: "artisan espresso in white ceramic cup on aged oak table, soft morning light streaming from left creating gentle shadows, shallow depth of field with creamy bokeh background, commercial food photography style, shot on Canon 5D Mark IV, 50mm f/1.4 lens at f/2.8, warm color grading with emphasis on rich brown tones, steam visible rising from cup, professional studio lighting with subtle fill"
+
+The enhancement adds:
+- **Specificity**: "artisan espresso" instead of generic "coffee," "white ceramic cup" instead of "mug"
+- **Lighting direction**: "morning light from left" creates dimensional realism
+- **Technical camera settings**: lens choice, aperture, camera body affect depth and quality
+- **Composition guidance**: "shallow depth of field" and "bokeh background" direct visual hierarchy
+- **Style references**: "commercial food photography" activates genre-specific aesthetics
+- **Sensory details**: "steam rising" adds life and realism
+- **Color science**: "warm color grading with rich brown tones" ensures appealing palette
+
+**Use Detailed when**: Creating final assets for marketing, e-commerce, presentations, or any commercial use. The additional technical language dramatically improves consistency and professional quality.
+
+**Cost**: 2-3 credits depending on complexity.
+
+### Creative Mode: Artistic Interpretation
+
+Creative mode gives the AI permission to reinterpret your concept artistically. It takes your core idea and explores unexpected visual directions while maintaining thematic relevance.
+
+**Before**: "coffee on a table"
+
+**After (Creative)**: "surreal floating espresso cup suspended in mid-air above an impossible Escher-style table that defies gravity, dramatic chiaroscuro lighting reminiscent of Caravaggio, coffee stream frozen in time creating fluid sculptural forms, dark moody atmosphere with single spotlight, cinematic composition, magical realism aesthetic, deep shadows and luminous highlights, 8K octane render, photorealistic CGI with painterly qualities"
+
+Creative mode took "coffee on a table" and created a completely different artistic vision — but it's still recognizably about coffee and tables. This mode explores:
+- **Artistic movements**: Escher reference, Caravaggio lighting
+- **Unexpected compositions**: floating, gravity-defying, frozen motion
+- **Genre mashups**: photorealistic + painterly, magical realism + commercial
+- **Dramatic atmosphere**: mood-driven rather than literal
+
+**Use Creative when**: Brainstorming brand campaigns, creating standout social content, exploring new visual directions, or when you want the AI to surprise you with interpretations you wouldn't have thought of yourself.
+
+**Cost**: 3 credits for the additional creative processing.
+
+## Multi-Variant Generation
+
+When you enhance a prompt, you can request 1-3 variant results. Each variant takes a slightly different approach to enhancement:
+
+**Variant 1**: Stays closest to your original wording and intent
+**Variant 2**: Explores alternative technical approaches or composition styles
+**Variant 3**: Takes the most creative liberties within the chosen mode
+
+Generating multiple variants costs the same 2-3 credits total, not per variant. This gives you options to test which enhancement approach works best for your specific image model and use case.
+
+## Reference Image Upload
+
+One of the most powerful enhancement features is reference image upload. When you provide an image alongside your text prompt, the AI analyzes:
+
+- **Visual style**: Artistic approach, rendering technique, level of realism
+- **Color palette**: Dominant colors, color temperature, saturation levels
+- **Composition**: Rule of thirds, symmetry, visual weight distribution
+- **Lighting**: Direction, quality (hard/soft), color temperature
+- **Mood and tone**: Emotional impact, atmosphere
+- **Technical execution**: Detail level, focus, depth of field
+
+The enhancement then incorporates these visual references into the improved prompt, ensuring generated images match your reference style. This is incredibly useful for maintaining brand consistency or matching client-provided mood boards.
+
+## Cost Optimization Strategy
+
+Since prompt enhancement costs 2-3 credits per use, here's how to maximize value:
+
+**When to enhance**: Final assets, client deliverables, hero images, first attempt at a new concept, when quality matters more than speed.
+
+**When to skip**: Rapid iteration on the same concept, testing different models with identical prompts, generating variations of already-enhanced prompts, quick drafts.
+
+**Pro tip**: Enhance once, then save that enhanced prompt for reuse. You can generate 10 images from one enhanced prompt without paying enhancement costs again. The Saved Prompts feature tracks your best-performing enhanced prompts for easy reuse.
+
+Prompt enhancement is the fastest way to improve your Proompi results without learning complex prompt engineering. Start with Detailed mode for commercial work, use Quick for maintaining control, and experiment with Creative when you need inspiration.

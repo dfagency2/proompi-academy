@@ -1,0 +1,139 @@
+---
+title: "Obrazy referencyjne — jak wpływają na efekt"
+description: "Jak używać zdjęć referencyjnych w Proompi, żeby trafniej opisać styl i efekt który chcesz osiągnąć."
+section: "prompt-enhancement"
+order: 3
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Czym jest obraz referencyjny w kontekście ulepszania promptów
+
+Obraz referencyjny to zdjęcie lub grafika którą wgrywasz do Proompi razem z tekstowym opisem tego co chcesz wygenerować. AI analizuje ten obraz i **wyciąga z niego informacje o stylu, kolorystyce, kompozycji, oświetleniu i nastrojce** — wszystko to co trudno opisać słowami.
+
+To działa podobnie jak pokazanie projektantowi moodboardu zamiast próby opisania "takiego ciepłego, ale minimalistycznego, z nutą vintage" tekstem. Obraz mówi więcej niż tysiąc słów, a AI potrafi to "przeczytać".
+
+Referencja NIE jest kopiowana ani reproduce'owana — AI nie próbuje odtworzyć dokładnie tego obrazu. Zamiast tego ekstrahuje **cechy stylistyczne** i aplikuje je do Twojego nowego konceptu opisanego w prompcie.
+
+## Co AI analizuje w obrazie referencyjnym
+
+Gdy wgrywasz referencję, model AI (Claude Haiku lub GPT-4o-mini z funkcją vision) wykonuje analizę wizualną i wyciąga następujące elementy:
+
+### Styl wizualny i estetyka
+
+Czy to fotografia, ilustracja, rendering 3D, malarstwo? Jaki ruch artystyczny (minimalizm, Art Deco, cyberpunk, cottagecore)? Czy jest realistyczne czy stylizowane? Analog czy digital? Te cechy są przenoszone do ulepszonego promptu jako tagi stylu.
+
+### Paleta kolorów
+
+AI wykrywa dominujące kolory, tony (ciepłe/zimne), poziom nasycenia (vibrant/muted), kontrast (high-key/low-key). Następnie dodaje do promptu opisy typu "warm earth tones", "muted pastel palette", "high contrast black and white", "teal and orange cinematic color grading".
+
+### Kompozycja i framing
+
+Jak są ułożone elementy w kadrze? Rule of thirds, centralna kompozycja, asymetryczna? Jaki jest kąt kamery (eye-level, low angle, bird's eye view)? Ile jest negative space? AI przenosi te reguły kompozycji do nowego promptu.
+
+### Oświetlenie i nastrój
+
+Skąd pada światło? Miękkie czy twarde? Natural window light, golden hour, studio setup, dramatic side lighting? Jaki jest mood — jasny i radosny, moody i tajemniczy, ciepły i przytulny? To wszystko trafia do ulepszonego promptu.
+
+### Tekstury i materiały
+
+Czy dominują gładkie czy szorstkie powierzchnie? Matowe czy błyszczące? Organiczne (drewno, kamień) czy syntetyczne (metal, plastik)? AI rozpoznaje te faktury i dodaje je jako deskryptory.
+
+### Poziom detalu i focus
+
+Czy obraz jest sharp i szczegółowy czy ma soft focus? Czy jest shallow depth of field (bokeh) czy wszystko jest ostre? Macro czy wide shot? Te parametry techniczne są kluczowe dla fotorealistycznych generowań.
+
+## Krok po kroku: jak wgrać obraz referencyjny
+
+1. **Wejdź do Prompt Enhancement** — kliknij sekcję ulepszania promptów w menu głównym
+2. **Wpisz tekstowy opis** tego co chcesz wygenerować (np. "plakat koncertu jazzowego")
+3. **Kliknij przycisk "Dodaj referencję"** lub ikonę obrazka obok pola tekstowego
+4. **Wybierz plik z dysku** — akceptowane formaty to JPG, PNG, WEBP (do 10 MB)
+5. **Poczekaj na upload i preview** — zobaczysz miniaturę wgranego obrazu
+6. **Wybierz tryb ulepszania** (Quick/Detailed/Creative) i liczbę wariantów
+7. **Kliknij "Ulepsz"** — AI przeanalizuje zarówno tekst jak i obraz
+
+Po kilku sekundach dostaniesz ulepszone prompty które łączą Twój tekstowy opis z elementami stylu z referencji. Możesz użyć ich bezpośrednio do generowania albo dalej ręcznie dopracować.
+
+## Dobre przykłady użycia referencji
+
+### 1. Brand consistency
+
+**Use case:** Tworzysz serię grafik dla klienta i musisz zachować spójny styl wizualny.
+
+**Jak to zrobić:** Wgraj pierwsze zatwierdzone przez klienta zdjęcie/grafikę jako referencję. Przy każdym kolejnym generowaniu używaj tej samej referencji — AI będzie utrzymywać konsystentną kolorystykę, styl i vibe.
+
+**Przykład:** Klient ma materiały w minimalistycznym, pastelowym, skandynawskim stylu. Wgrywasz jedno z ich istniejących zdjęć produktu i generujesz nowe assety z różnymi produktami — wszystkie będą wyglądać jakby były z tej samej sesji.
+
+### 2. Reprodukowanie stylu bez kopiowania contentu
+
+**Use case:** Widziałeś świetną grafikę na Pinterescie czy Behance i chcesz "czegoś podobnego" ale z własnym contentem.
+
+**Jak to zrobić:** Wgraj tamten obraz jako referencję, a w prompcie opisz SWÓJ koncept. AI weźmie styl z referencji (kolorystykę, mood, lighting) i aplikuje do Twojego pomysłu.
+
+**Przykład:** Widzisz piękny moody portrait z niebiesko-pomarańczowym grading w stylu Blade Runner. Wgrywasz to jako referencję i w prompcie piszesz "portret programisty przy komputerze". Dostajesz obraz programisty w tym samym stylu kolorystycznym i atmosferze.
+
+### 3. Moodboard do projektu
+
+**Use case:** Masz cały moodboard (collage referencji) i chcesz żeby AI "zrozumiał" vibe projektu.
+
+**Jak to zrobić:** Zapisz moodboard jako jeden obraz (screenshot czy eksport z Figmy/Milanote) i wgraj jako referencję. AI wyciągnie wspólne elementy stylistyczne ze wszystkich obrazów na boardzie.
+
+**Przykład:** Moodboard zawiera 9 obrazów w stylu vintage, ciepłe tony, tekstury papieru, retro typography. Wgrywasz cały board i piszesz "plakat na event muzyczny" — dostaniesz coś spójnego z vibe'em całego moodboardu.
+
+### 4. Lokalizacja i kontekst przestrzenny
+
+**Use case:** Chcesz wygenerować scenę która wygląda "jak z tego miejsca".
+
+**Jak to zrobić:** Wgraj zdjęcie lokacji (np. Twojego biura, konkretnej ulicy, typu krajobrazu) i opisz co chcesz tam umieścić.
+
+**Przykład:** Wgrywasz zdjęcie japońskiej uliczki z lampionami i vending machines. W prompcie piszesz "samotna postać idąca w deszczu". AI wygeneruje scenę która wygląda jakby była nakręcona w tym konkretnym typie japońskiej ulicy, z tą samą atmosferą i oświetleniem.
+
+## Złe przykłady użycia referencji (czego unikać)
+
+### 1. Używanie chronionych praw autorskich grafik
+
+**Nie rób tego:** Wgrywanie znanych logo, plakatów filmowych, komercyjnych kampanii jako referencji i próba ich kopiowania.
+
+**Dlaczego:** To może naruszać prawa autorskie. Nawet jeśli AI nie kopiuje piksel-w-piksel, reprodukowanie charakterystycznych elementów cudzej własności intelektualnej jest ryzykowne prawnie.
+
+**Zamiast tego:** Szukaj referencji z darmowych źródeł (Unsplash, Pexels) lub używaj swoich własnych zdjęć.
+
+### 2. Referencje z twarzami znanych osób
+
+**Nie rób tego:** Wgrywanie zdjęć celebrytów, polityków czy influencerów jako referencji.
+
+**Dlaczego:** Proompi (jak większość platform AI) ma mechanizmy moderacji które blokują próby generowania wizerunku konkretnych osób. Poza tym to etycznie wątpliwe i często nielegalne.
+
+**Zamiast tego:** Opisz charakterystykę osoby słowami ("woman with short blonde hair, confident expression") albo wgraj stock photo modela.
+
+### 3. Zbyt skomplikowane referencje
+
+**Nie rób tego:** Wgrywanie chaotycznych, przeładowanych obrazów z setką elementów.
+
+**Dlaczego:** AI nie wie co jest ważne a co nie. Wyciągnie losowe cechy i wynik będzie niespójny.
+
+**Zamiast tego:** Użyj prostej, czytelnej referencji z wyraźnym stylem. Jeśli masz złożony moodboard, opisz słowami co jest w nim najważniejsze.
+
+### 4. Low-res, rozmyte, dark referencje
+
+**Nie rób tego:** Wgrywanie bardzo małych (np. 200x200px), rozmazanych lub niedoświetlonych zdjęć.
+
+**Dlaczego:** AI nie ma z czego wyciągnąć informacji o detailach, kolorach czy kompozycji.
+
+**Zamiast tego:** Używaj referencji minimum 800-1000px szerokości, sharp, dobrze oświetlonych. Im wyższa jakość referencji, tym lepsza analiza.
+
+## Praktyczne wskazówki
+
+**Format i rozmiar:** PNG lub JPG, ideally 1024x1024 lub większe. Proompi przetwarza obrazy do 1024px, więc większe nie dadzą lepszych rezultatów, ale mniejsze mogą tracić detale.
+
+**Kontrast i czytelność:** Obrazy z wysokim kontrastem i wyraźnymi elementami dają lepsze rezultaty niż washed-out low-contrast photos.
+
+**Jeden dominujący styl:** Jeśli referencja ma mieszane style (np. pół realistyczna pół ilustracja), AI może się "pogubić". Lepiej użyć dwóch osobnych referencji dla dwóch generowań.
+
+**Testuj różne referencje:** Czasami niewielka zmiana referencji daje radykalnie inny efekt. Jeśli nie jesteś zadowolony z wyniku, spróbuj innej referencji ze stylem który chcesz osiągnąć.
+
+**Łącz z odpowiednim trybem:** Referencje + **Detailed mode** = najlepsza reprodukcja stylu. Referencje + **Creative mode** = interpretacja artystyczna referencji (mniej dosłowna, bardziej inspirowana).
+
+Używanie referencji to jedno z najsilniejszych narzędzi w Proompi. Zamiast opisywać "coś w stylu lat 80-tych ale nowoczesnego" po prostu wgrywasz obraz który to reprezentuje. AI zrozumie lepiej niż z 500 słów opisu. Testuj, eksperymentuj i zobacz jak bardzo referencje mogą poprawić trafność generowań.

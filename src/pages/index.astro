@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const allDocs = await getCollection('docs');
+const plDocs = allDocs.filter(d => d.data.lang === 'pl');
+
+const sections = [
+  { id: 'getting-started', label: 'Pierwsze kroki', icon: '🚀', color: 'from-emerald-50 to-emerald-100/50', border: 'border-emerald-200', desc: 'Zacznij korzystać z Proompi od podstaw' },
+  { id: 'prompt-enhancement', label: 'Ulepszanie Promptów', icon: '✨', color: 'from-primary-50 to-primary-100/50', border: 'border-primary-200', desc: 'Jak pisać prompty, które dają spektakularne efekty' },
+  { id: 'image-generation', label: 'Generowanie Obrazów', icon: '🖼️', color: 'from-violet-50 to-violet-100/50', border: 'border-violet-200', desc: 'Modele AI, ustawienia i najlepsze praktyki' },
+  { id: 'workflows', label: 'Workflow Builder', icon: '⚡', color: 'from-indigo-50 to-indigo-100/50', border: 'border-indigo-200', desc: 'Twórz zaawansowane procesy generowania treści' },
+  { id: 'video-generation', label: 'Generowanie Wideo', icon: '🎬', color: 'from-rose-50 to-rose-100/50', border: 'border-rose-200', desc: 'Sora, Luma, Kling — kiedy co używać' },
+  { id: 'music-generation', label: 'Generowanie Muzyki', icon: '🎵', color: 'from-orange-50 to-orange-100/50', border: 'border-orange-200', desc: 'Muzyka AI studyjnej jakości w kilka sekund' },
+  { id: 'graphics-editing', label: 'Edycja Grafik', icon: '🎨', color: 'from-teal-50 to-teal-100/50', border: 'border-teal-200', desc: 'Text overlay, wektoryzacja i eksport' },
+  { id: 'plans-credits', label: 'Plany i Kredyty', icon: '💳', color: 'from-amber-50 to-amber-100/50', border: 'border-amber-200', desc: 'Jak działa system kredytów i który plan wybrać' },
+  { id: 'tips', label: 'Tips i Triki', icon: '💡', color: 'from-neutral-50 to-neutral-100/50', border: 'border-neutral-200', desc: 'Szybkie porady i wiedza w pigułce' },
+];
+
+const featuredDocs = plDocs
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 6);
+---
+
+<BaseLayout
+  title="Proompi Academy"
+  description="Oficjalna baza wiedzy Proompi — tutoriale, poradniki i wskazówki jak tworzyć profesjonalne treści AI. Naucz się generować obrazy, wideo, muzykę i budować workflow."
+  lang="pl"
+>
+  <!-- Hero -->
+  <section class="hero-gradient py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-50 border border-primary-200 rounded-full text-sm font-medium text-primary-700 mb-6">
+        <span>📚</span> Oficjalna baza wiedzy Proompi
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 leading-tight mb-6">
+        Zostań ekspertem<br>
+        <span class="text-primary-500">AI marketingu</span>
+      </h1>
+      <p class="text-xl text-neutral-500 max-w-2xl mx-auto leading-relaxed mb-8">
+        Wszystko czego potrzebujesz, żeby w pełni wykorzystać Proompi — od pierwszego logowania po zaawansowane workflow, które zautomatyzują marketing Twojej firmy.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="/getting-started" class="btn-primary text-base px-7 py-3.5">
+          Zacznij od podstaw →
+        </a>
+        <a href="https://proompi.com" target="_blank" rel="noopener noreferrer" class="btn-secondary text-base px-7 py-3.5">
+          Otwórz Proompi
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="py-8 px-4 border-y border-neutral-200 bg-white/50">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      {[
+        { value: '9', label: 'Modułów wiedzy' },
+        { value: '40+', label: 'Tutoriali' },
+        { value: '7', label: 'Modeli AI' },
+        { value: '∞', label: 'Możliwości' },
+      ].map(stat => (
+        <div>
+          <div class="text-2xl font-bold text-primary-500">{stat.value}</div>
+          <div class="text-sm text-neutral-500 mt-0.5">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Sections grid -->
+  <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-neutral-900 mb-2">Wybierz temat</h2>
+        <p class="text-neutral-500">9 modułów — od podstaw po zaawansowane techniki</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {sections.map(section => {
+          const count = plDocs.filter(d => d.data.section === section.id).length;
+          return (
+            <a
+              href={`/${section.id}`}
+              class:list={[
+                'group glass-card p-6 flex flex-col gap-3 hover:shadow-float hover:-translate-y-0.5 transition-all duration-200 bg-gradient-to-br border',
+                section.color,
+                section.border,
+              ]}
+            >
+              <div class="flex items-start justify-between">
+                <span class="text-3xl">{section.icon}</span>
+                {count > 0 && (
+                  <span class="text-xs text-neutral-400">{count} {count === 1 ? 'artykuł' : 'artykuły'}</span>
+                )}
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">
+                  {section.label}
+                </h3>
+                <p class="text-sm text-neutral-500 mt-1 leading-relaxed">{section.desc}</p>
+              </div>
+              <span class="text-sm font-medium text-primary-500 mt-auto">
+                Przejdź →
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured articles -->
+  {featuredDocs.length > 0 && (
+    <section class="py-12 px-4 bg-white/40">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold text-neutral-900 mb-6">Zacznij od tych przewodników</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {featuredDocs.map(article => (
+            <ArticleCard article={article} lang="pl" />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Banner -->
+  <section class="py-16 px-4">
+    <div class="max-w-3xl mx-auto glass-card p-8 sm:p-12 text-center bg-gradient-to-br from-primary-50 to-white">
+      <h2 class="text-2xl sm:text-3xl font-bold text-neutral-900 mb-3">
+        Gotowy żeby zacząć?
+      </h2>
+      <p class="text-neutral-500 mb-6 leading-relaxed">
+        Proompi to platforma AI do generowania obrazów, wideo i treści dla Twojego biznesu. Dołącz do tysięcy użytkowników.
+      </p>
+      <a href="https://proompi.com" target="_blank" rel="noopener noreferrer" class="btn-primary text-base px-8 py-3.5">
+        Wypróbuj Proompi za darmo →
+      </a>
+    </div>
+  </section>
+
+  <!-- JSON-LD: ItemList of sections -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Proompi Academy — Sekcje",
+    "url": "https://academy.proompi.com",
+    "itemListElement": sections.map((s, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": s.label,
+      "url": `https://academy.proompi.com/${s.id}`,
+      "description": s.desc,
+    }))
+  })} />
+</BaseLayout>

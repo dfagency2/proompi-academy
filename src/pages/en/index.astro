@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const allDocs = await getCollection('docs');
+const enDocs = allDocs.filter(d => d.data.lang === 'en');
+
+const sections = [
+  { id: 'getting-started', label: 'Getting Started', icon: '🚀', color: 'from-emerald-50 to-emerald-100/50', border: 'border-emerald-200', desc: 'Start using Proompi from scratch' },
+  { id: 'prompt-enhancement', label: 'Prompt Enhancement', icon: '✨', color: 'from-primary-50 to-primary-100/50', border: 'border-primary-200', desc: 'Write prompts that deliver spectacular results' },
+  { id: 'image-generation', label: 'Image Generation', icon: '🖼️', color: 'from-violet-50 to-violet-100/50', border: 'border-violet-200', desc: 'AI models, settings, and best practices' },
+  { id: 'workflows', label: 'Workflow Builder', icon: '⚡', color: 'from-indigo-50 to-indigo-100/50', border: 'border-indigo-200', desc: 'Build advanced content generation pipelines' },
+  { id: 'video-generation', label: 'Video Generation', icon: '🎬', color: 'from-rose-50 to-rose-100/50', border: 'border-rose-200', desc: 'Sora, Luma, Kling — which model to use when' },
+  { id: 'music-generation', label: 'Music Generation', icon: '🎵', color: 'from-orange-50 to-orange-100/50', border: 'border-orange-200', desc: 'Studio-quality AI music in seconds' },
+  { id: 'graphics-editing', label: 'Graphics Editing', icon: '🎨', color: 'from-teal-50 to-teal-100/50', border: 'border-teal-200', desc: 'Text overlay, vectorization, and export' },
+  { id: 'plans-credits', label: 'Plans & Credits', icon: '💳', color: 'from-amber-50 to-amber-100/50', border: 'border-amber-200', desc: 'How the credit system works and which plan to choose' },
+  { id: 'tips', label: 'Tips & Tricks', icon: '💡', color: 'from-neutral-50 to-neutral-100/50', border: 'border-neutral-200', desc: 'Quick tips and bite-sized knowledge' },
+];
+
+const featuredDocs = enDocs.sort((a, b) => a.data.order - b.data.order).slice(0, 6);
+---
+
+<BaseLayout
+  title="Proompi Academy"
+  description="Official Proompi knowledge base — tutorials, guides and tips for creating professional AI content. Learn to generate images, video, music and build workflows."
+  lang="en"
+>
+  <!-- Hero -->
+  <section class="hero-gradient py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-50 border border-primary-200 rounded-full text-sm font-medium text-primary-700 mb-6">
+        <span>📚</span> Official Proompi knowledge base
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 leading-tight mb-6">
+        Become an expert in<br>
+        <span class="text-primary-500">AI marketing</span>
+      </h1>
+      <p class="text-xl text-neutral-500 max-w-2xl mx-auto leading-relaxed mb-8">
+        Everything you need to fully leverage Proompi — from your first login to advanced workflows that automate your company's marketing.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="/en/getting-started" class="btn-primary text-base px-7 py-3.5">
+          Start from the beginning →
+        </a>
+        <a href="https://proompi.com" target="_blank" rel="noopener noreferrer" class="btn-secondary text-base px-7 py-3.5">
+          Open Proompi
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="py-8 px-4 border-y border-neutral-200 bg-white/50">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      {[
+        { value: '9', label: 'Knowledge modules' },
+        { value: '40+', label: 'Tutorials' },
+        { value: '7', label: 'AI models' },
+        { value: '∞', label: 'Possibilities' },
+      ].map(stat => (
+        <div>
+          <div class="text-2xl font-bold text-primary-500">{stat.value}</div>
+          <div class="text-sm text-neutral-500 mt-0.5">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Sections grid -->
+  <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-neutral-900 mb-2">Choose a topic</h2>
+        <p class="text-neutral-500">9 modules — from basics to advanced techniques</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {sections.map(section => {
+          const count = enDocs.filter(d => d.data.section === section.id).length;
+          return (
+            <a
+              href={`/en/${section.id}`}
+              class:list={[
+                'group glass-card p-6 flex flex-col gap-3 hover:shadow-float hover:-translate-y-0.5 transition-all duration-200 bg-gradient-to-br border',
+                section.color,
+                section.border,
+              ]}
+            >
+              <div class="flex items-start justify-between">
+                <span class="text-3xl">{section.icon}</span>
+                {count > 0 && (
+                  <span class="text-xs text-neutral-400">{count} {count === 1 ? 'article' : 'articles'}</span>
+                )}
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">
+                  {section.label}
+                </h3>
+                <p class="text-sm text-neutral-500 mt-1 leading-relaxed">{section.desc}</p>
+              </div>
+              <span class="text-sm font-medium text-primary-500 mt-auto">Go →</span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  {featuredDocs.length > 0 && (
+    <section class="py-12 px-4 bg-white/40">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold text-neutral-900 mb-6">Start with these guides</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {featuredDocs.map(article => (
+            <ArticleCard article={article} lang="en" />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="py-16 px-4">
+    <div class="max-w-3xl mx-auto glass-card p-8 sm:p-12 text-center bg-gradient-to-br from-primary-50 to-white">
+      <h2 class="text-2xl sm:text-3xl font-bold text-neutral-900 mb-3">Ready to get started?</h2>
+      <p class="text-neutral-500 mb-6 leading-relaxed">
+        Proompi is an AI platform for generating images, video and content for your business. Join thousands of users.
+      </p>
+      <a href="https://proompi.com" target="_blank" rel="noopener noreferrer" class="btn-primary text-base px-8 py-3.5">
+        Try Proompi for free →
+      </a>
+    </div>
+  </section>
+</BaseLayout>

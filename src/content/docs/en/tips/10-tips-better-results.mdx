@@ -1,0 +1,154 @@
+---
+title: "10 Tips for Better AI Results in Proompi"
+description: "Proven tricks that will make your AI generations dramatically better from day one."
+section: "tips"
+order: 1
+lang: "en"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+badge: "Recommended"
+---
+
+## 1. Draft on flux-schnell, Finalize on gpt-image-1
+
+The fastest way to waste credits is generating final-quality assets while still figuring out composition, style, and prompt wording. Instead, use flux-schnell (2 credits) for all your exploration and iteration, then regenerate only your selected winners with premium models like gpt-image-1 (15 credits) or gpt-image-1.5 (20 credits).
+
+This two-stage approach dramatically improves your cost efficiency. Testing five different product photography compositions with gpt-image-1 costs 75 credits and you'll throw away four of them. Testing those same five compositions with flux-schnell costs 10 credits total, then regenerating your best choice with gpt-image-1 costs 15 credits for a total of 25 credits — you just saved 50 credits while actually seeing more variations.
+
+**Implementation**: Create two workflow branches in parallel. Configure the first with flux-schnell for testing, the second with gpt-image-1 but leave it disconnected. Run the schnell branch first, review results, then connect and execute the premium branch only for your selected concept.
+
+**Expected savings**: 40-60% credit reduction on projects requiring iteration and testing.
+
+## 2. Use Detailed Mode for Commercial Assets
+
+When generating content that represents your brand publicly — website hero images, product photography, marketing materials, client deliverables — always use Detailed enhancement mode before generation. The 2-3 credit enhancement cost is negligible compared to the quality improvement you'll see.
+
+Detailed mode adds professional photography terminology, technical camera specifications, lighting direction, composition guidance, and style references that dramatically improve commercial viability. Your "product on white background" becomes "professional product photography with studio key light at 45 degrees, subtle fill light, white seamless backdrop, shot on medium format camera with 80mm lens at f/8, crisp focus with gentle edge lighting highlighting product form."
+
+The difference isn't subtle. Enhanced prompts produce more consistent results, better lighting, more professional composition, and images that look credibly like they came from a professional shoot rather than obviously AI-generated content.
+
+**When to skip**: Internal drafts, quick concepts, personal projects, or when you're deliberately seeking creative randomness.
+
+**When to use**: Anything a customer, client, or public audience will see. If it represents your brand, enhance it.
+
+## 3. Always Upload Reference Images for Specific Styles
+
+Describing visual style with words is inherently limited. "Modern minimalist aesthetic" means different things to different people and to different AI models. Instead, upload a reference image showing exactly the style you want, and the AI will match it far more accurately than any text description could achieve.
+
+Reference images work best when they clearly exemplify a single distinctive style. A minimalist product photo on pure white background makes an excellent reference. A busy, cluttered image with multiple competing styles confuses the AI and produces inconsistent results.
+
+This technique is particularly valuable for brand consistency. Upload one approved brand image as reference, then generate dozens of additional assets that automatically match that visual style without manually describing brand guidelines in every prompt.
+
+**Pro tip**: Build a reference image library organized by style categories (product photography, lifestyle content, artistic, technical, etc.) and reuse your best-performing references across multiple projects. Over time, you'll identify which reference images consistently produce the results you want.
+
+## 4. Generate 2-3 Variants and Choose the Best
+
+AI generation has inherent randomness. Even with identical prompts and settings, you'll get variation between generations. Instead of generating once and accepting whatever you get, generate 2-3 variants simultaneously and choose the best result.
+
+This costs slightly more credits (you're generating multiple versions), but dramatically improves final quality because you're selecting from options rather than accepting whatever randomness delivered. Think of it like a professional photographer taking 50 shots and selecting the best three. You're doing the same thing, just with AI.
+
+Proompi's Output nodes support multi-variant generation natively. Configure variant count to 2-3, and the AI generates multiple interpretations of your prompt in one execution. Review all results, save the winner, discard the rest.
+
+**Cost consideration**: Three variants of gpt-image-1 costs 45 credits vs 15 credits for a single generation. But that 30-credit investment ensures you get one excellent result instead of potentially mediocre single result you'd have to regenerate anyway.
+
+**Optimal variant count**: Two variants for testing, three variants for final assets, four variants only when you need multiple options to present to clients or stakeholders.
+
+## 5. Save HD for Final Assets, Not Drafts
+
+HD mode costs an additional 10 credits per generation and doubles resolution from 1024x1024 to 2048x2048 or higher. This is valuable for print materials, large displays, and situations where images will be viewed at large sizes. It's wasted money for social media content, web thumbnails, internal drafts, or anything viewed exclusively on screens at standard resolutions.
+
+Social media platforms aggressively compress uploaded images. Instagram, Facebook, Twitter all reduce image quality regardless of what you upload. Generating HD images for social posting is literally throwing away 10 credits per image since the platform will compress it down to standard quality anyway.
+
+**HD worth it**: Billboards, print magazines, trade show banners, website hero sections (above-the-fold), packaging design, portfolio pieces, any content printed larger than A4.
+
+**HD unnecessary**: Instagram posts, Facebook ads, Twitter images, blog post headers, email newsletters, internal presentations, draft iterations, concept testing.
+
+**Strategy**: Generate everything at standard quality first. Review results, identify your final selections, then regenerate only those specific images in HD. This prevents wasting 10 credits on images you won't ultimately use.
+
+## 6. Use Web Scraper Instead of Writing Brand Briefs
+
+When creating content for clients or analyzing competitors, most people manually read through websites and write summary briefs describing brand voice, colors, products, and positioning. This is time-consuming and introduces errors from subjective interpretation.
+
+Instead, use the Web Scraper node in workflows. Point it at the target website, configure it to extract company description, product information, and visual elements, then feed that scraped data directly to AI Generate and Text Generate nodes as context. The AI receives objective, comprehensive brand information automatically.
+
+This approach is faster, more accurate, and ensures you're working with actual brand messaging rather than your interpretation of it. For competitive analysis workflows, scrape competitor websites to extract their positioning, then use that data to generate differentiated content automatically.
+
+**Example workflow**: Text Input (competitor URL) → Web Scraper (extract brand info) → Color Reference (extract their palette) → Text Generate (create differentiated messaging) → AI Generate (create visual content in contrasting style).
+
+**Time savings**: Manual brand brief creation takes 30-60 minutes. Web Scraper extracts the same information in 30 seconds.
+
+## 7. Save Successful Prompts for Reuse
+
+When you create a prompt that delivers excellent results, save it to your Prompt Library immediately. Don't rely on memory or manually recreating successful prompts later. The Saved Prompts feature stores your exact wording, enhancement settings, model selection, and generation parameters for instant reuse.
+
+Over time, your Prompt Library becomes your competitive advantage — a collection of proven, tested prompts that consistently deliver quality results for specific use cases. When you need product photography, you pull your saved product photography prompt instead of starting from scratch and hoping the results are good.
+
+For teams, shared Prompt Libraries democratize expertise. A senior designer creates and saves prompts that work exceptionally well, then junior team members reuse those prompts to produce consistent quality output without needing years of experience.
+
+**Naming convention**: Use descriptive names that include content type, style, and model: "Product Photography - White Background - gpt-image-1" or "Social Quote Card - Bold Typography - ideogram-2." Future you will thank present you for clear naming.
+
+**Organization**: Tag prompts by category (product, lifestyle, social, video, etc.), quality tier (draft, standard, premium), and use case (e-commerce, marketing, internal). Good organization makes retrieval effortless when you need a specific prompt type.
+
+## 8. Choose Ideogram-2 for Any Image Containing Text
+
+Most AI image models fail catastrophically at rendering readable text. Letters get misspelled, fonts become illegible, spacing breaks, and words morph into gibberish. Ideogram-2 and Ideogram-2-turbo are specifically trained to understand text as a visual element and render it accurately.
+
+If your image needs to include words — product labels, motivational quote graphics, infographics, posters, business cards, book covers, signage — use Ideogram. Don't attempt text rendering with GPT-image or FLUX; you'll waste credits on unusable results.
+
+Specify your text explicitly in the prompt using quotes: "Create a motivational poster with the text 'Dream Bigger' in bold sans-serif font centered on image." Ideogram understands this syntax and renders the exact text you specified.
+
+**When to use Ideogram-2**: Final assets where text quality matters and 12 credits is justified.
+
+**When to use Ideogram-2-turbo**: Social media graphics, high-volume text content, situations where 5 credits makes sense over 12 credits for standard Ideogram-2.
+
+**Pro tip**: For complex designs with multiple text elements, generate the text-containing portions with Ideogram, then composite with other elements created by different models. This hybrid approach gives you Ideogram's text accuracy plus FLUX's artistic rendering or GPT-image's photorealism.
+
+## 9. Keep Videos Short for Best Results
+
+AI video models maintain coherence and quality far better over 3-5 second durations than 8-10 seconds. Longer videos accumulate artifacts, lighting inconsistencies, morphing objects, and quality degradation as frame count increases.
+
+Instead of generating one 10-second video clip and hoping quality holds throughout, generate three separate 3-second clips and chain them together in editing software. This approach gives you better quality per clip, more editing flexibility, and actually costs fewer credits when you factor in failed long-form generations.
+
+**Math example**: One 10-second Sora 2 clip costs 120 credits and has ~40% chance of quality issues in later frames. Three 3-second Sora 2 clips cost 108 credits total (3 × 9sec × 12cr) and each clip has much higher success rate. Even if one of the three fails and needs regeneration, you're still spending fewer total credits than repeatedly regenerating the 10-second version.
+
+**Optimal video durations by model**:
+- Sora 2: 3-5 seconds
+- Luma Ray 2: 3-5 seconds (5-second maximum anyway)
+- Wan 2.1: 4-6 seconds (6-second maximum)
+- Kling v1.6: 3-4 seconds (excels at transitions, less at extended sequences)
+
+For longer video needs, create storyboards with multiple short clips rather than attempting single long generations.
+
+## 10. Share Your Referral Code for Free Credits
+
+Proompi's referral program gives you 50 bonus credits every time someone signs up using your referral code and subscribes to any paid plan. Your referral also receives 50 bonus credits. This is completely passive income in credit form.
+
+Share your referral code in your email signature, on your website footer, in client onboarding materials, in portfolio presentations, or anywhere your professional network will see it. Every person who signs up generates 50 free credits for you — that's 3 gpt-image-1 generations or 25 flux-schnell tests at zero cost.
+
+For agencies and consultants, this compounds significantly. Recommend Proompi to 10 clients, earn 500 bonus credits. Those credits never expire, so they stack with purchased bonus packs and monthly allocations to give you substantial credit reserves.
+
+**Strategic placement**: Include referral code when delivering AI-generated content to clients. Natural conversation: "These images were created using Proompi. If you'd like your own account to generate content, use my referral code for 50 free credits to start."
+
+**Team strategy**: On teams, designate one person's referral code as the official team code and share all earned credits. This pools referral earnings for maximum benefit.
+
+---
+
+## Bonus Tip: Combine Strategies for Compounding Benefits
+
+These 10 tips aren't mutually exclusive — combining them creates compounding benefits. Here's an example workflow using multiple tips simultaneously:
+
+**Scenario**: Generate 10 Instagram posts for a product launch.
+
+1. **Use Web Scraper** to extract brand context automatically (Tip 6)
+2. **Upload brand reference image** for style consistency (Tip 3)
+3. **Draft all 10 concepts with flux-schnell** to test variations (Tip 1)
+4. **Use Detailed enhancement mode** for the 3 best concepts (Tip 2)
+5. **Generate 2 variants** of each final concept (Tip 4)
+6. **Skip HD** since it's Instagram content (Tip 5)
+7. **Use Ideogram-2-turbo** for any posts with text overlays (Tip 8)
+8. **Save successful prompts** to Prompt Library for future launches (Tip 7)
+9. **Share referral code** in launch announcement to clients (Tip 10)
+
+**Result**: Produced 10 high-quality, brand-consistent Instagram posts efficiently, saved credits through strategic model selection, built reusable assets for future campaigns, and potentially earned referral credits. Total credit cost: ~150-200 credits instead of 300+ credits for naive approach.
+
+Start implementing these tips one at a time. Even adopting 2-3 of them will noticeably improve your results and reduce costs. Master all 10, and you'll be using Proompi at expert level, producing professional content efficiently while maximizing every credit.

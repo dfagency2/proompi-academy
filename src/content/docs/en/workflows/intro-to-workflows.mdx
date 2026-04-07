@@ -1,0 +1,167 @@
+---
+title: "Intro to the Workflow Builder"
+description: "What is Proompi's Workflow Builder and why it transforms how you create AI content."
+section: "workflows"
+order: 1
+lang: "en"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## What is the Workflow Builder?
+
+The Workflow Builder is Proompi's visual programming environment that lets you create automated content generation pipelines by connecting nodes on a canvas. Instead of manually repeating the same generation process dozens of times, you build it once as a workflow, then execute it repeatedly with different inputs or schedule it to run automatically.
+
+Think of it like creating a recipe. Instead of cooking the same dish from scratch every time, you write down the recipe once — ingredients, steps, timing — then follow it whenever needed. Workflows are recipes for content creation: input nodes provide ingredients (text, images, data), processing nodes transform them (AI generation, web scraping, color extraction), and output nodes deliver finished results.
+
+This transforms content creation from manual repetition to strategic automation. A marketing team that previously spent 3 hours creating 20 social posts for a product launch can now build a workflow that generates all 20 posts in 5 minutes. Better yet, that workflow becomes a reusable template for every future product launch.
+
+## Why Workflows Beat One-Shot Generation
+
+### Reusability
+Build once, use infinitely. A product photography workflow configured with your brand's lighting, composition, and color preferences becomes a template you can execute hundreds of times. Each execution uses the same quality parameters, ensuring consistency across your entire catalog.
+
+### Consistency
+Manual processes drift over time. One day you use gpt-image-1, the next day flux-1.1-pro. One prompt includes "soft lighting," another forgets that detail. Workflows lock in your best practices. Every execution follows identical steps with identical parameters, producing consistent results every time.
+
+### Automation
+Connect workflows to external triggers (new product added to database, scheduled daily social posts, Zapier webhooks) and content generates automatically without human intervention. Your brand's Instagram account can post AI-generated daily motivation quotes without anyone manually creating them.
+
+### Complexity Management
+Some content requires multiple AI steps: scrape competitor website → extract their color palette → generate image using those colors → create matching caption → format for Instagram. Building this as a workflow creates a clear visual map of the process. You see how data flows from node to node, making complex pipelines understandable and debuggable.
+
+### Team Collaboration
+Workflows are shareable. A senior designer builds the perfect product photography workflow, saves it as a team template, and now junior team members can produce the same quality output by simply providing product names. Expertise becomes democratized.
+
+### Cost Efficiency
+Workflows let you optimize model selection node-by-node. Use cheap flux-schnell for background testing, then final generation with gpt-image-1 only when you've confirmed the concept works. Test prompt variations in parallel, pick the winner, then proceed to expensive video generation only for the validated concept. This strategic approach can reduce credit costs by 50-70%.
+
+## The Visual Canvas
+
+The Workflow Builder interface is a drag-and-drop canvas where you create content pipelines visually. The left sidebar contains all 11 node types organized by category. Click any node to add it to the canvas, then drag connection lines between nodes to define data flow.
+
+### Building Your First Workflow
+
+1. **Add an Input node**: Drag a Text Input node to the canvas. This will hold your prompt.
+2. **Add a Generator node**: Drag an AI Generate node next to it. This will create your image.
+3. **Connect them**: Click the output port on Text Input and drag to the input port on AI Generate. You've just defined that the text becomes the prompt.
+4. **Add an Output node**: Drag an Output node and connect AI Generate's output to it. This displays your results.
+5. **Execute**: Click "Run Workflow" and watch your data flow through the pipeline.
+
+That's a basic workflow — text flows to generator, generator creates image, output displays it. Now imagine expanding this: add a Web Scraper node that feeds brand context to the AI, connect a Color Reference node that extracts palette from your logo, add multiple AI Generate nodes in parallel to test different models simultaneously.
+
+## Node Types Overview
+
+Proompi provides 11 node types that cover every content creation scenario:
+
+**Input Nodes**: Text Input (manual text entry), Image Node (upload or reference images)
+
+**Processing Nodes**: Web Scraper (extract website data), Color Reference (extract color palettes from images)
+
+**AI Generator Nodes**: AI Generate (images), Text Generate (copy and descriptions), Video Node (video generation), Audio Node (music creation)
+
+**Output Nodes**: Output (display and save images), Text Output (display generated text)
+
+**Organization Nodes**: Group Node (visual organization, doesn't process data)
+
+Each node has input ports (receives data from previous nodes), configuration options (model selection, parameters), and output ports (sends data to next nodes). This standardized interface makes complex workflows intuitive — everything connects the same way.
+
+## Real-World Use Cases
+
+### Brand Content Pipeline
+
+**Goal**: Generate 10 social media posts matching a competitor's visual style.
+
+**Workflow**:
+1. Text Input node: Enter competitor website URL
+2. Web Scraper node: Extract company description, products, brand voice
+3. Image node: Upload competitor's brand image
+4. Color Reference node: Extract their color palette
+5. Text Generate node: Create 10 product descriptions using scraped brand voice
+6. AI Generate node: Create images for each description using extracted colors
+7. Output node: Display all 10 posts with brand-matched colors and descriptions
+
+**Result**: 10 consistent, on-brand social posts in 3 minutes instead of 2 hours of manual work.
+
+### Product Catalog Automation
+
+**Goal**: Generate professional product photos for 50 e-commerce SKUs.
+
+**Workflow**:
+1. Text Input node: Product name (run workflow 50 times with different product names)
+2. Text Generate node: Create detailed product description and features
+3. AI Generate node: Generate product photography using description with template prompt "professional product photo on white background, studio lighting, commercial photography"
+4. HD Quality node: Upgrade to 2048x2048 resolution
+5. Output node: Save to gallery with product name as filename
+
+**Result**: Consistent product photography style across entire catalog, automated batch processing, professional quality without photoshoots.
+
+### Video + Music Combo Workflow
+
+**Goal**: Create 5-second product videos with matching background music.
+
+**Workflow**:
+1. Text Input node: Product description
+2. Image node: Product photo
+3. Video node: Generate 5-second product video from image + description
+4. Text Generate node: Analyze video mood and create music brief
+5. Audio node: Generate matching background music based on video mood
+6. Output node: Download video and audio for editing software
+
+**Result**: Coordinated video and music assets created in one automated pipeline, mood consistency between visual and audio.
+
+## AI-Generated Workflows
+
+One of Proompi's most powerful features is AI workflow generation. Instead of manually building workflows node by node, describe what you want in natural language and GPT-4o-mini constructs the entire workflow for you.
+
+**Example prompt**: "Create a workflow that scrapes my competitor's website, extracts their color scheme, and generates 5 Instagram posts using those colors with product-focused captions."
+
+The AI analyzes your request, identifies required nodes (Web Scraper, Color Reference, Text Generate, AI Generate, Output), configures connections and parameters, and builds a ready-to-execute workflow. You can then customize node settings, adjust connections, or run it immediately.
+
+This dramatically lowers the learning curve. Non-technical marketers can create sophisticated automation by describing their goals conversationally, while technical users can use AI generation as a starting point and refine from there.
+
+## Template Library
+
+Proompi maintains a growing library of pre-built workflow templates for common use cases:
+
+- **Social Media Calendar**: Daily post generation with rotating themes
+- **Product Photography Suite**: Multiple angles and contexts from single product name
+- **Brand Style Transfer**: Apply your brand's visual style to any content
+- **Batch Caption Generator**: AI-generated descriptions for image libraries
+- **Competitive Analysis Content**: Monitor competitor sites and generate response content
+- **Multi-Platform Formatter**: Generate one asset, output versions optimized for Instagram, Twitter, LinkedIn, Facebook
+- **A/B Test Generator**: Create variations for split testing
+
+Browse templates, clone one to your workspace, customize inputs for your brand, and execute. Templates are community-contributed — when you build a great workflow, you can publish it for others to use.
+
+## Saving and Sharing Workflows
+
+### Draft Mode
+While building, your workflow exists in draft mode. You can execute it to test functionality, but it's not saved permanently. This is perfect for experimentation.
+
+### Saved Workflows
+Click "Save Workflow" to store it in your workspace. Give it a descriptive name and tags for easy retrieval. Saved workflows appear in your workflow library and can be executed any time.
+
+### Team Sharing
+On ACCELERATOR and PRO plans, share workflows with team members. When someone joins your team workspace, they get access to all shared workflows. Changes sync automatically, so improvements one person makes benefit the entire team.
+
+### Public Templates
+Publish exceptional workflows as public templates. They appear in the community template library for all Proompi users to discover and clone. Top contributors get featured in monthly showcases.
+
+## Execution Modes
+
+**Manual Execution**: Click "Run Workflow" to execute on demand with current input values.
+
+**Batch Execution**: Upload a CSV of input values and execute the workflow once per row. Perfect for processing product catalogs or content calendars.
+
+**Scheduled Execution** (PRO plan): Configure workflows to run automatically on schedules (daily at 9am, every Monday, first of month). Great for recurring content needs like daily social posts.
+
+**API Triggers** (PRO plan): Call workflows via API endpoints from external systems. Connect your CMS, e-commerce platform, or marketing automation tools to trigger content generation programmatically.
+
+## Performance and Credit Usage
+
+Each workflow execution consumes credits based on which nodes run and what operations they perform. Before executing, the workflow builder shows estimated credit cost. For workflows with multiple AI nodes, costs can range from 20-100+ credits per execution.
+
+**Optimization strategy**: Use conditional logic to skip expensive nodes when they're not needed. Test with cheap models (flux-schnell) before switching to expensive ones (gpt-image-1.5). Run small batches first to verify workflows work correctly before processing hundreds of items.
+
+The Workflow Builder transforms Proompi from an AI generation tool into a content automation platform. Start with simple two-node workflows to learn the interface, then gradually build more sophisticated pipelines as your needs grow. The time invested in workflow creation pays back exponentially with every execution.

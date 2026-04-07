@@ -1,0 +1,249 @@
+---
+title: "System kredytów — jak to działa?"
+description: "Dokładne wyjaśnienie systemu kredytów w Proompi — kredyty miesięczne, bonusowe i jak je oszczędzać."
+section: "plans-credits"
+order: 1
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Dwa typy kredytów w Proompi
+
+Proompi używa systemu kredytów jako waluty dla wszystkich operacji AI (generowanie obrazów, wideo, muzyki, ulepszanie promptów). Istnieją **dwa typy kredytów**:
+
+### 1. Monthly Credits (kredyty miesięczne)
+
+**Charakterystyka:**
+- Przychodzą z Twoim planem subskrypcyjnym (SPARK, ACCELERATOR, PRO)
+- **Odnawiają się automatycznie** każdego miesiąca w dacie Twojego billing cycle
+- Są "use it or lose it" — **nie przenoszą się** na następny miesiąc (niewykorzystane przepadają)
+- Są **wykorzystywane w drugiej kolejności** (po bonus credits)
+
+**Przykład:** Masz plan SPARK z 500 monthly credits. 1 marca dostaj 500 kredytów. Używasz 300 do końca marca. 1 kwietnia niewykorzystane 200 przepada, dostajesz nowe 500 kredytów.
+
+### 2. Bonus Credits (kredyty bonusowe)
+
+**Charakterystyka:**
+- Kupujesz je **osobno** jako jednorazowe pakiety (np. pakiet 1000 kredytów za $20)
+- **Nigdy nie wygasają** — są Twoje na zawsze
+- Są **wykorzystywane w pierwszej kolejności** (przed monthly credits)
+- Możesz je kupić w każdej chwili (nie musisz czekać na odnowienie planu)
+
+**Przykład:** Kupiłeś 1000 bonus credits w styczniu. Używasz 200 w styczniu, 300 w lutym. W marcu wciąż masz 500 bonus credits dostępnych. One nigdynie przepadną.
+
+### Dlaczego dwa typy?
+
+**Monthly credits** = przewidywalny, regularny budget  
+**Bonus credits** = flexibility dla miesięcy gdy potrzebujesz więcej (duży projekt, kampania, testing)
+
+Większość userów żyje z monthly credits. Bonus kupujesz gdy masz spike w pracy albo testujesz nowe features i nie chcesz czekać do następnego miesiąca.
+
+## Pełna tabela kosztów — wszystkie operacje
+
+| Operacja | Model/Typ | Koszt (kredyty) |
+|----------|-----------|-----------------|
+| **Prompt Enhancement** | Quick (1 wariant) | 2 |
+| | Detailed/Creative (2-3 warianty) | 3 |
+| **Image Generation** | FLUX schnell | 2 |
+| | FLUX 1.1 Pro | 8 |
+| | GPT-image-1-mini | 10 |
+| | Ideogram-2-turbo | 5 |
+| | Ideogram-2 | 12 |
+| | GPT-image-1 | 15 |
+| | GPT-image-1.5 | 20 |
+| **HD Quality** | Any model | +10 |
+| **Video Generation** | Runway Gen3a Turbo | 6 kr/sek |
+| | Sora 2 | 12 kr/sek |
+| | Kling v1.6 Pro | 12 kr/sek |
+| | Luma Ray 2 (flat) | 23 kr total |
+| | Wan 2.1 480p (flat) | 23 kr total |
+| | Sora Pro | 35 kr/sek |
+| **Music Generation** | ElevenLabs (any length) | 25 kr |
+| **Text Overlay** | Add text to image | Free |
+| **Vectorization** | PNG/JPG → SVG | Free (PRO) / 5 kr (inne plany) |
+| **Web Scraper** (w Workflow) | Extract brand info | Free |
+| **Color Reference** (w Workflow) | Extract colors | Free |
+
+**UWAGA:** Costs aktualne na kwiecień 2026. Sprawdź dashboard dla najnowszych cen — mogą się zmieniać.
+
+## Model waterfall system (plan FREE)
+
+Użytkownicy planu **FREE** mają ograniczony dostęp do modeli. Jeśli wybierzesz model którego nie masz w planie (np. GPT-image-1.5), Proompi automatycznie użyje **najbliższego dostępnego tańszego modelu**.
+
+**Waterfall hierarchy (od najdroższego do najtańszego):**
+1. GPT-image-1.5 (20kr) → nie dostępny w FREE
+2. GPT-image-1 (15kr) → nie dostępny w FREE
+3. GPT-image-1-mini (10kr) → **dostępny w FREE** ✅
+4. FLUX 1.1 Pro (8kr) → **dostępny w FREE** ✅
+5. FLUX schnell (2kr) → **dostępny w FREE** ✅
+
+**Przykład:**  
+User FREE wybiera GPT-image-1 → Proompi automatycznie fallback'uje do GPT-image-1-mini (najbliższy dostępny). User dostaje powiadomienie "Used GPT-image-1-mini instead of GPT-image-1 (plan restriction)".
+
+**Dla userów SPARK+:** Masz dostęp do wszystkich modeli (poza ewentualnymi PRO-only features). Waterfall nie działa bo nie ma restriction.
+
+## Jak sprawdzić saldo kredytów
+
+Saldo kredytów widzisz **zawsze w prawym górnym rogu** interfejsu Proompi, obok ikony profilu.
+
+**Wyświetlane są dwa liczby:**
+- **Total available credits:** Suma bonus + monthly credits
+- Kliknij na liczbę → rozwinięty widok:
+  - Bonus credits: X (never expire)
+  - Monthly credits: Y (renews on [data])
+
+**W Dashboard:**
+1. Kliknij ikonę profilu → Dashboard
+2. Sekcja "Credit Balance" pokazuje:
+   - Total credits
+   - Breakdown (bonus vs monthly)
+   - Usage history (ile zużyłeś w tym miesiącu, na co)
+   - Next renewal date
+   - Option to buy bonus credit packs
+
+**Usage tracking:** Dashboard pokazuje też chart użycia kredytów over time (daily/weekly). Możesz zobaczyć czy zbliżasz się do limitu i czy powinieneś kupić bonus credits albo upgrade plan.
+
+## Jak zarabiać kredyty — program referral
+
+Proompi ma program poleceń gdzie **obie strony dostają kredyty**:
+
+**Jak to działa:**
+1. Ty masz unikalny referral code (znajdziesz w Dashboard → Referrals)
+2. Wysyłasz link z kodem znajomemu: `proompi.com/ref/TWOJKOD`
+3. Znajomy rejestruje się używając tego linku
+4. **Oba konta dostają po 50 bonus credits** (instant po rejestracji znajomego)
+
+**50 kredytów = duża wartość:**
+- 3x generowanie w GPT-image-1 (3x 15kr = 45kr)
+- 25x generowanie w FLUX schnell (25x 2kr = 50kr)
+- 2x generowanie muzyki (2x 25kr = 50kr)
+
+**Limity:**
+- Unlimited referrals (możesz polecić 100 osób, dostaniesz 100x 50 kredytów = 5000 kredytów total)
+- Znajomy musi być **nowym użytkownikiem** (nie może mieć already existing account)
+- Kredyty przyznawane jako **bonus credits** (never expire)
+
+**Best practices:**
+- Udostępnij referral link na social media (LinkedIn, X, Instagram bio)
+- Dodaj do email signature (jeśli jesteś freelancer/agency)
+- Daj klientom jako benefit ("użyj mojego linka, dostaniesz 50 kredytów na start")
+
+**Tracking:** W Dashboard → Referrals widzisz:
+- Ile osób użyło Twojego kodu
+- Ile kredytów zarobiłeś total
+- Pending referrals (zarejestrowali się ale jeszcze nie weryfikowali emaila)
+
+## Kupowanie bonus credit packs
+
+Gdy monthly credits się kończą albo potrzebujesz więcej, możesz kupić bonus packs.
+
+**Dostępne pakiety (przykładowe ceny):**
+- 500 kredytów — $10 ($0.02 per credit)
+- 1000 kredytów — $18 ($0.018 per credit) — **best value**
+- 2500 kredytów — $40 ($0.016 per credit)
+- 5000 kredytów — $75 ($0.015 per credit)
+
+**Jak kupić:**
+1. Dashboard → Buy Credits
+2. Wybierz pakiet
+3. Stripe checkout (karta kredytowa albo Apple Pay / Google Pay)
+4. Kredyty dodawane **instantly** na konto
+
+**Dlaczego kupować większe pakiety:**  
+Bigger packs = lower cost per credit. Jeśli wiesz że będziesz potrzebować więcej, lepiej kupić 1000 za $18 ($0.018/cr) niż 2x 500 za $20 total ($0.02/cr).
+
+## Promo codes — jednorazowe kredyty + free plan extension
+
+Czasami Proompi rozdaje **promo codes** (promocje, eventy, partnerships).
+
+**Promo code może dawać:**
+- Bonus credits (np. "PROOMPI50" = 50 bonus credits)
+- Free plan extension (np. "FREESPARK30" = 30 dni planu SPARK za darmo)
+- Discount na pierwszy plan (np. "WELCOME20" = 20% off pierwszy miesiąc SPARK)
+
+**Jak użyć promo code:**
+1. Dashboard → Promo Code
+2. Wpisz kod
+3. Kliknij Apply
+4. Kredyty/extension dodawane instantly
+
+**Promo codes są jednorazowe** — nie możesz użyć tego samego kodu dwa razy.
+
+## Praktyczne tipy — jak oszczędzać kredyty
+
+### Tip 1: Testuj na FLUX schnell przed finalnym generowaniem
+
+Workflow:
+1. Napisz prompt → wygeneruj w **FLUX schnell** (2 kredyty)
+2. Zobacz czy koncept działa
+3. Jeśli nie → popraw prompt, generuj ponownie w schnell (kolejne 2 kredyty)
+4. Jak działa → regeneruj w **GPT-image-1** (15 kredytów) albo innym premium modelu
+
+**Oszczędność:** Zamiast 5 prób po 15 kredytów (75 total), robisz 4 próby po 2 kredyty + 1 final po 15 kredytów = 8+15 = 23 kredyty. Saving: 52 kredyty (69% cheaper).
+
+### Tip 2: Standard quality przed HD
+
+HD kosztuje +10 kredytów. Użyj Standard do testów, HD tylko dla finalnych assetów.
+
+**Workflow:**
+1. Generuj warianty w Standard
+2. Wybierz najlepszy
+3. Regeneruj TYLKO ten jeden w HD
+
+Zamiast 4 warianty x HD (+40 kredytów), robisz 4x Standard + 1x HD (+10 kredytów). Saving: 30 kredytów.
+
+### Tip 3: Zapisuj dobre prompty do reużycia
+
+Proompi ma funkcję **Saved Prompts**. Gdy znajdziesz prompt który działa świetnie, zapisz go.
+
+**Dlaczego:** Nie musisz płacić za Prompt Enhancement ponownie (3 kredyty) — użyjesz saved prompt directly w generatorze.
+
+### Tip 4: Generate 2 variants nie 3 gdy budget-conscious
+
+AI Generate Node często daje opcję 1, 2, 3 czy 4 warianty. Każdy wariant to jeden request.
+
+Jeśli chcesz oszczędzać: generuj 2 warianty (zazwyczaj jeden jest dobry). Nie generuj 4 "na wszelki wypadek".
+
+### Tip 5: Używaj Ideogram-2 TYLKO gdy potrzebujesz tekstu w obrazie
+
+Ideogram-2 kosztuje 12 kredytów (vs GPT-image-1-mini 10 kredytów). Użyj Ideogram TYLKO jeśli obraz ma zawierać rendered text (logo, poster z headline).
+
+Dla wszystkich innych zastosowań GPT-image-1-mini jest tańszy i lepszy.
+
+### Tip 6: Wideo trzymaj krótkie
+
+Sora 2 kosztuje 12 kredytów **per sekunda**. 5-sekundowy clip = 60 kredytów. 10-sekundowy = 120 kredytów.
+
+Generuj 3-5 sekundowe klipy. Jeśli potrzebujesz dłuższe wideo, zrób kilka krótkich i zmerguj w edytorze (CapCut, Premiere).
+
+### Tip 7: Referral program — 50 kredytów za polecenie
+
+Udostępniaj referral link! Każdy znajomy który się zarejestruje = 50 kredytów dla Ciebie. 10 znajomych = 500 kredytów (równowartość ~$10).
+
+### Tip 8: Workflow automation oszczędza przez reużywalność
+
+Zbudowanie workflow kosztuje trochę czasu (15-30 minut first time), ale potem możesz go użyć 100 razy bez przebudowy.
+
+Zamiast ręcznie robić 100 brand graphics (każdy 30 minut pracy), uruchamiasz workflow 100 razy (każdy 2 minuty). Time saved = money saved = możesz brać więcej klientów.
+
+## Monitoring usage i unikanie niespodzianek
+
+**Dashboard → Usage** pokazuje:
+- Kredyty zużyte dzisiaj
+- Kredyty zużyte ten tydzień
+- Kredyty zużyte ten miesiąc
+- Breakdown per feature (ile na obrazy, ile na wideo, ile na muzyka)
+
+**Set alerts:**  
+Możesz ustawić email alert gdy zostanie Ci &lt;50 kredytów. Dostaniesz notyfikację żeby kupić bonus credits albo upgrade plan zanim się skończą.
+
+**Budget planning:**  
+Jeśli wiesz że w tym miesiącu masz duży projekt (np. 100 grafik dla kampanii), policz z góry:
+- 100 obrazów x GPT-image-1 (15kr każdy) = 1500 kredytów
+- Twój plan SPARK daje 500 monthly → potrzebujesz +1000 bonus
+- Kup pakiet 1000 kredytów ($18) na początku miesiąca
+
+Planowanie eliminuje stres i niespodzianki mid-project.
+
+System kredytów w Proompi jest przejrzysty i przewidywalny. Monthly credits dla regularnej pracy, bonus credits dla spikeów. Waterfall system chroni FREE users. Referral program daje darmowe kredyty. Używaj mądrze, oszczędzaj gdzie możesz, inwestuj w jakość gdzie się opłaca. Powodzenia!

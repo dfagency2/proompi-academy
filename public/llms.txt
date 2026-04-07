@@ -1,0 +1,69 @@
+# Proompi Academy
+
+> Official knowledge base and documentation for Proompi — an AI platform for generating images, videos, music, and text content for businesses.
+
+Proompi Academy contains tutorials, guides, and best practices for using Proompi effectively to create professional AI-generated marketing materials.
+
+## What is Proompi?
+
+Proompi (proompi.com) is an AI creative platform that enables businesses, freelancers, and marketers to:
+- Generate professional images using multiple AI models (FLUX, GPT-image, Ideogram)
+- Create videos from text or image inputs (Sora 2, Luma Ray, Kling, Wan)
+- Generate studio-quality music and audio (ElevenLabs)
+- Build automated content pipelines using the visual Workflow Builder
+- Enhance text prompts using AI (Quick, Detailed, Creative modes)
+- Edit generated images with text overlays and SVG vectorization
+
+## Key Features
+
+**Prompt Enhancement**: AI rewrites user descriptions into professional prompts. 3 modes: Quick (minimal changes), Detailed (adds technical photography terms), Creative (adds artistic interpretation). Costs 2-3 credits. Supports reference image uploads.
+
+**Image Generation Models**:
+- gpt-image-1 (15 credits) — best photorealism, commercial quality
+- gpt-image-1-mini (10 credits) — fast, good for social media
+- gpt-image-1.5 (20 credits) — ultra quality for hero visuals
+- flux-1.1-pro (8 credits) — artistic, textured, painterly
+- flux-schnell (2 credits) — fastest, cheapest, good for drafts
+- ideogram-2 (12 credits) — best for text in images
+- ideogram-2-turbo (5 credits) — fast text graphics
+
+**Video Generation Models**:
+- Sora 2 (12 credits/second) — best realism
+- Sora Pro (35 credits/second) — cinematic premium
+- Luma Ray 2 (23 credits flat) — excellent fluid motion
+- Wan 2.1 480p (23 credits flat) — good value
+- Kling v1.6 Pro (12 credits/second) — smooth motion
+- Runway Gen3a (6 credits/second) — legacy, affordable
+
+**Music Generation**: ElevenLabs integration, up to 10 minutes, real vocals, 25 credits, MP3/WAV output.
+
+**Workflow Builder**: Visual canvas with 11 node types (Text Input, Image, AI Generate, Text Generate, Video, Audio, Web Scraper, Color Reference, Output, Text Output, Group). AI can generate workflows from natural language descriptions.
+
+**Plans**:
+- FREE: 15 images/month, 10 chat messages/day, no video/music
+- SPARK: 100 images/month, video+music access, 100 chat/day
+- ACCELERATOR: 500 images/month, full model access, 500 chat/day
+- PRO: Unlimited, API access, 1000 chat/day
+
+## Knowledge Base Sections
+
+- [Getting Started](https://academy.proompi.com/getting-started) — First steps, registration, gallery
+- [Prompt Enhancement](https://academy.proompi.com/prompt-enhancement) — How enhancement works, modes, reference images
+- [Image Generation](https://academy.proompi.com/image-generation) — Models comparison, quality settings
+- [Workflow Builder](https://academy.proompi.com/workflows) — Visual builder, node types, tutorials
+- [Video Generation](https://academy.proompi.com/video-generation) — Video models, how to generate
+- [Music Generation](https://academy.proompi.com/music-generation) — ElevenLabs integration, music prompts
+- [Graphics Editing](https://academy.proompi.com/graphics-editing) — Text overlay, SVG vectorization
+- [Plans & Credits](https://academy.proompi.com/plans-credits) — Credit system, plan comparison
+- [Tips & Tricks](https://academy.proompi.com/tips) — Best practices, marketing workflows
+
+## Languages
+
+Content available in: Polish (primary), English
+App interface: Polish, English, German, French, Spanish, Italian, Portuguese
+
+## Contact
+
+- Main app: https://proompi.com
+- Academy: https://academy.proompi.com
+- Support: Available within the app (Support Tickets system)

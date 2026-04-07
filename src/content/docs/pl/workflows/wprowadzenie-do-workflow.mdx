@@ -1,0 +1,190 @@
+---
+title: "Workflow Builder — wprowadzenie"
+description: "Czym jest Workflow Builder w Proompi i dlaczego zmienia sposób tworzenia treści AI."
+section: "workflows"
+order: 1
+lang: "pl"
+pubDate: 2025-01-01
+updatedDate: 2025-04-07
+---
+
+## Czym jest Workflow Builder
+
+Workflow Builder to wizualne narzędzie do budowania wieloetapowych, zautomatyzowanych procesów generowania treści AI. Zamiast jednorazowego "wpisz prompt → dostań obraz", tworzysz **przepływ pracy** składający się z połączonych ze sobą węzłów, gdzie output jednego węzła staje się inputem kolejnego.
+
+Wyobraź sobie to jak przepis kulinarny: zamiast "zrób ciasto" (single command), masz flow: "wymieszaj składniki → odstaw na godzinę → upiecz → udekoruj". Każdy krok ma konkretne parametry i jeden prowadzi do drugiego. W Workflow Builder robisz to samo ale dla generowania AI.
+
+To działa na **canvas** (nieskończona płótno) gdzie przeciągasz węzły, łączysz je strzałkami (connections) i konfigurujesz parametry każdego kroku. Gdy uruchomisz workflow, Proompi wykonuje wszystkie węzły w odpowiedniej kolejności i pokazuje Ci wyniki.
+
+## Dlaczego workflow jest potężniejszy niż pojedyncze generowania
+
+### 1. Reużywalność
+
+Stworzysz workflow raz — używasz wielokrotnie. Przykład: workflow "Brand Content Generator" który pobiera URL strony klienta, ekstrahuje kolory i opis, generuje 4 grafiki w stylu brandingu. Możesz go użyć dla 50 klientów bez przerabiania każdego ręcznie.
+
+### 2. Konsystencja
+
+Workflow gwarantuje że każde wykonanie używa tych samych parametrów, modeli i systemowych promptów. Eliminujesz ryzyko "zapomniałem dodać że ma być HD" albo "użyłem innego modelu".
+
+### 3. Automatyzacja kontekstu
+
+Węzeł Web Scraper wyciąga informacje ze strony (brand colors, company description, tone of voice) i automatycznie wstrzykuje je do promptów. Zamiast ręcznie pisać 10-liniowy brief, AI robi to za Ciebie.
+
+### 4. Batch processing
+
+Jeden workflow może wygenerować 10 różnych wariantów tego samego konceptu, każdy z innym modelem czy style. Uruchamiasz raz, dostajesz 10 outputów do porównania.
+
+### 5. Złożone pipelines
+
+Możesz budować multi-step processes: scrape website → extract brand → generate text description → use description as prompt for image → generate 3 image variants → add text overlay. Wszystko w jednym kliknięciu "Run".
+
+## Canvas i React Flow — jak to wygląda
+
+Workflow Builder używa biblioteki **React Flow** pod maską. To znaczy że dostajesz profesjonalny, responsywny interface znany z narzędzi typu n8n, Zapier Canvas czy Node-RED.
+
+**Podstawowe funkcje:**
+- **Przeciąganie węzłów** (drag & drop) z panelu po lewej stronie
+- **Łączenie węzłów** — kliknij output handle jednego węzła, przeciągnij do input handle drugiego
+- **Zoom i pan** — scroll do zoom, środkowy przycisk myszy (lub shift+drag) do przesuwania canvas
+- **Auto-layout** — Proompi automatycznie układa węzły żeby flow był czytelny
+- **Minimap** — miniatura całego workflow w rogu (przydatna w dużych flowach)
+- **Configuration panel** — kliknij węzeł żeby zobaczyć jego ustawienia po prawej stronie
+
+Interface jest intuicyjny — jeśli kiedykolwiek używałeś Figmy, Miro czy Whimsical, będzie Ci znajomy.
+
+## Różnica: pojedyncze generowanie vs workflow
+
+**Pojedyncze generowanie (klasyczne):**
+- Wpisujesz prompt
+- Wybierasz model
+- Klikasz Generate
+- Dostajesz 1-2 obrazy
+- Koniec
+
+**Workflow:**
+- Budujesz flow raz (np. 10 minut pierwszego razu)
+- Uruchamiasz z różnymi inputami (np. różne URL klientów)
+- Flow wykonuje 5-10 kroków automatycznie
+- Dostajesz zestaw outputów (np. 4 grafiki + 4 opisy tekstowe)
+- Możesz użyć ponownie za tydzień bez przebudowy
+
+Workflow = pojedyncze generowanie x konsystencja x reużywalność x automatyzacja.
+
+## Real use cases — konkretne przykłady
+
+### Use case 1: Brand Content Pipeline
+
+**Problem:** Tworzysz materiały dla klientów. Za każdym razem musisz ręcznie wyciągnąć brand colors ze strony, napisać brief na podstawie "About us", wygenerować kilka wariantów grafik w tym stylu.
+
+**Workflow solution:**
+1. **Text Input Node:** User wpisuje URL strony klienta
+2. **Web Scraper Node:** Wyciąga content strony (header, about section, hero text)
+3. **Color Reference Node:** Ekstrahuje hex colors z logo i hero image
+4. **AI Generate Node (x4):** Generuje 4 grafiki, system prompt: "Use extracted brand colors and company description to create on-brand social media graphics"
+5. **Output Node:** User wybiera najlepsze warianty do pobrania
+
+**Rezultat:** Cały process 30 minut → 3 minuty. Jednorazowa konfiguracja workflow → użycie dla 100 klientów.
+
+### Use case 2: Social Media Automation
+
+**Problem:** Co tydzień musisz wygenerować 7 postów Instagram (jeden dziennie) z cytatami i grafikami.
+
+**Workflow solution:**
+1. **Text Input Node:** Lista 7 cytatów (każdy w nowej linii)
+2. **Text Generate Node:** AI rozszerza każdy cytat do pełnego caption z hashtagami
+3. **AI Generate Node:** Generuje grafiki ilustrujące cytaty (artistic style)
+4. **Text Overlay Node:** Dodaje cytat jako tekst na obrazie (typography)
+5. **Output Node:** 7 gotowych postów do schedulera
+
+**Rezultat:** 2 godziny pracy tygodniowo → 10 minut. Konsystentny styl, zautomatyzowany pipeline.
+
+### Use case 3: Product Catalog Generation
+
+**Problem:** Masz 50 produktów w bazie danych. Każdy potrzebuje wysokiej jakości zdjęcia produktowego na białym tle + opis marketingowy.
+
+**Workflow solution:**
+1. **Text Input Node (x50):** Nazwy produktów i specyfikacja
+2. **Text Generate Node:** AI tworzy profesjonalny opis marketingowy
+3. **AI Generate Node:** Generuje product photography style image (white background, studio lighting, commercial quality) używając opisu jako prompt
+4. **Output Node:** Save all 50 images + descriptions do CSV
+
+**Rezultat:** Koszt sesji zdjęciowej $2000-5000 → ~200 kredytów Proompi (~$10-20). Czas: 1 dzień → 30 minut.
+
+## AI-generated workflows — opisz, AI zbuduje
+
+Proompi ma funkcję **AI Workflow Generation**. Zamiast ręcznie budować flow węzeł po węźle, opisujesz czego potrzebujesz naturalnym językiem, a AI buduje gotowy workflow.
+
+**Przykład:**
+> "Chcę workflow który pobierze tekst ze strony o firmie, wyciągnie główne punkty, wygeneruje 3 grafiki social media z tymi punktami i doda headline na każdą grafikę"
+
+AI zbuduje:
+- Text Input (URL)
+- Web Scraper (extract content)
+- Text Generate (summarize key points)
+- AI Generate x3 (create 3 graphics)
+- Text Overlay x3 (add headline to each)
+- Output (display results)
+
+Wszystko połączone, skonfigurowane, gotowe do uruchomienia. Ty tylko sprawdzasz czy się zgadza i ewentualnie tweakujesz detale (np. zmień model z GPT-image-1-mini na FLUX 1.1 Pro).
+
+**Jak użyć AI generation:**
+1. Otwórz Workflow Builder
+2. Kliknij "Generate with AI"
+3. Opisz w 2-5 zdaniach co ma robić workflow
+4. Kliknij Generate
+5. Po 10-15 sekundach masz gotowy flow do edycji/uruchomienia
+
+To oszczędza czas przy pierwszej konfiguracji i pomaga osobom które nie są pewne jak połączyć węzły.
+
+## Template library — gotowe przepisy do użycia
+
+Proompi ma bibliotekę gotowych workflow templates dla popularnych use cases. Możesz sklonować template, dostosować do swoich potrzeb i użyć od razu.
+
+**Popularne templates:**
+- **Brand Content Machine:** URL → brand graphics
+- **Quote to Instagram Post:** Text quote → visual post with typography
+- **Product Photography Generator:** Product name → studio quality photo
+- **Blog Post Illustrator:** Article text → 3-5 illustrations
+- **Video Thumbnail Creator:** Video title → eye-catching thumbnail
+- **Logo Concept Generator:** Company name + industry → 5 logo concepts
+
+Każdy template ma opis, preview jak wygląda flow i przykładowe outputy. Klonujesz jednym kliknięciem i od razu możesz uruchomić albo dostosować.
+
+## Zapisywanie i udostępnianie workflows
+
+**Zapisywanie:**
+- Każdy workflow ma nazwę i opis
+- Jest automatycznie zapisywany jako draft podczas budowania
+- Możesz mieć unlimited liczby saved workflows (zależnie od planu)
+- Zapisane workflows są dostępne z każdego urządzenia (cloud sync)
+
+**Udostępnianie:**
+- Możesz wygenerować share link do swojego workflow
+- Osoba która dostanie link może **sklonować** Twój workflow do swojego konta (nie edytować oryginału)
+- Przydatne do dzielenia się z zespołem albo sprzedawania gotowych procesów
+- Można ustawić workflow jako publiczny (pojawi się w community templates) lub prywatny (tylko dla osób z linkiem)
+
+**Export/Import:**
+- PRO users mogą eksportować workflow jako JSON
+- Możesz importować workflow JSON (np. kupiony z marketplace albo stworzony w innym koncie)
+- Backup workflows lokalnie (JSON file) żeby mieć kopię zapasową
+
+## Kiedy używać workflow a kiedy prostego generowania
+
+**Użyj workflow gdy:**
+- Będziesz powtarzać ten sam process wielokrotnie (np. cotygodniowe posty)
+- Process ma >3 kroki
+- Potrzebujesz konsystencji między generowaniami
+- Chcesz zautomatyzować pobieranie kontekstu (web scraping)
+- Generujesz batche (np. 10 produktów naraz)
+- Budujesz złożony pipeline (tekst → obraz → edycja → output)
+
+**Użyj prostego generowania gdy:**
+- To jednorazowe zadanie
+- Potrzebujesz jednego obrazu/wideo szybko
+- Testujesz pomysł (nie wiesz jeszcze czy będziesz to powtarzać)
+- Workflow byłby "overkill" (np. "wygeneruj mi zdjęcie kota")
+
+Rule of thumb: Jeśli robisz coś **więcej niż 3 razy** w miesiącu — zbuduj workflow. Zaoszczędzi Ci to godziny w dłuższej perspektywie.
+
+Gotowy żeby zbudować swój pierwszy workflow? Sprawdź tutorial [Zbuduj swój pierwszy workflow krok po kroku](/workflows/pierwszy-workflow) albo naucz się o [dostępnych węzłach](/workflows/typy-wezlow).
