@@ -1,0 +1,157 @@
+---
+// Hero illustration — AI prompt to image concept
+---
+
+<div class="relative select-none" aria-hidden="true">
+  <svg
+    width="480"
+    height="420"
+    viewBox="0 0 480 420"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="w-full max-w-lg"
+  >
+    <defs>
+      <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#ec4899" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="img1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#7c3aed"/>
+        <stop offset="100%" stop-color="#ec4899"/>
+      </linearGradient>
+      <linearGradient id="img2" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#3b82f6"/>
+        <stop offset="100%" stop-color="#7c3aed"/>
+      </linearGradient>
+      <linearGradient id="img3" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f59e0b"/>
+        <stop offset="100%" stop-color="#ef4444"/>
+      </linearGradient>
+      <linearGradient id="btnGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#7c3aed"/>
+        <stop offset="100%" stop-color="#ec4899"/>
+      </linearGradient>
+      <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="130%">
+        <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000" flood-opacity="0.10"/>
+      </filter>
+      <filter id="chipShadow" x="-20%" y="-30%" width="140%" height="160%">
+        <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.08"/>
+      </filter>
+    </defs>
+
+    <!-- Background glow orbs -->
+    <ellipse cx="300" cy="200" rx="200" ry="180" fill="url(#glow1)"/>
+    <ellipse cx="160" cy="300" rx="140" ry="120" fill="url(#glow2)"/>
+
+    <!-- Back card — results grid (slightly rotated) -->
+    <g transform="rotate(-7 240 200)" filter="url(#cardShadow)">
+      <rect x="130" y="50" width="270" height="210" rx="22" fill="white"/>
+      <!-- Card header strip -->
+      <rect x="130" y="50" width="270" height="44" rx="22" fill="#fafafa"/>
+      <rect x="130" y="72" width="270" height="22" rx="0" fill="#fafafa"/>
+      <circle cx="157" cy="72" r="5" fill="#ff5f57"/>
+      <circle cx="174" cy="72" r="5" fill="#febc2e"/>
+      <circle cx="191" cy="72" r="5" fill="#28c840"/>
+      <text x="264" y="76" font-size="10" fill="#9ca3af" font-family="-apple-system, system-ui, sans-serif" text-anchor="middle">AI Results</text>
+      <!-- Image thumbnails -->
+      <rect x="150" y="102" width="100" height="72" rx="12" fill="url(#img1)"/>
+      <rect x="260" y="102" width="120" height="72" rx="12" fill="url(#img2)"/>
+      <!-- Abstract shapes on img1 -->
+      <circle cx="200" cy="138" r="18" fill="rgba(255,255,255,0.2)"/>
+      <rect x="168" y="155" width="64" height="8" rx="4" fill="rgba(255,255,255,0.25)"/>
+      <!-- Abstract shapes on img2 -->
+      <rect x="275" y="112" width="90" height="8" rx="4" fill="rgba(255,255,255,0.25)"/>
+      <circle cx="310" cy="148" r="15" fill="rgba(255,255,255,0.2)"/>
+      <!-- Action row -->
+      <rect x="150" y="183" width="230" height="10" rx="5" fill="#f3f4f6"/>
+      <rect x="150" y="200" width="160" height="8" rx="4" fill="#f3f4f6"/>
+      <!-- Like buttons -->
+      <rect x="150" y="218" width="52" height="24" rx="12" fill="#f5f3ff"/>
+      <text x="164" y="232" font-size="10" fill="#7c3aed" font-family="-apple-system, system-ui, sans-serif" font-weight="600">♥ 24</text>
+      <rect x="210" y="218" width="52" height="24" rx="12" fill="#fdf2f8"/>
+      <text x="224" y="232" font-size="10" fill="#db2777" font-family="-apple-system, system-ui, sans-serif" font-weight="600">↓ Save</text>
+    </g>
+
+    <!-- Main card — prompt interface -->
+    <rect x="30" y="148" width="300" height="238" rx="24" fill="white" filter="url(#cardShadow)"/>
+
+    <!-- Card top bar -->
+    <rect x="30" y="148" width="300" height="46" rx="24" fill="#fafafa"/>
+    <rect x="30" y="170" width="300" height="24" rx="0" fill="#fafafa"/>
+    <circle cx="58" cy="171" r="5" fill="#ff5f57"/>
+    <circle cx="75" cy="171" r="5" fill="#febc2e"/>
+    <circle cx="92" cy="171" r="5" fill="#28c840"/>
+    <text x="180" y="175" font-size="10" fill="#9ca3af" font-family="-apple-system, system-ui, sans-serif" text-anchor="middle">proompi.com</text>
+
+    <!-- Prompt label -->
+    <text x="52" y="214" font-size="11" fill="#6b7280" font-family="-apple-system, system-ui, sans-serif" font-weight="500">Prompt</text>
+
+    <!-- Prompt input box -->
+    <rect x="52" y="222" width="256" height="56" rx="14" fill="#f5f5f7"/>
+    <text x="68" y="244" font-size="12" fill="#1c1c1e" font-family="-apple-system, system-ui, sans-serif">Banner dla kawiarni,</text>
+    <text x="68" y="261" font-size="12" fill="#1c1c1e" font-family="-apple-system, system-ui, sans-serif">styl minimalistyczny ☕</text>
+    <!-- cursor blink -->
+    <rect x="218" y="253" width="2" height="13" rx="1" fill="#7c3aed" opacity="0.8"/>
+
+    <!-- Style row label -->
+    <text x="52" y="300" font-size="11" fill="#6b7280" font-family="-apple-system, system-ui, sans-serif" font-weight="500">Styl</text>
+
+    <!-- Style chips -->
+    <rect x="52" y="308" width="68" height="26" rx="13" fill="#f5f3ff"/>
+    <text x="86" y="325" font-size="11" fill="#7c3aed" font-family="-apple-system, system-ui, sans-serif" font-weight="600" text-anchor="middle">Foto</text>
+    <rect x="128" y="308" width="68" height="26" rx="13" fill="#f3f4f6"/>
+    <text x="162" y="325" font-size="11" fill="#6b7280" font-family="-apple-system, system-ui, sans-serif" text-anchor="middle">Minimal</text>
+    <rect x="204" y="308" width="68" height="26" rx="13" fill="#f3f4f6"/>
+    <text x="238" y="325" font-size="11" fill="#6b7280" font-family="-apple-system, system-ui, sans-serif" text-anchor="middle">Arte</text>
+
+    <!-- Generate button -->
+    <rect x="52" y="345" width="256" height="44" rx="22" fill="url(#btnGrad)"/>
+    <text x="180" y="372" font-size="14" fill="white" font-family="-apple-system, system-ui, sans-serif" font-weight="700" text-anchor="middle">Generuj ✨</text>
+
+    <!-- Floating chip: Images -->
+    <g transform="translate(360, 130)" filter="url(#chipShadow)">
+      <rect width="92" height="32" rx="16" fill="white"/>
+      <text x="13" y="21" font-size="11" fill="#7c3aed" font-family="-apple-system, system-ui, sans-serif" font-weight="600">🖼 Images</text>
+    </g>
+
+    <!-- Floating chip: Workflow -->
+    <g transform="translate(14, 126)" filter="url(#chipShadow)">
+      <rect width="88" height="32" rx="16" fill="white"/>
+      <text x="13" y="21" font-size="11" fill="#5b21b6" font-family="-apple-system, system-ui, sans-serif" font-weight="600">⚡ Flow</text>
+    </g>
+
+    <!-- Floating chip: Video -->
+    <g transform="translate(356, 316)" filter="url(#chipShadow)">
+      <rect width="92" height="32" rx="16" fill="white"/>
+      <text x="13" y="21" font-size="11" fill="#db2777" font-family="-apple-system, system-ui, sans-serif" font-weight="600">🎬 Video</text>
+    </g>
+
+    <!-- Floating chip: Music -->
+    <g transform="translate(14, 318)" filter="url(#chipShadow)">
+      <rect width="92" height="32" rx="16" fill="white"/>
+      <text x="13" y="21" font-size="11" fill="#d97706" font-family="-apple-system, system-ui, sans-serif" font-weight="600">🎵 Music</text>
+    </g>
+
+    <!-- Sparkle stars -->
+    <g transform="translate(394, 80)">
+      <path d="M10 0 L12 7.5 L20 10 L12 12.5 L10 20 L8 12.5 L0 10 L8 7.5 Z" fill="#fbbf24" opacity="0.9"/>
+    </g>
+    <g transform="translate(22, 72)">
+      <path d="M6 0 L7.5 4.5 L12 6 L7.5 7.5 L6 12 L4.5 7.5 L0 6 L4.5 4.5 Z" fill="#a78bfa" opacity="0.8"/>
+    </g>
+    <g transform="translate(444, 240)">
+      <path d="M6 0 L7.5 4.5 L12 6 L7.5 7.5 L6 12 L4.5 7.5 L0 6 L4.5 4.5 Z" fill="#f472b6" opacity="0.7"/>
+    </g>
+    <g transform="translate(16, 400)">
+      <path d="M5 0 L6.2 3.8 L10 5 L6.2 6.2 L5 10 L3.8 6.2 L0 5 L3.8 3.8 Z" fill="#34d399" opacity="0.6"/>
+    </g>
+    <g transform="translate(430, 380)">
+      <path d="M5 0 L6.2 3.8 L10 5 L6.2 6.2 L5 10 L3.8 6.2 L0 5 L3.8 3.8 Z" fill="#60a5fa" opacity="0.6"/>
+    </g>
+  </svg>
+</div>

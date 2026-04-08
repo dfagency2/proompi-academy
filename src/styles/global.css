@@ -40,7 +40,13 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-white font-semibold rounded-btn transition-all duration-200 hover:bg-primary-600 active:scale-[0.98] shadow-soft;
+    @apply inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-btn transition-all duration-200 active:scale-[0.98];
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    box-shadow: 0 4px 20px -4px rgba(124, 58, 237, 0.4);
+  }
+  .btn-primary:hover {
+    opacity: 0.92;
+    box-shadow: 0 6px 24px -4px rgba(124, 58, 237, 0.5);
   }
 
   .btn-secondary {
@@ -66,9 +72,9 @@
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, #eef7ff 0%, #f5f5f7 40%, #eef7ff 70%, #f5f5f7 100%);
+  background: linear-gradient(135deg, #f5f3ff 0%, #f5f5f7 35%, #fdf2f8 65%, #eff6ff 100%);
   background-size: 200% 200%;
-  animation: gradient-shift 15s ease infinite;
+  animation: gradient-shift 12s ease infinite;
 }
 
 /* Prose customizations */

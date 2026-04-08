@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" width="220" height="60">
+  <!-- pr -->
+  <text x="0" y="46" font-family="-apple-system, BlinkMacSystemFont, SF Pro Display, Inter, sans-serif"
+        font-size="48" font-weight="600" fill="#1C1C1E" letter-spacing="-0.5">pr</text>
+
+  <!-- Left eye (first o) -->
+  <svg x="65" y="8" width="28" height="44" viewBox="0 0 24 24">
+    <ellipse cx="12" cy="12" rx="10" ry="10" fill="none" stroke="#1C1C1E" stroke-width="3.5"/>
+    <circle cx="12" cy="12" r="4" fill="#1C1C1E"/>
+  </svg>
+
+  <!-- Right eye (second o) -->
+  <svg x="94" y="8" width="28" height="44" viewBox="0 0 24 24">
+    <ellipse cx="12" cy="12" rx="10" ry="10" fill="none" stroke="#1C1C1E" stroke-width="3.5"/>
+    <circle cx="12" cy="12" r="4" fill="#1C1C1E"/>
+  </svg>
+
+  <!-- mpi -->
+  <text x="124" y="46" font-family="-apple-system, BlinkMacSystemFont, SF Pro Display, Inter, sans-serif"
+        font-size="48" font-weight="600" fill="#1C1C1E" letter-spacing="-0.5">mpi</text>
+</svg>
